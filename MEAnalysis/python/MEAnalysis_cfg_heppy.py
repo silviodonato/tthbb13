@@ -280,11 +280,11 @@ class Conf:
         #just before the MEM. If False, MEM is skipped for all hypos
         #note that we set hypothesis-specific cuts below
         "selection": lambda event: (
-            True
+            event.category_string == "sl_jge6_tge4"
             #event.pass_category_blr and (
             #    (event.is_sl and event.nBCSVM >= 3)
             #    or (event.is_dl and event.nBCSVM >= 3)
-            #) and event.is_dl #FIXME
+            #)
         ),
         
         #This configures what the array elements mean
