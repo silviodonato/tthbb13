@@ -7,6 +7,7 @@ samplefile = sys.argv[1]
 samplefile = imp.load_source("samplefile", samplefile)
 from samplefile import samples_dict
 
+processed_samples = []
 for sample_name, sample in samples_dict.items():
     ngen = 0
     ngenNeg = 0
@@ -18,7 +19,7 @@ for sample_name, sample in samples_dict.items():
     if sample.skip:
         continue
     files = sample.subFiles
-    outfile = open(sample.nickname.value()+".dat", "a")
+    outfile = open(sample.nickname.value()+".dat", "w")
     outfile.write("[{0}]\n".format(sample_name))
     for f in files:
         pfn = lfn_to_pfn(f)
@@ -53,3 +54,6 @@ for sample_name, sample in samples_dict.items():
         sys.stderr.flush()
     print("{0} ngen={1} ngeneff={2}".format(sample_name, ngen, ngenPos-ngenNeg))
     outfile.close()
+    if sample_name in processed_samples:
+        raise Exception("Sample already found: {0}".format(sample_name))
+    processed_samples += [sample_name]

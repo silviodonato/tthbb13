@@ -35,6 +35,7 @@ namespace trigger {
     }
 }
 
+
 //Evaluate mem probability
 double mem_p(double p_tth, double p_ttbb, double w=0.15) {
     return p_tth > 0.0 ? p_tth / (p_tth + w * p_ttbb) : 0.0;
@@ -57,6 +58,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
+//Functions that define how an axis in the sparse histogram should be filled
 const map<string, function<float(const Event& ev)>> AxisFunctions = {
     {"counting", [](const Event& ev) { return 1;}},
     {"eventParity", [](const Event& ev) { return ev.data->evt%2;}},
@@ -90,6 +92,24 @@ const map<string, function<float(const Event& ev)>> AxisFunctions = {
     }},
     {"nBoostedTopWP2", [](const Event& event) { return (
         event.topCandidate_mass<180) && (event.topCandidate_mass>120) && (event.topCandidate_fRec<0.22) && (event.topCandidate_n_subjettiness<0.56);
+    }},
+    {"leptonFlavour", [](const Event& event) { 
+        if (BaseCuts::sl_mu(event)) {
+            return 1;
+        }
+        else if (BaseCuts::sl_el(event)) {
+            return 2;
+        }
+        else if (BaseCuts::dl_mumu(event)) {
+            return 3;
+        }
+        else if (BaseCuts::dl_emu(event)) {
+            return 4;
+        }
+        else if (BaseCuts::dl_ee(event)) {
+            return 5;
+        }
+        return 0;
     }}
 };
 
@@ -431,8 +451,7 @@ double nominal_weight(const Event& ev, const Configuration& conf) {
 ///FIXME: these ad-hoc process weights are here to fix a wrong value of nGen in processing
 double process_weight(ProcessKey::ProcessKey proc, const Configuration& conf) {
 
-    //FIXME: weight is 2 because we always want to split on even/odd event number
-    double w = 2.0;
+    double w = 1.0;
 
     switch(proc) {
         case ProcessKey::ttbarPlusBBbar:
