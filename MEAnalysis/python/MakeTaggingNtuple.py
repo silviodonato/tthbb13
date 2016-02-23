@@ -32,6 +32,8 @@ float_branches = []
 
 int_branches.append("is_signal")
 
+int_branches.append("good_perm_in_event")
+
 for j in ["j1", "j2", "j3"]:
     float_branches.extend(["{0}_{1}".format(j, x) for x in ["pt", "eta", "phi", "mass", "btagCSV"]])
 
@@ -191,7 +193,7 @@ if __name__ == "__main__":
     n_entries = intree.GetEntries()
 
     # Define the name of the output file
-    outfile_name = infile_name.replace(".root", object_name + ".root")
+    outfile_name = "training.root" #infile_name.replace(".root", object_name + ".root")
     outfile = ROOT.TFile( outfile_name, 'recreate')
 
     # Create dicitionaries to hold the information that will be
@@ -242,13 +244,15 @@ if __name__ == "__main__":
             continue
 
         jets = make_jets_hadtop_3j(intree)
-    
-        print any([is_signal_hadtop_3j(comb) for comb in itertools.combinations(jets, 3)])
+            
+        good_perm_in_event = any([is_signal_hadtop_3j(comb) for comb in itertools.combinations(jets, 3)])
                     
         for comb in itertools.combinations(jets, 3):
 
             # Reset branches
             AH.resetBranches(variables, variable_types)
+
+            variables["good_perm_in_event"][0] = good_perm_in_event
 
             # Calculate variables and put them into the tree
             for k,v in calc_vars_hadtop_3j(comb).iteritems():
