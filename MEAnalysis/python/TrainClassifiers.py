@@ -31,9 +31,9 @@ brs = [
  ]
 
 ds = []
-path = "/shome/gregor/tth/gc/GCf4625db4aa6a/cfg_noME/ttHTobb_M125_13TeV_powheg_pythia8/"
+path = "/home/gregor/dev-7415/CMSSW/src/TTH/MEAnalysis/python/"
 
-for fn in [path + "outputhadtop_3j.root"]:
+for fn in [path + "training.root"]:
     d = root_numpy.root2rec(fn, branches=brs)
     d = pandas.DataFrame(d)    
     ds += [d]
