@@ -151,11 +151,15 @@ class Conf:
         "btagWP": "CSVM",
 
         #These working points are evaluated and stored in the trees as nB* - number of jets passing the WP
-        #https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideBTagging#Preliminary_working_or_operating
+        #https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation80X
         "btagWPs": {
             "CSVM": ("btagCSV", 0.800),
             "CSVL": ("btagCSV", 0.460),
-            "CSVT": ("btagCSV", 0.935)
+            "CSVT": ("btagCSV", 0.935),
+            
+            "CMVAM": ("btagCMVA", 0.185),
+            "CMVAL": ("btagCMVA", -0.715),
+            "CMVAT": ("btagCMVA", 0.875)
         },
 
         #if btagCSV, untagged/tagged selection for W mass and MEM is done by CSVM cut
@@ -189,7 +193,7 @@ class Conf:
         "systematics": [
             "nominal",
             "JESUp", "JESDown",
-        #    "JERUp", "JERDown"
+            "JERUp", "JERDown"
         ],
         
         

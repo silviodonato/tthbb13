@@ -38,13 +38,10 @@ class BTagLRAnalyzer(FilterAnalyzer):
     def __init__(self, cfg_ana, cfg_comp, looperName):
         super(BTagLRAnalyzer, self).__init__(cfg_ana, cfg_comp, looperName)
         self.conf = cfg_ana._conf
-        self.bTagAlgo        = self.conf.jets["btagAlgo"]
-        #self.cplots_old = ROOT.TFile(self.conf.general["controlPlotsFileOld"])
+        self.bTagAlgo = self.conf.jets["btagAlgo"]
         self.cplots = ROOT.TFile(self.conf.general["controlPlotsFile"])
-        #self.cplots_new = ROOT.TFile(self.conf.general["controlPlotsFileNew"])
 
         self.csv_pdfs = self.getPdfs(self.cplots)
-        #self.csv_pdfs_new = self.getPdfs(self.cplots_new)
 
         self.conf.BTagLRAnalyzer = self
         self.jlh = MEM.JetLikelihood()
@@ -89,12 +86,10 @@ class BTagLRAnalyzer(FilterAnalyzer):
             jp.setProbability(MEM.JetInterpretation.c, probs[ijet][1])
             jp.setProbability(MEM.JetInterpretation.l, probs[ijet][2])
             self.jlh.push_back_object(jp)
-            #print "probas", ijet, probs[ijet]
 
         bperm = Cvectoruint()
         P = self.jlh.calcProbability(MEM.JetInterpretation.b, MEM.JetInterpretation.l, nB, bperm)
         best_perm = [bperm.at(i) for i in range(bperm.size())]
-
         return P, best_perm
         #end permutation loop
 
@@ -117,12 +112,8 @@ class BTagLRAnalyzer(FilterAnalyzer):
                 jets_for_btag_lr[tagger] =  sorted(
                     event.good_jets, key=lambda x, tagger=tagger: getattr(x, tagger), reverse=True
                 )[0:self.conf.jets["NJetsForBTagLR"]]
-                if tagger == "btagBDT":
-                    tagtransform = lambda x: math.log((1.0 + x)/(1.0 - x)) if x > -1 else -10
-                else:
-                    tagtransform = lambda x: x
                 jet_probs[pdf+"-"+tagger] =  [ 
-                    self.evaluate_jet_prob(pdfs, j.pt, j.eta, tagtransform(getattr(j, tagger)), pdf)
+                    self.evaluate_jet_prob(pdfs, j.pt, j.eta, getattr(j, tagger), pdf)
                     for j in jets_for_btag_lr[tagger]
                 ]
         return jets_for_btag_lr, jet_probs
@@ -136,7 +127,7 @@ class BTagLRAnalyzer(FilterAnalyzer):
     def _process(self, event):
 
         #btag algos for which to calculate btag LR
-        btagalgos = [self.bTagAlgo]
+        btagalgos = ["btagCSV", "btagCMVA"]
         if self.conf.bran["enabled"]:
             btagalgos += ["btagCSVRndge4t", "btagCSVInpge4t", "btagCSVRnd3t", "btagCSVInp3t"]
         jets_for_btag_lr, jet_probs = self.getJetProbs(self.csv_pdfs, event, btagalgos )
