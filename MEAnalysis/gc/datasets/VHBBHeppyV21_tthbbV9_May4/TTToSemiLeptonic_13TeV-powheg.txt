@@ -1,4 +1,4 @@
-[TTToSemiLeptonic_13TeV-powheg]
+[VHBBHeppyV21_tthbbV9_May4_TTToSemiLeptonic_13TeV-powheg]
 /store/user/jpata/tth/VHBBHeppyV21_tthbbV9_May4/TTToSemiLeptonic_13TeV-powheg/VHBBHeppyV21_tthbbV9_May4_TTToSemiLeptonic_13TeV-powheg__fall15MAv2-pu25ns15v1_76r2as_v12_ext1-v1/160504_064952/0000/tree_1.root = 12043
 /store/user/jpata/tth/VHBBHeppyV21_tthbbV9_May4/TTToSemiLeptonic_13TeV-powheg/VHBBHeppyV21_tthbbV9_May4_TTToSemiLeptonic_13TeV-powheg__fall15MAv2-pu25ns15v1_76r2as_v12_ext1-v1/160504_064952/0000/tree_10.root = 12138
 /store/user/jpata/tth/VHBBHeppyV21_tthbbV9_May4/TTToSemiLeptonic_13TeV-powheg/VHBBHeppyV21_tthbbV9_May4_TTToSemiLeptonic_13TeV-powheg__fall15MAv2-pu25ns15v1_76r2as_v12_ext1-v1/160504_064952/0000/tree_100.root = 12152
