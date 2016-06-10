@@ -106,12 +106,13 @@ public:
 
 //fwd decl
 class Event;
+typedef std::function<float(const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst)> AxisFunction;
 
 class SparseAxis {
 public:
     SparseAxis(
         const string& _name,
-        std::function<float(const Event& ev)> _evalFunc,
+        AxisFunction _evalFunc,
         int _nBins,
         float _xMin,
         float _xMax
@@ -122,7 +123,7 @@ public:
         xMin(_xMin),
         xMax(_xMax) {};
     string name;
-    std::function<float(const Event& ev)> evalFunc;
+    AxisFunction evalFunc;
     int nBins;
     float xMin, xMax;
 };
@@ -326,7 +327,7 @@ public:
 class CategoryProcessor {
 public:
     CategoryProcessor(
-        std::function<int(const Event& ev)> _cutFunc,
+        AxisFunction _cutFunc,
         const vector<CategoryKey::CategoryKey>& _keys,
         const Configuration& _conf,
         const vector<const CategoryProcessor*>& _subCategories={},
@@ -341,8 +342,8 @@ public:
     weightFuncs(_weightFuncs)
     {}
 
-    const bool operator()(const Event& ev) const {
-        return cutFunc(ev);
+    const bool operator()(const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) const {
+        return cutFunc(ev, proc, cats, syst);
     }
 
     const vector<CategoryKey::CategoryKey> keys;
@@ -369,14 +370,14 @@ public:
         SystematicKey::SystematicKey systKey
     ) const;
 private:
-    std::function<int(const Event& ev)> cutFunc;
+    AxisFunction cutFunc;
 };
 
 
 class SparseCategoryProcessor : public CategoryProcessor {
 public:
     SparseCategoryProcessor(
-        std::function<int(const Event& ev)> _cutFunc,
+        AxisFunction _cutFunc,
         const vector<CategoryKey::CategoryKey>& _keys,
         const Configuration& _conf,
         const vector<const CategoryProcessor*>& _subCategories={},
