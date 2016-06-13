@@ -32,15 +32,15 @@ me_cfgs = {
 }
 
 sets_data = [
-      "/DoubleEG/Run2016B-PromptReco-v1/MINIAOD"
-    , "/DoubleEG/Run2016B-PromptReco-v2/MINIAOD"
-    , "/DoubleMuon/Run2016B-PromptReco-v1/MINIAOD"
-    , "/DoubleMuon/Run2016B-PromptReco-v2/MINIAOD"
-    , "/MuonEG/Run2016B-PromptReco-v1/MINIAOD"
-    , "/MuonEG/Run2016B-PromptReco-v2/MINIAOD"
-    , "/SingleElectron/Run2016B-PromptReco-v1/MINIAOD"
-    , "/SingleElectron/Run2016B-PromptReco-v2/MINIAOD"
-    , "/SingleMuon/Run2016B-PromptReco-v1/MINIAOD"
+    #  "/DoubleEG/Run2016B-PromptReco-v1/MINIAOD"
+    #, "/DoubleEG/Run2016B-PromptReco-v2/MINIAOD"
+    #, "/DoubleMuon/Run2016B-PromptReco-v1/MINIAOD"
+    #, "/DoubleMuon/Run2016B-PromptReco-v2/MINIAOD"
+    #, "/MuonEG/Run2016B-PromptReco-v1/MINIAOD"
+    #, "/MuonEG/Run2016B-PromptReco-v2/MINIAOD"
+    #, "/SingleElectron/Run2016B-PromptReco-v1/MINIAOD"
+    #, "/SingleElectron/Run2016B-PromptReco-v2/MINIAOD"
+     "/SingleMuon/Run2016B-PromptReco-v1/MINIAOD"
     , "/SingleMuon/Run2016B-PromptReco-v2/MINIAOD"
 ]
 
@@ -227,23 +227,30 @@ if __name__ == '__main__':
     
     def localsubmit(config, dname):
         
+        total_files = 5
+        files_per_job = 1
+        if "data" in config.JobType.scriptExe:
+            total_files = 50
+            files_per_job = 10
+
         files_json = json.loads(subprocess.Popen([
-            das_client, 
+            das_client,
             "--format=json",
-            "--limit={0}".format(5),
+            "--limit={0}".format(total_files),
             '--query=file dataset={0}'.format(config.Data.inputDataset)],
             stdout=subprocess.PIPE).stdout.read())
         files = ["root://xrootd-cms.infn.it///" + files_json["data"][i]["file"][0]["name"] for i in range(len(files_json["data"]))]
-        for ifi, fi in enumerate(files):
-            fi = fi.encode("ascii")
+        for ijob, fi0 in enumerate(range(0, total_files, files_per_job)):
+            fi = files[fi0:fi0+files_per_job]
+            fi = map(lambda x: x.encode("ascii"), fi)
             import PSet
             import FWCore.ParameterSet.Config as cms
-            PSet.process.source.fileNames = cms.untracked.vstring([fi])
+            PSet.process.source.fileNames = cms.untracked.vstring(fi)
             of = open("PSet.py", "w")
             of.write(PSet.process.dumpPython())
             of.close()
 
-            TMPDIR = "/scratch/{0}/crab_work/{1}/crab_{2}_{3}".format(os.environ["USER"], args.tag, dname, ifi)
+            TMPDIR = "/scratch/{0}/crab_work/{1}/crab_{2}_{3}".format(os.environ["USER"], args.tag, dname, ijob)
             CMSSW_VERSION = "CMSSW_8_0_5"
             workdir = os.path.join(TMPDIR, CMSSW_VERSION, "work")
             try: 

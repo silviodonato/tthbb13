@@ -118,3 +118,11 @@ tthbb13=14086e8
 CommonClassifier=3746eb6
 MEIntegratorStandalone=c8307f6
 CMSSW=a86897c
+
+
+VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun13_test1
+-------------
+tthbb13=04bdfa8
+CommonClassifier=3746eb6
+MEIntegratorStandalone=c8307f6
+CMSSW=a86897c
