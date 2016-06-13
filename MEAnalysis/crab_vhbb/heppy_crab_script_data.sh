@@ -11,8 +11,8 @@ echo "CMSSW BASE, python path, pwd"
 echo $CMSSW_BASE 
 echo $PYTHON_PATH
 echo $PWD 
-cp lib/slc*/* $CMSSW_BASE/lib/slc*
-cp lib/slc*/.* $CMSSW_BASE/lib/slc*
+cp -r lib/slc*/* $CMSSW_BASE/lib/slc*
+cp -r lib/slc*/.* $CMSSW_BASE/lib/slc*
 echo "AFTER COPY content of $CMSSW_BASE/lib/slc*"
 ls -lR  $CMSSW_BASE/lib/slc*
 
@@ -59,7 +59,7 @@ export ROOT_INCLUDE_PATH=.:./src:$ROOT_INCLUDE_PATH
 
 echo "tth_hashes"
 cat hash
-mv heppy_config_data.py heppy_config.py
+cp heppy_config_data.py heppy_config.py
 python heppy_crab_script.py $@ &> log
 exitCode=$?
 cat log
@@ -80,9 +80,9 @@ $exitMessage
 EOF
 fi
 
-tail -n100 log
+tail -n500 log
 cat FrameworkJobReport.xml
 echo "======================== CMSRUN LOG ============================"
-head -n 30 Output/cmsRun.log 
+head -n 500 Output/cmsRun.log 
 echo "=== SNIP ==="
 tail -n 500 Output/cmsRun.log 

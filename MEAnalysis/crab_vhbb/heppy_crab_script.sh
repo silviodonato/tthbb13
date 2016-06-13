@@ -11,8 +11,8 @@ echo "CMSSW BASE, python path, pwd"
 echo $CMSSW_BASE 
 echo $PYTHON_PATH
 echo $PWD 
-cp lib/slc*/* $CMSSW_BASE/lib/slc*
-cp lib/slc*/.* $CMSSW_BASE/lib/slc*
+cp -r lib/slc*/* $CMSSW_BASE/lib/slc*
+cp -r lib/slc*/.* $CMSSW_BASE/lib/slc*
 echo "AFTER COPY content of $CMSSW_BASE/lib/slc*"
 ls -lR  $CMSSW_BASE/lib/slc*
 

@@ -108,7 +108,7 @@ class BTagLRAnalyzer(FilterAnalyzer):
         
         for pdf in ["new_pt_eta_bin_3d"]:
             for tagger in taggers:
-                #Use only the first N jets by blr for likelihood ratio calculation 
+                #Use only the first N jets by b-tagger value for likelihood ratio calculation 
                 jets_for_btag_lr[tagger] =  sorted(
                     event.good_jets, key=lambda x, tagger=tagger: getattr(x, tagger), reverse=True
                 )[0:self.conf.jets["NJetsForBTagLR"]]
@@ -139,7 +139,12 @@ class BTagLRAnalyzer(FilterAnalyzer):
             btag_lr_2b, best_2b_perm = self.btag_likelihood2(jet_probs["new_pt_eta_bin_3d-" + btagalgo], 2)
             btag_likelihood_results[btagalgo] = (btag_lr_4b, btag_lr_2b, best_4b_perm, best_2b_perm)
             btag_likelihood_ratio_results[btagalgo] = self.lratio(btag_lr_4b, btag_lr_2b)
-        
+            setattr(event, "jet_perm_btag_lr_" + btagalgo,
+                [event.good_jets.index(j) for j in jets_for_btag_lr[btagalgo]]
+            )
+            setattr(event,
+                "btag_LR_4b_2b_" + btagalgo, btag_likelihood_ratio_results[btagalgo]
+            )
         #default btagger used
         event.btag_lr_4b = btag_likelihood_results[self.bTagAlgo][0]
         event.btag_lr_2b = btag_likelihood_results[self.bTagAlgo][1]

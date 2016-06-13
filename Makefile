@@ -1,5 +1,7 @@
+
 #sample vhbb+tthbb file
-testfile_vhbb_tthbb=/store/user/jpata/tth/VHBBHeppyV22pre_tthbbV10pre_pilot1/TT_TuneEE5C_13TeV-powheg-herwigpp/VHBBHeppyV22pre_tthbbV10pre_pilot1/160603_165547/0000/tree_1.root
+testfile_vhbb_tthbb=/store/user/jpata/tth/VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun9/ttHTobb_M125_13TeV_powheg_pythia8/VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun9/160609_121131/0000/tree_1.root
+DATASETPATH=VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun9__ttHTobb_M125_13TeV_powheg_pythia8
 #testfile_vhbb_tthbb=file:///home/joosep/tth/sw/CMSSW/src/TTH/test.root
 test_out_dir=$(CMSSW_BASE)/src/TTH/tests_out
 
@@ -56,7 +58,7 @@ test_MEAnalysis_withme: test_mkdir
 	cp MEAnalysis/Loop_sample/tree.root $(test_out_dir)/MEAnalysis_MEAnalysis_heppy_calcME.root
 
 test_MELooper: test_mkdir melooper
-	cd Plotting && FILE_NAMES=$(testfile_vhbb_tthbb) DATASETPATH=ttHTobb_M125_13TeV_powheg_pythia8 ./python/makeJobfile.py && ./melooper job.json &> $(test_out_dir)/Plotting_MELooper.log
+	cd Plotting && FILE_NAMES=$(testfile_vhbb_tthbb) DATASETPATH=$(DATASETPATH) ./python/makeJobfile.py && ./melooper job.json &> $(test_out_dir)/Plotting_MELooper.log
 	sleep 5	
 	du -csh Plotting/ControlPlotsSparse.root &>> $(test_out_dir)/Plotting_MELooper.log
 	python -c "import ROOT; f=ROOT.TFile('Plotting/ControlPlotsSparse.root'); print f.Get('ttHTobb_M125_13TeV_powheg_pythia8/ttH_hbb/sl/sparse').GetEntries()" &>> $(test_out_dir)/Plotting_MELooper.log
@@ -68,6 +70,14 @@ test_VHBB: test_mkdir
 	sleep 5
 	du -csh $(test_out_dir)/VHBB.root 
 	python -c "import ROOT; f=ROOT.TFile('$(test_out_dir)/VHBB.root'); print f.Get('tree').GetEntries()" &>> $(test_out_dir)/VHBB.log
+
+test_VHBB_data: test_mkdir
+	rm -Rf $(CMSSW_BASE)/src/VHbbAnalysis/Heppy/test/Loop* 
+	cd $(CMSSW_BASE)/src/VHbbAnalysis/Heppy/test/ && python vhbb_combined_data.py &> $(test_out_dir)/VHBB_data.log
+	cp $(CMSSW_BASE)/src/VHbbAnalysis/Heppy/test/Loop/tree.root $(test_out_dir)/VHBB_data.root
+	sleep 5
+	du -csh $(test_out_dir)/VHBB_data.root 
+	python -c "import ROOT; f=ROOT.TFile('$(test_out_dir)/VHBB_data.root'); print f.Get('tree').GetEntries()" &>> $(test_out_dir)/VHBB_data.log
 
 test_VHBB_MEAnalysis: test_mkdir
 	rm -Rf MEAnalysis/Loop_*

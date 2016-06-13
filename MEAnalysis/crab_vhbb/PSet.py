@@ -1,11 +1,15 @@
-print "loaded heppy_crab_fake_pset.py"
 import FWCore.ParameterSet.Config as cms
-import PhysicsTools.PythonAnalysis.LumiList as LumiList
-process = cms.Process('FAKE')
+
+process = cms.Process("FAKE")
+
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring("file:///scratch/jpata/C2EC599F-7C1B-E611-BCA9-B083FECF837B.root"),
-    lumisToProcess = LumiList.LumiList(filename = 'file.json').getVLuminosityBlockRange()
+    fileNames = cms.untracked.vstring('root://xrootd-cms.infn.it////store/mc/RunIISpring16MiniAODv2/ttHTobb_M125_13TeV_powheg_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/50000/0E8D935B-A12D-E611-9468-02163E017696.root')
 )
-process.source.lumisToProcess = process.source.lumisToProcess[0:1]
-process.output = cms.OutputModule("PoolOutputModule", fileName = cms.untracked.string('tree.root'))
+process.output = cms.OutputModule("PoolOutputModule",
+    fileName = cms.untracked.string('tree.root')
+)
+
+
 process.out = cms.EndPath(process.output)
+
+

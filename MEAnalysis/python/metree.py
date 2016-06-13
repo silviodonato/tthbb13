@@ -509,6 +509,8 @@ def getTreeProducer(conf):
             #("btag_lr_2b_Inp3t",    float,      "2b, N-2 Nlight probability, 3D binning, 3t   input"),
 
             ("btag_LR_4b_2b",        float,      ""),
+            ("btag_LR_4b_2b_btagCMVA",        float,      ""),
+            ("btag_LR_4b_2b_btagCSV",        float,      ""),
             #("btag_LR_4b_2b_ded",        float,      ""),
             #("btag_LR_4b_2b_Rndge4t",float,      ""),
             #("btag_LR_4b_2b_Inpge4t",float,      ""),

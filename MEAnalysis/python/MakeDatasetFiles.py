@@ -22,13 +22,7 @@ import subprocess
 #    "bin",
 #    "das_client.py"
 #)
-#das_client = os.path.join(
-#    os.environ["CMSSW_BASE"],
-#    "src/TTH/MEAnalysis/python",
-#    "das_client.py"
-#)
 das_client = "/afs/cern.ch/user/v/valya/public/das_client.py"
-
 output_base = os.path.join(
     os.environ["CMSSW_BASE"],
     "src/TTH/MEAnalysis/gc/datasets/",
@@ -54,7 +48,7 @@ if not os.path.exists(outdir):
 
 #no specified input dataset list
 if not args.datasetfile:
-    datasets_json = subprocess.Popen(["python",
+    datasets_json = subprocess.Popen([
                                     das_client, 
                                     "--format=json",
                                     "--limit=0",
@@ -106,7 +100,7 @@ for ds in datasets:
     
     ofile = open(os.path.join(outdir,sample+".txt"),"w")
 
-    ofile.write("[{0}]\n".format(sample))
+    ofile.write("[{0}__{1}]\n".format(version, sample))
         
     files_json = subprocess.Popen(["python",
                                    das_client, 

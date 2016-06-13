@@ -7,11 +7,16 @@
 #FILE_NAMES="file1.root file2.root"
 #DATASETPATH="name of dataset"
 import json, sys, os
-from TTH.MEAnalysis.samples_base import getSitePrefix, xsec
+from TTH.MEAnalysis.samples_base import getSitePrefix, xsec, samples_nick, xsec_sample, ngen
 
 filenames = map(getSitePrefix, os.environ["FILE_NAMES"].split())
-sample = os.environ["DATASETPATH"]
-prefix = "" 
+datasetpath = os.environ["DATASETPATH"]
+prefix = ""
+sample = datasetpath
+spl = sample.split("__")
+if len(spl) == 2:
+    prefix = spl[0]
+    sample = spl[1]
 
 #for event-based splitting
 #firstEvent = int(os.environ.get("SKIP_EVENTS", 0))
@@ -24,20 +29,12 @@ nEvents = -1
 nbins_mem = 36
 nbins_bdt = 40
 
-sample_repl = {
-    "ttHToNonbb_M125_13TeV_powheg_pythia8": "ttH_nonhbb",
-    "ttHTobb_M125_13TeV_powheg_pythia8": "ttH_hbb",
-    "TT_TuneCUETP8M1_13TeV-powheg-pythia8": "ttbarUnsplit",
-    "TT_TuneEE5C_13TeV-powheg-herwigpp": "ttbarUnsplit",
-    "TTTo2L2Nu_13TeV-powheg": "ttbarUnsplit",
-    "TTToSemiLeptonic_13TeV-powheg": "ttbarUnsplit",
-}
-
 ret = {
     "filenames": filenames,
-    "lumi": 1.0,
-    "process": sample_repl.get(sample, sample),
-    "xsweight": 1.0,
+    "lumi": 1000.0,
+    "process": samples_nick[sample],
+    "xsweight": xsec_sample[sample] / ngen[datasetpath],
+    #"prefix": "/".join([prefix, sample]),
     "prefix": sample,
     "outputFile": "ControlPlotsSparse.root",
     "firstEntry": firstEvent,
@@ -115,6 +112,12 @@ ret = {
             "xMin": -20,
             "xMax": 20,
             "nBins": 50
+        },
+        {
+            "func": "jet0_pt",
+            "xMin": 0,
+            "xMax": 300,
+            "nBins": 60
         },
     ]
 }

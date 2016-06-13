@@ -57,7 +57,7 @@ pi_file.close()
 
 #Event contents are defined here
 #This is work in progress
-from TTH.MEAnalysis.VHbbTree import *
+from TTH.MEAnalysis.VHbbTree import EventAnalyzer
 
 #This analyzer reads branches from event.input (the TTree/TChain) to event.XYZ (XYZ is e.g. jets, leptons etc)
 evs = cfg.Analyzer(

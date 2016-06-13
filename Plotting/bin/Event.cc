@@ -470,7 +470,7 @@ ProcessKey::ProcessKey getProcessKey(const Event& ev, ProcessKey::ProcessKey pro
 
 double nominal_weight(const Event& ev, const Configuration& conf) {
     if (isMC(conf.process)) {
-        return conf.lumi * conf.xsweight * ev.puWeight * ev.data->bTagWeight * process_weight(conf.process, conf);
+        return conf.lumi * conf.xsweight * ev.puWeight * ev.data->bTagWeight * process_weight(conf.process, conf) * ev.data->genWeight;
     }
     return 1.0;
 }

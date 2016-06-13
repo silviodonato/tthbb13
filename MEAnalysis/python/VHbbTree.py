@@ -7,20 +7,26 @@ class GenBQuarkFromHafterISR:
         self.mass = tree.GenBQuarkFromHafterISR_mass[n];
         self.charge = tree.GenBQuarkFromHafterISR_charge[n];
         self.status = tree.GenBQuarkFromHafterISR_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenBQuarkFromHafterISR(tree, i) for i in range(tree.nGenBQuarkFromHafterISR)]
 class pileUpVertex_ptHat:
     def __init__(self, tree, n):
         self.pileUpVertex_ptHat = tree.pileUpVertex_ptHat[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [pileUpVertex_ptHat(tree, i) for i in range(tree.npileUpVertex_ptHat)]
 class trgObjects_hltMET70:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltMET70(tree, i) for i in range(tree.ntrgObjects_hltMET70)]
 class trgObjects_hltL1sL1ETM70ORETM60ORETM50ORDoubleJetC56ETM60:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltL1sL1ETM70ORETM60ORETM50ORDoubleJetC56ETM60(tree, i) for i in range(tree.ntrgObjects_hltL1sL1ETM70ORETM60ORETM50ORDoubleJetC56ETM60)]
@@ -33,12 +39,14 @@ class GenLepFromTop:
         self.mass = tree.GenLepFromTop_mass[n];
         self.charge = tree.GenLepFromTop_charge[n];
         self.status = tree.GenLepFromTop_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenLepFromTop(tree, i) for i in range(tree.nGenLepFromTop)]
 class ajidxaddJetsdR08:
     def __init__(self, tree, n):
         self.ajidxaddJetsdR08 = tree.ajidxaddJetsdR08[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [ajidxaddJetsdR08(tree, i) for i in range(tree.najidxaddJetsdR08)]
@@ -50,10 +58,13 @@ class SubjetCA15softdrop:
         self.mass = tree.SubjetCA15softdrop_mass[n];
         self.btag = tree.SubjetCA15softdrop_btag[n];
         self.fromFJ = tree.SubjetCA15softdrop_fromFJ[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [SubjetCA15softdrop(tree, i) for i in range(tree.nSubjetCA15softdrop)]
 class trgObjects_hltQuadCentralJet30:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltQuadCentralJet30(tree, i) for i in range(tree.ntrgObjects_hltQuadCentralJet30)]
@@ -66,12 +77,14 @@ class GenVbosonsRecovered:
         self.mass = tree.GenVbosonsRecovered_mass[n];
         self.charge = tree.GenVbosonsRecovered_charge[n];
         self.status = tree.GenVbosonsRecovered_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenVbosonsRecovered(tree, i) for i in range(tree.nGenVbosonsRecovered)]
 class hJidx_sortcsv:
     def __init__(self, tree, n):
         self.hJidx_sortcsv = tree.hJidx_sortcsv[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [hJidx_sortcsv(tree, i) for i in range(tree.nhJidx_sortcsv)]
@@ -81,18 +94,21 @@ class trgObjects_hltEle23WPLoose:
         self.eta = tree.trgObjects_hltEle23WPLoose_eta[n];
         self.phi = tree.trgObjects_hltEle23WPLoose_phi[n];
         self.mass = tree.trgObjects_hltEle23WPLoose_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltEle23WPLoose(tree, i) for i in range(tree.ntrgObjects_hltEle23WPLoose)]
 class trgObjects_l1Mht:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_l1Mht_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_l1Mht(tree, i) for i in range(tree.ntrgObjects_l1Mht)]
 class aJCidx:
     def __init__(self, tree, n):
         self.aJCidx = tree.aJCidx[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [aJCidx(tree, i) for i in range(tree.naJCidx)]
@@ -105,6 +121,7 @@ class GenTausRecovered:
         self.mass = tree.GenTausRecovered_mass[n];
         self.charge = tree.GenTausRecovered_charge[n];
         self.status = tree.GenTausRecovered_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenTausRecovered(tree, i) for i in range(tree.nGenTausRecovered)]
@@ -116,12 +133,14 @@ class SubjetCA15softdropz2b1:
         self.mass = tree.SubjetCA15softdropz2b1_mass[n];
         self.btag = tree.SubjetCA15softdropz2b1_btag[n];
         self.fromFJ = tree.SubjetCA15softdropz2b1_fromFJ[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [SubjetCA15softdropz2b1(tree, i) for i in range(tree.nSubjetCA15softdropz2b1)]
 class hJCidx:
     def __init__(self, tree, n):
         self.hJCidx = tree.hJCidx[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [hJCidx(tree, i) for i in range(tree.nhJCidx)]
@@ -135,12 +154,14 @@ class GenTop:
         self.phi = tree.GenTop_phi[n];
         self.mass = tree.GenTop_mass[n];
         self.decayMode = tree.GenTop_decayMode[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenTop(tree, i) for i in range(tree.nGenTop)]
 class aJidx:
     def __init__(self, tree, n):
         self.aJidx = tree.aJidx[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [aJidx(tree, i) for i in range(tree.naJidx)]
@@ -150,6 +171,7 @@ class trgObjects_hltEle22eta2p1WPLoose:
         self.eta = tree.trgObjects_hltEle22eta2p1WPLoose_eta[n];
         self.phi = tree.trgObjects_hltEle22eta2p1WPLoose_phi[n];
         self.mass = tree.trgObjects_hltEle22eta2p1WPLoose_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltEle22eta2p1WPLoose(tree, i) for i in range(tree.ntrgObjects_hltEle22eta2p1WPLoose)]
@@ -162,6 +184,7 @@ class GenLepFromTau:
         self.mass = tree.GenLepFromTau_mass[n];
         self.charge = tree.GenLepFromTau_charge[n];
         self.status = tree.GenLepFromTau_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenLepFromTau(tree, i) for i in range(tree.nGenLepFromTau)]
@@ -174,10 +197,13 @@ class GenNuFromTop:
         self.mass = tree.GenNuFromTop_mass[n];
         self.charge = tree.GenNuFromTop_charge[n];
         self.status = tree.GenNuFromTop_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenNuFromTop(tree, i) for i in range(tree.nGenNuFromTop)]
 class trgObjects_hltPFDoubleJetLooseID76:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltPFDoubleJetLooseID76(tree, i) for i in range(tree.ntrgObjects_hltPFDoubleJetLooseID76)]
@@ -190,24 +216,32 @@ class GenVbosons:
         self.mass = tree.GenVbosons_mass[n];
         self.charge = tree.GenVbosons_charge[n];
         self.status = tree.GenVbosons_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenVbosons(tree, i) for i in range(tree.nGenVbosons)]
 class trgObjects_hltMHTNoPU90:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltMHTNoPU90(tree, i) for i in range(tree.ntrgObjects_hltMHTNoPU90)]
 class trgObjects_hltQuadPFCentralJetLooseID30:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltQuadPFCentralJetLooseID30(tree, i) for i in range(tree.ntrgObjects_hltQuadPFCentralJetLooseID30)]
 class trgObjects_caloMhtNoPU:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_caloMhtNoPU_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_caloMhtNoPU(tree, i) for i in range(tree.ntrgObjects_caloMhtNoPU)]
 class trgObjects_hltCSVPF0p78:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltCSVPF0p78(tree, i) for i in range(tree.ntrgObjects_hltCSVPF0p78)]
@@ -218,14 +252,19 @@ class SubjetAK08softdrop:
         self.phi = tree.SubjetAK08softdrop_phi[n];
         self.mass = tree.SubjetAK08softdrop_mass[n];
         self.btag = tree.SubjetAK08softdrop_btag[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [SubjetAK08softdrop(tree, i) for i in range(tree.nSubjetAK08softdrop)]
 class trgObjects_hltDoublePFCentralJetLooseID90:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltDoublePFCentralJetLooseID90(tree, i) for i in range(tree.ntrgObjects_hltDoublePFCentralJetLooseID90)]
 class trgObjects_hltCSVL30p74:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltCSVL30p74(tree, i) for i in range(tree.ntrgObjects_hltCSVL30p74)]
@@ -235,6 +274,7 @@ class trgObjects_hltIsoMu18:
         self.eta = tree.trgObjects_hltIsoMu18_eta[n];
         self.phi = tree.trgObjects_hltIsoMu18_phi[n];
         self.mass = tree.trgObjects_hltIsoMu18_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltIsoMu18(tree, i) for i in range(tree.ntrgObjects_hltIsoMu18)]
@@ -247,16 +287,20 @@ class GenLep:
         self.mass = tree.GenLep_mass[n];
         self.charge = tree.GenLep_charge[n];
         self.status = tree.GenLep_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenLep(tree, i) for i in range(tree.nGenLep)]
 class trgObjects_caloJets:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_caloJets_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_caloJets(tree, i) for i in range(tree.ntrgObjects_caloJets)]
 class trgObjects_hltPFSingleJetLooseID92:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltPFSingleJetLooseID92(tree, i) for i in range(tree.ntrgObjects_hltPFSingleJetLooseID92)]
@@ -270,16 +314,20 @@ class GenHadTaus:
         self.phi = tree.GenHadTaus_phi[n];
         self.mass = tree.GenHadTaus_mass[n];
         self.decayMode = tree.GenHadTaus_decayMode[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenHadTaus(tree, i) for i in range(tree.nGenHadTaus)]
 class trgObjects_pfJets:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_pfJets_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_pfJets(tree, i) for i in range(tree.ntrgObjects_pfJets)]
 class trgObjects_hltL1sL1TripleJet927664VBFORL1TripleJet846848VBFORL1HTT100ORL1HTT125ORL1HTT150ORL1HTT175ORL1SingleJet128ORL1DoubleJetC84:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltL1sL1TripleJet927664VBFORL1TripleJet846848VBFORL1HTT100ORL1HTT125ORL1HTT150ORL1HTT175ORL1SingleJet128ORL1DoubleJetC84(tree, i) for i in range(tree.ntrgObjects_hltL1sL1TripleJet927664VBFORL1TripleJet846848VBFORL1HTT100ORL1HTT125ORL1HTT150ORL1HTT175ORL1SingleJet128ORL1DoubleJetC84)]
@@ -385,28 +433,34 @@ class vLeptons:
         self.Efferr_HLT_RunD4p2 = tree.vLeptons_Efferr_HLT_RunD4p2[n];
         self.Eff_HLT_RunC = tree.vLeptons_Eff_HLT_RunC[n];
         self.Efferr_HLT_RunC = tree.vLeptons_Efferr_HLT_RunC[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [vLeptons(tree, i) for i in range(tree.nvLeptons)]
 class trgObjects_hltL1sL1TripleJet927664VBFORL1DoubleJetC100ORL1TripleJet846848VBFORL1DoubleJetC84ORL1HTT100ORL1HTT125ORL1HTT150ORL1HTT175:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltL1sL1TripleJet927664VBFORL1DoubleJetC100ORL1TripleJet846848VBFORL1DoubleJetC84ORL1HTT100ORL1HTT125ORL1HTT150ORL1HTT175(tree, i) for i in range(tree.ntrgObjects_hltL1sL1TripleJet927664VBFORL1DoubleJetC100ORL1TripleJet846848VBFORL1DoubleJetC84ORL1HTT100ORL1HTT125ORL1HTT150ORL1HTT175)]
 class pileUpVertex_z:
     def __init__(self, tree, n):
         self.pileUpVertex_z = tree.pileUpVertex_z[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [pileUpVertex_z(tree, i) for i in range(tree.npileUpVertex_z)]
 class trgObjects_l1CentralJets:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_l1CentralJets_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_l1CentralJets(tree, i) for i in range(tree.ntrgObjects_l1CentralJets)]
 class trgObjects_pfMht:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_pfMht_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_pfMht(tree, i) for i in range(tree.ntrgObjects_pfMht)]
@@ -419,6 +473,7 @@ class GenBQuarkFromTop:
         self.mass = tree.GenBQuarkFromTop_mass[n];
         self.charge = tree.GenBQuarkFromTop_charge[n];
         self.status = tree.GenBQuarkFromTop_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenBQuarkFromTop(tree, i) for i in range(tree.nGenBQuarkFromTop)]
@@ -430,6 +485,7 @@ class SubjetCA15subjetfiltered:
         self.mass = tree.SubjetCA15subjetfiltered_mass[n];
         self.btag = tree.SubjetCA15subjetfiltered_btag[n];
         self.fromFJ = tree.SubjetCA15subjetfiltered_fromFJ[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [SubjetCA15subjetfiltered(tree, i) for i in range(tree.nSubjetCA15subjetfiltered)]
@@ -442,6 +498,7 @@ class GenHiggsBoson:
         self.mass = tree.GenHiggsBoson_mass[n];
         self.charge = tree.GenHiggsBoson_charge[n];
         self.status = tree.GenHiggsBoson_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenHiggsBoson(tree, i) for i in range(tree.nGenHiggsBoson)]
@@ -449,6 +506,7 @@ class LHE_weights_scale:
     def __init__(self, tree, n):
         self.id = tree.LHE_weights_scale_id[n];
         self.wgt = tree.LHE_weights_scale_wgt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [LHE_weights_scale(tree, i) for i in range(tree.nLHE_weights_scale)]
@@ -461,6 +519,7 @@ class GenLepFromTauRecovered:
         self.mass = tree.GenLepFromTauRecovered_mass[n];
         self.charge = tree.GenLepFromTauRecovered_charge[n];
         self.status = tree.GenLepFromTauRecovered_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenLepFromTauRecovered(tree, i) for i in range(tree.nGenLepFromTauRecovered)]
@@ -470,30 +529,39 @@ class FatjetCA15pruned:
         self.eta = tree.FatjetCA15pruned_eta[n];
         self.phi = tree.FatjetCA15pruned_phi[n];
         self.mass = tree.FatjetCA15pruned_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [FatjetCA15pruned(tree, i) for i in range(tree.nFatjetCA15pruned)]
 class trgObjects_hltVBFCaloJetEtaSortedMqq150Deta1p5:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltVBFCaloJetEtaSortedMqq150Deta1p5(tree, i) for i in range(tree.ntrgObjects_hltVBFCaloJetEtaSortedMqq150Deta1p5)]
 class trgObjects_caloMht:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_caloMht_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_caloMht(tree, i) for i in range(tree.ntrgObjects_caloMht)]
 class trgObjects_hltCSV0p72L3:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltCSV0p72L3(tree, i) for i in range(tree.ntrgObjects_hltCSV0p72L3)]
 class trgObjects_hltDoubleCentralJet90:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltDoubleCentralJet90(tree, i) for i in range(tree.ntrgObjects_hltDoubleCentralJet90)]
 class trgObjects_l1Met:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_l1Met_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_l1Met(tree, i) for i in range(tree.ntrgObjects_l1Met)]
@@ -516,6 +584,7 @@ class GenJet:
         self.wNuEta = tree.GenJet_wNuEta[n];
         self.wNuPhi = tree.GenJet_wNuPhi[n];
         self.wNuM = tree.GenJet_wNuM[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenJet(tree, i) for i in range(tree.nGenJet)]
@@ -527,12 +596,14 @@ class SubjetCA15pruned:
         self.mass = tree.SubjetCA15pruned_mass[n];
         self.btag = tree.SubjetCA15pruned_btag[n];
         self.fromFJ = tree.SubjetCA15pruned_fromFJ[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [SubjetCA15pruned(tree, i) for i in range(tree.nSubjetCA15pruned)]
 class trgObjects_caloMet:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_caloMet_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_caloMet(tree, i) for i in range(tree.ntrgObjects_caloMet)]
@@ -546,28 +617,34 @@ class FatjetCA15ungroomed:
         self.tau2 = tree.FatjetCA15ungroomed_tau2[n];
         self.tau3 = tree.FatjetCA15ungroomed_tau3[n];
         self.bbtag = tree.FatjetCA15ungroomed_bbtag[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [FatjetCA15ungroomed(tree, i) for i in range(tree.nFatjetCA15ungroomed)]
 class trgObjects_pfMet:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_pfMet_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_pfMet(tree, i) for i in range(tree.ntrgObjects_pfMet)]
 class trgObjects_pfHt:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_pfHt_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_pfHt(tree, i) for i in range(tree.ntrgObjects_pfHt)]
 class dRaddJetsdR08:
     def __init__(self, tree, n):
         self.dRaddJetsdR08 = tree.dRaddJetsdR08[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [dRaddJetsdR08(tree, i) for i in range(tree.ndRaddJetsdR08)]
 class trgObjects_hltDoubleCSVPF0p58:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltDoubleCSVPF0p58(tree, i) for i in range(tree.ntrgObjects_hltDoubleCSVPF0p58)]
@@ -580,10 +657,13 @@ class GenBQuarkFromH:
         self.mass = tree.GenBQuarkFromH_mass[n];
         self.charge = tree.GenBQuarkFromH_charge[n];
         self.status = tree.GenBQuarkFromH_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenBQuarkFromH(tree, i) for i in range(tree.nGenBQuarkFromH)]
 class trgObjects_hltDoubleJet65:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltDoubleJet65(tree, i) for i in range(tree.ntrgObjects_hltDoubleJet65)]
@@ -593,10 +673,13 @@ class FatjetCA15trimmed:
         self.eta = tree.FatjetCA15trimmed_eta[n];
         self.phi = tree.FatjetCA15trimmed_phi[n];
         self.mass = tree.FatjetCA15trimmed_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [FatjetCA15trimmed(tree, i) for i in range(tree.nFatjetCA15trimmed)]
 class trgObjects_hltL1sL1HTT175ORL1QuadJetC60ORL1HTT100ORL1HTT125ORL1HTT150ORL1QuadJetC40:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltL1sL1HTT175ORL1QuadJetC60ORL1HTT100ORL1HTT125ORL1HTT150ORL1QuadJetC40(tree, i) for i in range(tree.ntrgObjects_hltL1sL1HTT175ORL1QuadJetC60ORL1HTT100ORL1HTT125ORL1HTT150ORL1QuadJetC40)]
@@ -609,6 +692,7 @@ class GenHiggsSisters:
         self.mass = tree.GenHiggsSisters_mass[n];
         self.charge = tree.GenHiggsSisters_charge[n];
         self.status = tree.GenHiggsSisters_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenHiggsSisters(tree, i) for i in range(tree.nGenHiggsSisters)]
@@ -714,24 +798,32 @@ class aLeptons:
         self.Efferr_HLT_RunD4p2 = tree.aLeptons_Efferr_HLT_RunD4p2[n];
         self.Eff_HLT_RunC = tree.aLeptons_Eff_HLT_RunC[n];
         self.Efferr_HLT_RunC = tree.aLeptons_Efferr_HLT_RunC[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [aLeptons(tree, i) for i in range(tree.naLeptons)]
 class trgObjects_hltPFQuadJetLooseID15:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltPFQuadJetLooseID15(tree, i) for i in range(tree.ntrgObjects_hltPFQuadJetLooseID15)]
 class trgObjects_hltQuadPFCentralJetLooseID45:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltQuadPFCentralJetLooseID45(tree, i) for i in range(tree.ntrgObjects_hltQuadPFCentralJetLooseID45)]
 class trgObjects_l1ForwardJets:
     def __init__(self, tree, n):
         self.pt = tree.trgObjects_l1ForwardJets_pt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_l1ForwardJets(tree, i) for i in range(tree.ntrgObjects_l1ForwardJets)]
 class trgObjects_hltVBFPFJetCSVSortedMqq200Detaqq1p2:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltVBFPFJetCSVSortedMqq200Detaqq1p2(tree, i) for i in range(tree.ntrgObjects_hltVBFPFJetCSVSortedMqq200Detaqq1p2)]
@@ -741,6 +833,7 @@ class softActivityVHJets:
         self.eta = tree.softActivityVHJets_eta[n];
         self.phi = tree.softActivityVHJets_phi[n];
         self.mass = tree.softActivityVHJets_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [softActivityVHJets(tree, i) for i in range(tree.nsoftActivityVHJets)]
@@ -789,20 +882,26 @@ class FatjetAK08ungroomed:
         self.tau_vertexEnergyRatio_1 = tree.FatjetAK08ungroomed_tau_vertexEnergyRatio_1[n];
         self.tau_flightDistance2dSig_1 = tree.FatjetAK08ungroomed_tau_flightDistance2dSig_1[n];
         self.nSV = tree.FatjetAK08ungroomed_nSV[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [FatjetAK08ungroomed(tree, i) for i in range(tree.nFatjetAK08ungroomed)]
 class trgObjects_hltPFMHTTightID90:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltPFMHTTightID90(tree, i) for i in range(tree.ntrgObjects_hltPFMHTTightID90)]
 class trgObjects_hltQuadCentralJet45:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltQuadCentralJet45(tree, i) for i in range(tree.ntrgObjects_hltQuadCentralJet45)]
 class hjidxaddJetsdR08:
     def __init__(self, tree, n):
         self.hjidxaddJetsdR08 = tree.hjidxaddJetsdR08[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [hjidxaddJetsdR08(tree, i) for i in range(tree.nhjidxaddJetsdR08)]
@@ -908,14 +1007,19 @@ class selLeptons:
         self.Efferr_HLT_RunD4p2 = tree.selLeptons_Efferr_HLT_RunD4p2[n];
         self.Eff_HLT_RunC = tree.selLeptons_Eff_HLT_RunC[n];
         self.Efferr_HLT_RunC = tree.selLeptons_Efferr_HLT_RunC[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [selLeptons(tree, i) for i in range(tree.nselLeptons)]
 class trgObjects_hltPFMET90:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltPFMET90(tree, i) for i in range(tree.ntrgObjects_hltPFMET90)]
 class trgObjects_hltQuadJet15:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltQuadJet15(tree, i) for i in range(tree.ntrgObjects_hltQuadJet15)]
@@ -946,16 +1050,20 @@ class TauGood:
         self.mass = tree.TauGood_mass[n];
         self.idxJetMatch = tree.TauGood_idxJetMatch[n];
         self.genMatchType = tree.TauGood_genMatchType[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [TauGood(tree, i) for i in range(tree.nTauGood)]
 class hJidx:
     def __init__(self, tree, n):
         self.hJidx = tree.hJidx[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [hJidx(tree, i) for i in range(tree.nhJidx)]
 class trgObjects_hltTripleCSV0p67:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltTripleCSV0p67(tree, i) for i in range(tree.ntrgObjects_hltTripleCSV0p67)]
@@ -968,6 +1076,7 @@ class GenLepRecovered:
         self.mass = tree.GenLepRecovered_mass[n];
         self.charge = tree.GenLepRecovered_charge[n];
         self.status = tree.GenLepRecovered_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenLepRecovered(tree, i) for i in range(tree.nGenLepRecovered)]
@@ -980,6 +1089,7 @@ class FatjetCA15softdropz2b1:
         self.tau1 = tree.FatjetCA15softdropz2b1_tau1[n];
         self.tau2 = tree.FatjetCA15softdropz2b1_tau2[n];
         self.tau3 = tree.FatjetCA15softdropz2b1_tau3[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [FatjetCA15softdropz2b1(tree, i) for i in range(tree.nFatjetCA15softdropz2b1)]
@@ -992,14 +1102,19 @@ class GenStatus2bHad:
         self.mass = tree.GenStatus2bHad_mass[n];
         self.charge = tree.GenStatus2bHad_charge[n];
         self.status = tree.GenStatus2bHad_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenStatus2bHad(tree, i) for i in range(tree.nGenStatus2bHad)]
 class trgObjects_hltTripleJet50:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltTripleJet50(tree, i) for i in range(tree.ntrgObjects_hltTripleJet50)]
 class trgObjects_hltVBFPFJetCSVSortedMqq460Detaqq4p1:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltVBFPFJetCSVSortedMqq460Detaqq4p1(tree, i) for i in range(tree.ntrgObjects_hltVBFPFJetCSVSortedMqq460Detaqq4p1)]
@@ -1038,6 +1153,7 @@ class httCandidates:
         self.sjNonWmasscal = tree.httCandidates_sjNonWmasscal[n];
         self.sjNonWmass = tree.httCandidates_sjNonWmass[n];
         self.sjNonWbtag = tree.httCandidates_sjNonWbtag[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [httCandidates(tree, i) for i in range(tree.nhttCandidates)]
@@ -1050,10 +1166,13 @@ class GenTaus:
         self.mass = tree.GenTaus_mass[n];
         self.charge = tree.GenTaus_charge[n];
         self.status = tree.GenTaus_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenTaus(tree, i) for i in range(tree.nGenTaus)]
 class trgObjects_hltMHT70:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltMHT70(tree, i) for i in range(tree.ntrgObjects_hltMHT70)]
@@ -1175,6 +1294,7 @@ class Jet:
         self.btagCMVAV2TSF = tree.Jet_btagCMVAV2TSF[n];
         self.btagCMVAV2TSF_Up = tree.Jet_btagCMVAV2TSF_Up[n];
         self.btagCMVAV2TSF_Down = tree.Jet_btagCMVAV2TSF_Down[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [Jet(tree, i) for i in range(tree.nJet)]
@@ -1184,10 +1304,13 @@ class FatjetCA15softdrop:
         self.eta = tree.FatjetCA15softdrop_eta[n];
         self.phi = tree.FatjetCA15softdrop_phi[n];
         self.mass = tree.FatjetCA15softdrop_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [FatjetCA15softdrop(tree, i) for i in range(tree.nFatjetCA15softdrop)]
 class trgObjects_hltPFTripleJetLooseID64:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltPFTripleJetLooseID64(tree, i) for i in range(tree.ntrgObjects_hltPFTripleJetLooseID64)]
@@ -1195,6 +1318,7 @@ class LHE_weights_pdf:
     def __init__(self, tree, n):
         self.id = tree.LHE_weights_pdf_id[n];
         self.wgt = tree.LHE_weights_pdf_wgt[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [LHE_weights_pdf(tree, i) for i in range(tree.nLHE_weights_pdf)]
@@ -1207,6 +1331,7 @@ class primaryVertices:
         self.ndof = tree.primaryVertices_ndof[n];
         self.Rho = tree.primaryVertices_Rho[n];
         self.score = tree.primaryVertices_score[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [primaryVertices(tree, i) for i in range(tree.nprimaryVertices)]
@@ -1216,6 +1341,7 @@ class softActivityJets:
         self.eta = tree.softActivityJets_eta[n];
         self.phi = tree.softActivityJets_phi[n];
         self.mass = tree.softActivityJets_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [softActivityJets(tree, i) for i in range(tree.nsoftActivityJets)]
@@ -1225,6 +1351,7 @@ class FatjetCA15subjetfiltered:
         self.eta = tree.FatjetCA15subjetfiltered_eta[n];
         self.phi = tree.FatjetCA15subjetfiltered_phi[n];
         self.mass = tree.FatjetCA15subjetfiltered_mass[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [FatjetCA15subjetfiltered(tree, i) for i in range(tree.nFatjetCA15subjetfiltered)]
@@ -1237,10 +1364,13 @@ class GenWZQuark:
         self.mass = tree.GenWZQuark_mass[n];
         self.charge = tree.GenWZQuark_charge[n];
         self.status = tree.GenWZQuark_status[n];
+        pass
     @staticmethod
     def make_array(tree):
         return [GenWZQuark(tree, i) for i in range(tree.nGenWZQuark)]
 class trgObjects_hltSingleJet80:
+    def __init__(self, tree, n):
+        pass
     @staticmethod
     def make_array(tree):
         return [trgObjects_hltSingleJet80(tree, i) for i in range(tree.ntrgObjects_hltSingleJet80)]
@@ -1260,6 +1390,7 @@ class H_reg_corrJECUp:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class HaddJetsdR08:
     """
     
@@ -1276,6 +1407,7 @@ class HaddJetsdR08:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class H:
     """
     
@@ -1292,6 +1424,7 @@ class H:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class softActivityVH:
     """
     
@@ -1308,6 +1441,7 @@ class softActivityVH:
         self.njets5 = njets5 #number of jets from soft activity with pt>5Gev
         self.njets10 = njets10 #number of jets from soft activity with pt>10Gev
         self.HT = HT #sum pt of sa jets
+        pass
 class met_shifted_JetResUp:
     """
     
@@ -1322,6 +1456,7 @@ class met_shifted_JetResUp:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class met:
     """
     
@@ -1352,6 +1487,7 @@ class met:
         self.genPt = genPt #
         self.genPhi = genPhi #
         self.genEta = genEta #
+        pass
 class H_reg:
     """
     
@@ -1368,6 +1504,7 @@ class H_reg:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class HCSV_reg_corrJERDown:
     """
     
@@ -1384,6 +1521,7 @@ class HCSV_reg_corrJERDown:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class HCSV:
     """
     
@@ -1400,6 +1538,7 @@ class HCSV:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class met_shifted_MuonEnDown:
     """
     
@@ -1414,6 +1553,7 @@ class met_shifted_MuonEnDown:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class met_shifted_ElectronEnUp:
     """
     
@@ -1428,6 +1568,7 @@ class met_shifted_ElectronEnUp:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class met_shifted_ElectronEnDown:
     """
     
@@ -1442,6 +1583,7 @@ class met_shifted_ElectronEnDown:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class fakeMET:
     """
     
@@ -1458,6 +1600,7 @@ class fakeMET:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class met_shifted_TauEnDown:
     """
     
@@ -1472,6 +1615,7 @@ class met_shifted_TauEnDown:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class V:
     """
     
@@ -1488,6 +1632,7 @@ class V:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class HCSV_reg_corrJERUp:
     """
     
@@ -1504,6 +1649,7 @@ class HCSV_reg_corrJERUp:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class met_shifted_TauEnUp:
     """
     
@@ -1518,6 +1664,7 @@ class met_shifted_TauEnUp:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class HCSV_reg_corrJECUp:
     """
     
@@ -1534,6 +1681,7 @@ class HCSV_reg_corrJECUp:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class met_shifted_UnclusteredEnUp:
     """
     
@@ -1548,6 +1696,7 @@ class met_shifted_UnclusteredEnUp:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class met_shifted_UnclusteredEnDown:
     """
     
@@ -1562,6 +1711,7 @@ class met_shifted_UnclusteredEnDown:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class met_shifted_JetEnUp:
     """
     
@@ -1576,6 +1726,7 @@ class met_shifted_JetEnUp:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class H_reg_corrJERDown:
     """
     
@@ -1592,6 +1743,7 @@ class H_reg_corrJERDown:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class HCSV_reg:
     """
     
@@ -1608,6 +1760,7 @@ class HCSV_reg:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class met_shifted_JetEnDown:
     """
     
@@ -1622,6 +1775,7 @@ class met_shifted_JetEnDown:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class met_shifted_JetResDown:
     """
     
@@ -1636,6 +1790,7 @@ class met_shifted_JetResDown:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class softActivity:
     """
     
@@ -1652,6 +1807,7 @@ class softActivity:
         self.njets5 = njets5 #number of jets from soft activity with pt>5Gev
         self.njets10 = njets10 #number of jets from soft activity with pt>10Gev
         self.HT = HT #sum pt of sa jets
+        pass
 class met_shifted_MuonEnUp:
     """
     
@@ -1666,6 +1822,7 @@ class met_shifted_MuonEnUp:
         self.pt = pt #
         self.phi = phi #
         self.sumEt = sumEt #
+        pass
 class HCSV_reg_corrJECDown:
     """
     
@@ -1682,6 +1839,7 @@ class HCSV_reg_corrJECDown:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class H_reg_corrJERUp:
     """
     
@@ -1698,6 +1856,7 @@ class H_reg_corrJERUp:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 class H_reg_corrJECDown:
     """
     
@@ -1714,6 +1873,7 @@ class H_reg_corrJECDown:
         self.eta = eta #
         self.phi = phi #
         self.mass = mass #
+        pass
 
 from PhysicsTools.HeppyCore.framework.analyzer import Analyzer
 class EventAnalyzer(Analyzer):

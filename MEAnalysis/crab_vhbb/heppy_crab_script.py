@@ -47,7 +47,8 @@ print "timeto_convertPFN ",(time.time()-t0)
 handle = open("heppy_config.py", 'r')
 cfo = imp.load_source("heppy_config", "heppy_config.py", handle)
 config = cfo.config
-config.preprocessor.options["lumisToProcess"] = PSet.process.source.lumisToProcess
+if hasattr(PSet.process.source, "lumisToProcess"):
+    config.preprocessor.options["lumisToProcess"] = PSet.process.source.lumisToProcess
 handle.close()
 print "timeto_setLumis ",(time.time()-t0)
 
@@ -83,6 +84,14 @@ config.components = [cfg.Component(
     xs = 1,
 )]
 config.components[0].isMC = cfo.sample.isMC
+
+if not cfo.sample.isMC:
+    from TTH.MEAnalysis.VHbbTree_data import EventAnalyzer
+    evs = cfg.Analyzer(
+        EventAnalyzer,
+        'events',
+    )
+    config.sequence[2] = evs
 looper = Looper('Output_tth', config, nPrint=0)
 looper.loop()
 looper.write()
