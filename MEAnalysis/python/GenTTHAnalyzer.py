@@ -29,7 +29,7 @@ class GenTTHAnalyzer(FilterAnalyzer):
     def _process(self, event):
 
         if not self.cfg_comp.isMC:
-            return True
+            return event 
 
         if "debug" in self.conf.general["verbosity"]:
             autolog("GenTTHAnalyzer started")

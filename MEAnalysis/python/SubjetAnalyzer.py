@@ -100,7 +100,7 @@ class SubjetAnalyzer(FilterAnalyzer):
     def process(self, event):
         #Process subjets with variated systematics
         for (syst, event_syst) in event.systResults.items():
-            if event_syst.passes_btag:
+            if getattr(event_syst, "passes_btag", False):
                 res = self._process(event_syst)
                 event.systResults[syst] = res
             else:

@@ -54,7 +54,6 @@ print "timeto_setLumis ",(time.time()-t0)
 
 #replace files with crab ones
 config.components[0].files=crabFiles
-print config.components[0]
 
 print "heppy_config", config
 from PhysicsTools.HeppyCore.framework.looper import Looper
@@ -121,7 +120,6 @@ tof.Close()
 
 f=ROOT.TFile.Open('tree.root')
 entries=f.Get('tree').GetEntries()
-f.Get('tree').Print("ALL")
 #Now write the FWKJobReport
 fwkreport='''<FrameworkJobReport>
 <ReadBranches>

@@ -158,8 +158,12 @@ datasets.update({
 #now we construct the workflows from all the base datasets
 workflow_datasets = {}
 workflow_datasets["leptonic"] = {}
-for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"]:
-    workflow_datasets["leptonic"][k] = datasets[k]
+#for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"]:
+for k in ["ttHTobb", "ttHToNonbb", "ttHToNonbb"]:
+    me_cfgs["leptonic"]
+    D = deepcopy(datasets[k])
+    D["mem_cfg"] = "cfg_leptonic.py"
+    workflow_datasets["leptonic"][k] = D
 
 workflow_datasets["data"] = {}
 for k in datasets.keys():
@@ -230,8 +234,8 @@ if __name__ == '__main__':
         total_files = 5
         files_per_job = 1
         if "data" in config.JobType.scriptExe:
-            total_files = 50
-            files_per_job = 10
+            total_files = 25
+            files_per_job = 5
 
         files_json = json.loads(subprocess.Popen([
             das_client,

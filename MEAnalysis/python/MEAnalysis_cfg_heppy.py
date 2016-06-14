@@ -210,7 +210,7 @@ class Conf:
             #"reco", #info about reconstructed final state
             #"meminput", #info about particles used for MEM input
             #"commoninput", #print out inputs for CommonClassifier
-            "commonclassifier",
+            #"commonclassifier",
         ],
 
         #"eventWhitelist": [
@@ -272,7 +272,7 @@ class Conf:
         #Actually run the ME calculation
         #If False, all ME values will be 0
         "calcME": False,
-        "calcMECommon": False,
+        "calcMECommon": True,
         "n_integration_points_mult": 1.0,
 
         "weight": 0.15, #k in Psb = Ps/(Ps+k*Pb)

@@ -288,7 +288,12 @@ if __name__ == "__main__":
     #Process all samples in the sample list
     for samp in inputSamples:
         if not samp.isMC:
-            continue
+            from TTH.MEAnalysis.VHbbTree_data import EventAnalyzer
+            evs = cfg.Analyzer(
+                EventAnalyzer,
+                'events',
+            )
+            sequence[2] = evs 
         if samp.skip: #DS
             continue
         config = cfg.Config(

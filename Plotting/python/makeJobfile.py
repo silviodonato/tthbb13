@@ -116,8 +116,8 @@ ret = {
         {
             "func": "jet0_pt",
             "xMin": 0,
-            "xMax": 300,
-            "nBins": 60
+            "xMax": 600,
+            "nBins": 100
         },
     ]
 }
