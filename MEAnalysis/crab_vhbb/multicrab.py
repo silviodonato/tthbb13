@@ -32,15 +32,15 @@ me_cfgs = {
 }
 
 sets_data = [
-    #  "/DoubleEG/Run2016B-PromptReco-v1/MINIAOD"
-    #, "/DoubleEG/Run2016B-PromptReco-v2/MINIAOD"
-    #, "/DoubleMuon/Run2016B-PromptReco-v1/MINIAOD"
-    #, "/DoubleMuon/Run2016B-PromptReco-v2/MINIAOD"
-    #, "/MuonEG/Run2016B-PromptReco-v1/MINIAOD"
-    #, "/MuonEG/Run2016B-PromptReco-v2/MINIAOD"
-    #, "/SingleElectron/Run2016B-PromptReco-v1/MINIAOD"
-    #, "/SingleElectron/Run2016B-PromptReco-v2/MINIAOD"
-     "/SingleMuon/Run2016B-PromptReco-v1/MINIAOD"
+      "/DoubleEG/Run2016B-PromptReco-v1/MINIAOD"
+    , "/DoubleEG/Run2016B-PromptReco-v2/MINIAOD"
+    , "/DoubleMuon/Run2016B-PromptReco-v1/MINIAOD"
+    , "/DoubleMuon/Run2016B-PromptReco-v2/MINIAOD"
+    , "/MuonEG/Run2016B-PromptReco-v1/MINIAOD"
+    , "/MuonEG/Run2016B-PromptReco-v2/MINIAOD"
+    , "/SingleElectron/Run2016B-PromptReco-v1/MINIAOD"
+    , "/SingleElectron/Run2016B-PromptReco-v2/MINIAOD"
+    , "/SingleMuon/Run2016B-PromptReco-v1/MINIAOD"
     , "/SingleMuon/Run2016B-PromptReco-v2/MINIAOD"
 ]
 
@@ -202,7 +202,7 @@ for k in ["ttHTobb", "TTbar_inc"]:
     workflow_datasets["testing"][k] = D
 
 workflow_datasets["localtesting"] = {}
-for k in ["ttHTobb", "SingleMuon-Run2016B-PromptReco-v1"]:
+for k in ["ttHTobb", "ttHToNonbb", "SingleMuon-Run2016B-PromptReco-v1"]:
     D = deepcopy(datasets[k])
     D["maxlumis"] = 10
     D["perjob"] = 1
