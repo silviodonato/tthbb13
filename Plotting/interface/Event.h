@@ -312,6 +312,8 @@ public:
     static const Jet makeNominal(const TreeData& data, int njet);
     static const Jet makeJESUp(const TreeData& data, int njet);
     static const Jet makeJESDown(const TreeData& data, int njet);
+    static const Jet makeJERUp(const TreeData& data, int njet);
+    static const Jet makeJERDown(const TreeData& data, int njet);
 };
 
 //Helper class to make various variated Event representations from TreeData
@@ -320,6 +322,8 @@ public:
     static const Event makeNominal(const TreeData& data, const Configuration& conf);
     static const Event makeJESUp(const TreeData& data, const Configuration& conf);
     static const Event makeJESDown(const TreeData& data, const Configuration& conf);
+    static const Event makeJERUp(const TreeData& data, const Configuration& conf);
+    static const Event makeJERDown(const TreeData& data, const Configuration& conf);
 };
 
 //A class combining a cut function, evaluated with this() along

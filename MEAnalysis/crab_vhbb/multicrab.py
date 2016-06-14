@@ -3,6 +3,8 @@ from copy import deepcopy
 import subprocess
 import json
 
+from splitLumi import getLumiListInFiles, chunks 
+from FWCore.PythonUtilities.LumiList import LumiList
 das_client = "/afs/cern.ch/user/v/valya/public/das_client.py"
 
 #Each time you call multicrab.py, you choose to submit jobs from one of these workflows
@@ -231,11 +233,9 @@ if __name__ == '__main__':
     
     def localsubmit(config, dname):
         
-        total_files = 5
-        files_per_job = 1
+        total_files = 1
         if "data" in config.JobType.scriptExe:
-            total_files = 25
-            files_per_job = 5
+            total_files = 5
 
         files_json = json.loads(subprocess.Popen([
             das_client,
@@ -244,13 +244,15 @@ if __name__ == '__main__':
             '--query=file dataset={0}'.format(config.Data.inputDataset)],
             stdout=subprocess.PIPE).stdout.read())
         files = ["root://xrootd-cms.infn.it///" + files_json["data"][i]["file"][0]["name"] for i in range(len(files_json["data"]))]
-        for ijob, fi0 in enumerate(range(0, total_files, files_per_job)):
-            fi = files[fi0:fi0+files_per_job]
-            fi = map(lambda x: x.encode("ascii"), fi)
-            import PSet
+        files = map(lambda x: x.encode("ascii"), files)
+        lumis = getLumiListInFiles(files).getLumis()[:config.Data.totalUnits]
+        for ijob, lumiblock in enumerate(chunks(lumis, config.Data.unitsPerJob)):
+            fi = files
+            import PSet_base as PSet
             import FWCore.ParameterSet.Config as cms
             PSet.process.source.fileNames = cms.untracked.vstring(fi)
             of = open("PSet.py", "w")
+            PSet.process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange(LumiList(lumis=lumiblock))
             of.write(PSet.process.dumpPython())
             of.close()
 
@@ -276,6 +278,17 @@ if __name__ == '__main__':
             os.system("cp -r $CMSSW_BASE/lib/slc*/proclib {0}/lib/slc*/".format(workdir)) 
             os.system('find $CMSSW_BASE/src/ -path "*/data/*" -type f | sed -s "s|$CMSSW_BASE/||" > files')
             os.system('cp files $CMSSW_BASE/; cd $CMSSW_BASE; for f in `cat files`; do cp --parents $f {0}/; done'.format(workdir))
+            runfile = open(workdir+"/run.sh", "w")
+            runfile.write(
+"""
+#!/bin/bash
+./{0} 1
+ls -al .
+""".format(config.JobType.scriptExe).strip() + '\n'
+)
+            runfile.close()
+            os.system('chmod +x {0}/run.sh'.format(workdir))
+            os.system('cd {0};tar -zcvf job_{1}.tar.gz {2}'.format(TMPDIR, ijob, CMSSW_VERSION))
             #os.system("cp -r $CMSSW_BASE/include {0}/".format(workdir)) 
             #os.system("cp -r $CMSSW_BASE/src {0}/".format(workdir)) 
 
@@ -351,7 +364,10 @@ if __name__ == '__main__':
         config.Data.unitsPerJob = perjob
         config.Data.totalUnits = nlumis
         config.Data.outputDatasetTag = submitname
-        config.Data.outLFNDirBase = '/store/user/{0}/tth/'.format(getUsernameFromSiteDB()) + submitname
+        try:
+            config.Data.outLFNDirBase = '/store/user/{0}/tth/'.format(getUsernameFromSiteDB()) + submitname
+        except Exception as e:
+            config.Data.outLFNDirBase = '/store/user/{0}/tth/'.format(os.environ["USER"]) + submitname
         config.JobType.scriptArgs = ['ME_CONF={0}'.format(mem_cfg)]
         if args.workflow == "localtesting":
             localsubmit(config, sample)

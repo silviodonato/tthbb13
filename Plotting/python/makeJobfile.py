@@ -108,7 +108,19 @@ ret = {
             "nBins": 4
         },
         {
-            "func": "btag_LR_4b_2b_logit",
+            "func": "nBCMVAM",
+            "xMin": 1,
+            "xMax": 5,
+            "nBins": 4
+        },
+        {
+            "func": "btag_LR_4b_2b_logit_btagBDT",
+            "xMin": -20,
+            "xMax": 20,
+            "nBins": 50
+        },
+        {
+            "func": "btag_LR_4b_2b_logit_btagCMVA",
             "xMin": -20,
             "xMax": 20,
             "nBins": 50
