@@ -192,19 +192,19 @@ workflow_datasets["pilot"][pilot_name] = D
 
 #1-lumi per job, 10 job testing of a few samples
 workflow_datasets["testing"] = {}
-for k in ["ttHTobb", "TTbar_inc"]:
+for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v2"]:
     D = deepcopy(datasets[k])
     D["maxlumis"] = 10
     D["perjob"] = 1
     if "data" in D["script"]:
-        D["maxlumis"] = 250
-        D["perjob"] = 25
-    D["runtime"] = 1
+        D["maxlumis"] = 50
+        D["perjob"] = 5
+    D["runtime"] = 2
     D["mem_cfg"] = "cfg_noME.py"
     workflow_datasets["testing"][k] = D
 
 workflow_datasets["localtesting"] = {}
-for k in ["ttHTobb", "ttHToNonbb", "SingleMuon-Run2016B-PromptReco-v1"]:
+for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v1"]:
     D = deepcopy(datasets[k])
     D["maxlumis"] = 10
     D["perjob"] = 1
@@ -213,10 +213,13 @@ for k in ["ttHTobb", "ttHToNonbb", "SingleMuon-Run2016B-PromptReco-v1"]:
     workflow_datasets["localtesting"][k] = D
 
 workflow_datasets["testing_withme"] = {}
-for k in ["ttHTobb", "TTbar_inc"]:
+for k in ["ttHTobb", "TTbar_inc", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v1"]:
     D = deepcopy(datasets[k])
     D["maxlumis"] = 10
     D["perjob"] = 1
+    if "data" in D["script"]:
+        D["maxlumis"] = 50
+        D["perjob"] = 5
     D["runtime"] = 5
     D["mem_cfg"] = me_cfgs["default"]
     workflow_datasets["testing_withme"][k] = D
@@ -243,7 +246,11 @@ if __name__ == '__main__':
             "--limit={0}".format(total_files),
             '--query=file dataset={0}'.format(config.Data.inputDataset)],
             stdout=subprocess.PIPE).stdout.read())
-        files = ["root://xrootd-cms.infn.it///" + files_json["data"][i]["file"][0]["name"] for i in range(len(files_json["data"]))]
+        try:
+            files = ["root://xrootd-cms.infn.it///" + files_json["data"][i]["file"][0]["name"] for i in range(len(files_json["data"]))]
+        except Exception as e:
+            print "Could not perform DAS query", files_json
+            raise e
         files = map(lambda x: x.encode("ascii"), files)
         lumis = getLumiListInFiles(files).getLumis()[:config.Data.totalUnits]
         for ijob, lumiblock in enumerate(chunks(lumis, config.Data.unitsPerJob)):
@@ -252,7 +259,7 @@ if __name__ == '__main__':
             import FWCore.ParameterSet.Config as cms
             PSet.process.source.fileNames = cms.untracked.vstring(fi)
             of = open("PSet.py", "w")
-            PSet.process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange(LumiList(lumis=lumiblock))
+            PSet.process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange(LumiList(lumis=lumiblock).getCMSSWString())
             of.write(PSet.process.dumpPython())
             of.close()
 
@@ -282,6 +289,8 @@ if __name__ == '__main__':
             runfile.write(
 """
 #!/bin/bash
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+eval `scramv1 runtime -sh`
 ./{0} 1
 ls -al .
 """.format(config.JobType.scriptExe).strip() + '\n'

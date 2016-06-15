@@ -285,18 +285,19 @@ class SubjetAnalyzer(FilterAnalyzer):
                     setattr(fatjet, var + "_" + fatjetkind, -9999)
                     
 
-            #match higgs candidate to generated higgs
-            genhiggs = getattr(event, "GenHiggsBoson", [])
-            if self.cfg_comp.isMC and genhiggs:
-                lv1 = lvec(fatjet)
-                lv2 = lvec(genhiggs[0])
-                fatjet.dr_genHiggs = lv1.DeltaR(lv2)
+            if self.cfg_comp.isMC:
+                #match higgs candidate to generated higgs
+                genhiggs = getattr(event, "GenHiggsBoson", [])
+                if len(genhiggs)>0:
+                    lv1 = lvec(fatjet)
+                    lv2 = lvec(genhiggs[0])
+                    fatjet.dr_genHiggs = lv1.DeltaR(lv2)
 
-            #match higgs candidate to generated tops
-            gentops = [x for x in event.GenTop if x.pt>self.GenTop_pt_cut]
-            if self.cfg_comp.isMC and gentops:
-                lv1 = lvec(fatjet)
-                fatjet.dr_genTop = min([lv1.DeltaR(lvec(x)) for x in gentops])
+                #match higgs candidate to generated tops
+                gentops = [x for x in getattr(event, "GenTop", []) if x.pt>self.GenTop_pt_cut]
+                if len(gentops)>0:
+                    lv1 = lvec(fatjet)
+                    fatjet.dr_genTop = min([lv1.DeltaR(lvec(x)) for x in gentops])
     
             higgsCandidates.append( fatjet )
             higgs_present = True

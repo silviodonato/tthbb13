@@ -142,3 +142,11 @@ tthbb13=d049292
 CommonClassifier=3746eb6
 MEIntegratorStandalone=c8307f6
 CMSSW=a86897c
+
+
+Jun14_data
+-------------
+tthbb13=92b7f8b
+CommonClassifier=3746eb6
+MEIntegratorStandalone=c8307f6
+CMSSW=bf6bf23
