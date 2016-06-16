@@ -33,16 +33,6 @@ me_cfgs = {
     "hadronic": "cfg_FH.py",
 }
 
-files_local = {
-    "ttHTobb": [
-        "/store/mc/RunIISpring16MiniAODv2/ttHTobb_M125_13TeV_powheg_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/50000/0CFE0FCC-6E2C-E611-9789-02163E0116AC.root"
-    ],
-    "TTbar_inc": [
-        "/store/mc/RunIISpring16MiniAODv2/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext3-v1/00000/000B9244-4B27-E611-91D2-7845C4FC3C6B.root",
-    ],
-    "SingleMuon-Run2016B-PromptReco-v2": map(lambda x: x.strip(), open("SingleMuon.txt").readlines()),
-}
-
 sets_data = [
       "/DoubleEG/Run2016B-PromptReco-v1/MINIAOD"
     , "/DoubleEG/Run2016B-PromptReco-v2/MINIAOD"
@@ -245,7 +235,7 @@ if __name__ == '__main__':
     
     def localsubmit(config, dname, opts):
         TMPDIR = "/scratch/{0}/crab_work/{1}/crab_{2}".format(os.environ["USER"], args.tag, dname)
-        CMSSW_VERSION = "CMSSW_8_0_5"
+        CMSSW_VERSION = "CMSSW_8_0_11"
         workdir = os.path.join(TMPDIR, CMSSW_VERSION, "work")
         try: 
             shutil.rmtree(TMPDIR)
@@ -282,7 +272,7 @@ env
         os.system('chmod +x {0}/run.sh'.format(workdir))
         os.system('cd {0}/{1};eval `scram runtime -sh`;scram b;'.format(TMPDIR, CMSSW_VERSION))
         os.system('cd {0};tar zcfv job_{1}.tar.gz {2} > {1}.log'.format(TMPDIR, TMPDIR.split("/")[-1], CMSSW_VERSION))
-        #os.system("cp -r $CMSSW_BASE/include {0}/".format(workdir)) 
+        os.system("cp {0}/job_{1}.tar.gz ./".format(TMPDIR, TMPDIR.split("/")[-1]))
         #os.system("cp -r $CMSSW_BASE/src {0}/".format(workdir)) 
 
     from CRABClient.UserUtilities import config
