@@ -57,7 +57,12 @@ config.components[0].files=crabFiles
 
 print "heppy_config", config
 from PhysicsTools.HeppyCore.framework.looper import Looper
-looper = Looper( 'Output', config, nPrint=0)
+if hasattr(PSet.process.source, "skipEvents") and PSet.process.source.skipEvents.value()>0:
+    nfirst = int(PSet.process.source.skipEvents.value())
+    nmax = int(PSet.process.maxEvents.input.value())
+    looper = Looper( 'Output', config, nPrint=0, nEvents=nmax, firstEvent=nfirst)
+else:
+    looper = Looper( 'Output', config, nPrint=0)
 looper.loop()
 looper.write()
 print "timeto_doVHbb ",(time.time()-t0)
