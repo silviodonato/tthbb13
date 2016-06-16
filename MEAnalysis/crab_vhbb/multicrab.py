@@ -33,6 +33,16 @@ me_cfgs = {
     "hadronic": "cfg_FH.py",
 }
 
+files_local = {
+    "ttHTobb": [
+        "/store/mc/RunIISpring16MiniAODv2/ttHTobb_M125_13TeV_powheg_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/50000/0CFE0FCC-6E2C-E611-9789-02163E0116AC.root"
+    ],
+    "TTbar_inc": [
+        "/store/mc/RunIISpring16MiniAODv2/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext3-v1/00000/000B9244-4B27-E611-91D2-7845C4FC3C6B.root",
+    ],
+    "SingleMuon-Run2016B-PromptReco-v2": map(lambda x: x.strip(), open("SingleMuon.txt").readlines()),
+}
+
 sets_data = [
       "/DoubleEG/Run2016B-PromptReco-v1/MINIAOD"
     , "/DoubleEG/Run2016B-PromptReco-v2/MINIAOD"
@@ -204,10 +214,9 @@ for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-
     workflow_datasets["testing"][k] = D
 
 workflow_datasets["localtesting"] = {}
-for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v1"]:
+for k in ["ttHTobb", "SingleMuon-Run2016B-PromptReco-v2"]:
     D = deepcopy(datasets[k])
-    D["maxlumis"] = 10
-    D["perjob"] = 1
+    D["splitmode"] = "file"
     D["runtime"] = 1
     D["mem_cfg"] = "cfg_noME.py"
     workflow_datasets["localtesting"][k] = D
@@ -234,72 +243,47 @@ if __name__ == '__main__':
     def submit(config):
         res = crabCommand('submit', config = config)
     
-    def localsubmit(config, dname):
-        
-        total_files = 1
-        if "data" in config.JobType.scriptExe:
-            total_files = 5
-
-        files_json = json.loads(subprocess.Popen([
-            das_client,
-            "--format=json",
-            "--limit={0}".format(total_files),
-            '--query=file dataset={0}'.format(config.Data.inputDataset)],
-            stdout=subprocess.PIPE).stdout.read())
-        try:
-            files = ["root://xrootd-cms.infn.it///" + files_json["data"][i]["file"][0]["name"] for i in range(len(files_json["data"]))]
+    def localsubmit(config, dname, opts):
+        TMPDIR = "/scratch/{0}/crab_work/{1}/crab_{2}".format(os.environ["USER"], args.tag, dname)
+        CMSSW_VERSION = "CMSSW_8_0_5"
+        workdir = os.path.join(TMPDIR, CMSSW_VERSION, "work")
+        try: 
+            shutil.rmtree(TMPDIR)
         except Exception as e:
-            print "Could not perform DAS query", files_json
-            raise e
-        files = map(lambda x: x.encode("ascii"), files)
-        lumis = getLumiListInFiles(files).getLumis()[:config.Data.totalUnits]
-        for ijob, lumiblock in enumerate(chunks(lumis, config.Data.unitsPerJob)):
-            fi = files
-            import PSet_base as PSet
-            import FWCore.ParameterSet.Config as cms
-            PSet.process.source.fileNames = cms.untracked.vstring(fi)
-            of = open("PSet.py", "w")
-            PSet.process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange(LumiList(lumis=lumiblock).getCMSSWString())
-            of.write(PSet.process.dumpPython())
-            of.close()
-
-            TMPDIR = "/scratch/{0}/crab_work/{1}/crab_{2}_{3}".format(os.environ["USER"], args.tag, dname, ijob)
-            CMSSW_VERSION = "CMSSW_8_0_5"
-            workdir = os.path.join(TMPDIR, CMSSW_VERSION, "work")
-            try: 
-                shutil.rmtree(TMPDIR)
-            except Exception as e:
-                pass
-            os.makedirs(TMPDIR)
-            os.system("cd {0}".format(TMPDIR))
-            pwd = os.getcwd() 
-            os.chdir(TMPDIR)
-            os.system("scramv1 project CMSSW {0}".format(CMSSW_VERSION))
-            os.makedirs(workdir)
-            os.chdir(pwd)
-            for inf in config.JobType.inputFiles + [config.JobType.scriptExe, 'PSet.py']:
-                print inf
-                shutil.copy(inf, os.path.join(workdir, os.path.basename(inf)))
-            os.system("cp -r $CMSSW_BASE/lib {0}/".format(workdir)) 
-            os.system("cp {0} {1}/x509_proxy".format(os.environ["X509_USER_PROXY"], workdir)) 
-            os.system("cp -r $CMSSW_BASE/lib/slc*/proclib {0}/lib/slc*/".format(workdir)) 
-            os.system('find $CMSSW_BASE/src/ -path "*/data/*" -type f | sed -s "s|$CMSSW_BASE/||" > files')
-            os.system('cp files $CMSSW_BASE/; cd $CMSSW_BASE; for f in `cat files`; do cp --parents $f {0}/; done'.format(workdir))
-            runfile = open(workdir+"/run.sh", "w")
-            runfile.write(
+            pass
+        os.makedirs(TMPDIR)
+        os.system("cd {0}".format(TMPDIR))
+        pwd = os.getcwd() 
+        os.chdir(TMPDIR)
+        os.system("scramv1 project CMSSW {0}".format(CMSSW_VERSION))
+        os.makedirs(workdir)
+        os.chdir(pwd)
+        for inf in config.JobType.inputFiles + [config.JobType.scriptExe, 'PSet_local.py']:
+            shutil.copy(inf, os.path.join(workdir, os.path.basename(inf)))
+        os.system("cp -r $CMSSW_BASE/lib {0}/".format(workdir)) 
+        os.system("mv {0}/PSet_local.py {0}/PSet.py".format(workdir)) 
+        os.system("cp {0} {1}/x509_proxy".format(os.environ["X509_USER_PROXY"], workdir)) 
+        os.system("cp -r $CMSSW_BASE/lib/slc*/proclib {0}/lib/slc*/".format(workdir)) 
+        os.system('find $CMSSW_BASE/src/ -path "*/data/*" -type f | sed -s "s|$CMSSW_BASE/||" > files')
+        os.system('cp files $CMSSW_BASE/; cd $CMSSW_BASE; for f in `cat files`; do cp --parents $f {0}/; done'.format(workdir))
+        runfile = open(workdir+"/run.sh", "w")
+        runfile.write(
 """
 #!/bin/bash
 source /cvmfs/cms.cern.ch/cmsset_default.sh
+scram b ProjectRename
 eval `scramv1 runtime -sh`
+scram b
+env
 ./{0} 1
-ls -al .
 """.format(config.JobType.scriptExe).strip() + '\n'
 )
-            runfile.close()
-            os.system('chmod +x {0}/run.sh'.format(workdir))
-            os.system('cd {0};tar -zcvf job_{1}.tar.gz {2}'.format(TMPDIR, ijob, CMSSW_VERSION))
-            #os.system("cp -r $CMSSW_BASE/include {0}/".format(workdir)) 
-            #os.system("cp -r $CMSSW_BASE/src {0}/".format(workdir)) 
+        runfile.close()
+        os.system('chmod +x {0}/run.sh'.format(workdir))
+        os.system('cd {0}/{1};eval `scram runtime -sh`;scram b;'.format(TMPDIR, CMSSW_VERSION))
+        os.system('cd {0};tar zcfv job_{1}.tar.gz {2} > {1}.log'.format(TMPDIR, TMPDIR.split("/")[-1], CMSSW_VERSION))
+        #os.system("cp -r $CMSSW_BASE/include {0}/".format(workdir)) 
+        #os.system("cp -r $CMSSW_BASE/src {0}/".format(workdir)) 
 
     from CRABClient.UserUtilities import config
     config = config()
@@ -379,7 +363,7 @@ ls -al .
             config.Data.outLFNDirBase = '/store/user/{0}/tth/'.format(os.environ["USER"]) + submitname
         config.JobType.scriptArgs = ['ME_CONF={0}'.format(mem_cfg)]
         if args.workflow == "localtesting":
-            localsubmit(config, sample)
+            localsubmit(config, sample, sel_datasets[sample])
         else:
             try:
                 submit(config)
