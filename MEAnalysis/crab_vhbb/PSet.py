@@ -4,13 +4,7 @@ import os
 process = cms.Process("FAKE")
 
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring(
-        map(lambda x: "root://xrootd-cms.infn.it//" + x, os.environ["FILE_NAMES"].split())
-    ),
-    skipEvents = cms.untracked.uint32(int(os.environ["SKIP_EVENTS"]))
-)
-process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(int(os.environ["MAX_EVENTS"]))
+    fileNames = cms.untracked.vstring()
 )
 process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('tree.root')
