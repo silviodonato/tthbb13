@@ -544,7 +544,7 @@ class SubjetAnalyzer(FilterAnalyzer):
         event.n_matched_TTgenb = -1
         event.n_matched_TTgenW = -1
 
-        if len(tops)>0:
+        if self.cfg_comp.isMC and len(tops)>0:
             self.Do_GenTop_Matching(event)
 
         return event 
@@ -559,8 +559,8 @@ class SubjetAnalyzer(FilterAnalyzer):
         # in the event, but these branches do not have to be filled (they will be
         # automatically set to -1 in the final output root file).
 
-       
-        self.Do_Quark_Matching( event )
+        if self.cfg_comp.isMC:
+            self.Do_Quark_Matching( event )
 
        
     ########################################
