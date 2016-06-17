@@ -160,8 +160,7 @@ datasets.update({
 #now we construct the workflows from all the base datasets
 workflow_datasets = {}
 workflow_datasets["leptonic"] = {}
-#for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"]:
-for k in ["ttHTobb", "ttHToNonbb", "ttHToNonbb"]:
+for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"]:
     me_cfgs["leptonic"]
     D = deepcopy(datasets[k])
     D["mem_cfg"] = "cfg_leptonic.py"
@@ -170,7 +169,8 @@ for k in ["ttHTobb", "ttHToNonbb", "ttHToNonbb"]:
 workflow_datasets["data"] = {}
 for k in datasets.keys():
     if "data" in datasets[k]["script"]:
-        workflow_datasets["data"][k] = datasets[k]
+        D = deepcopy(datasets[k])
+        workflow_datasets["data"][k] = D
 
 #workflow_datasets["hadronic"] = {}
 #for k in datasets.keys():
@@ -184,7 +184,7 @@ for k in datasets.keys():
 
 #Pilot job for updating transfer functions, retraining BLR
 workflow_datasets["pilot"] = {}
-pilot_name = "TTbar_inc" 
+pilot_name = 'ttHTobb'
 D = deepcopy(datasets[pilot_name])
 D["perjob"] = 300
 D["mem_cfg"] = me_cfgs["nome"]
@@ -198,7 +198,7 @@ for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-
     D["perjob"] = 5
     if "data" in D["script"]:
         D["maxlumis"] = 250
-        D["perjob"] = 50
+        D["perjob"] = 25
     D["runtime"] = 2
     D["mem_cfg"] = "cfg_noME.py"
     workflow_datasets["testing"][k] = D

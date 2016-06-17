@@ -150,3 +150,11 @@ tthbb13=92b7f8b
 CommonClassifier=3746eb6
 MEIntegratorStandalone=c8307f6
 CMSSW=bf6bf23
+
+
+Jun16_pilot
+-------------
+tthbb13=db33dfc
+CommonClassifier=3746eb6
+MEIntegratorStandalone=c8307f6
+CMSSW=de81ced
