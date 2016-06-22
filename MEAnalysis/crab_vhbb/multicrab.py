@@ -11,6 +11,7 @@ das_client = "/afs/cern.ch/user/v/valya/public/das_client.py"
 workflows = [
     "data", #real data
     "leptonic", #ttH with SL/DL decays
+    "leptonic_nome", #ttH with SL/DL decays
     "hadronic", #ttH with FH decays
     "pilot", #ttH sample only, with no MEM
     "testing", #single-lumi jobs, a few samples
@@ -48,8 +49,10 @@ sets_data = [
 
 #all available datasets.
 datasets = {}
+datanames = []
 for sd in sets_data:
     name = "-".join(sd.split("/")[1:3])
+    datanames += [name]
     datasets[name] = {
         "ds": sd,
         "maxlumis": -1,
@@ -60,7 +63,7 @@ for sd in sets_data:
     }
 datasets.update({
     'ttHTobb': {
-        "ds": '/ttHTobb_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM',
+        "ds": '/ttHTobb_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2/MINIAODSIM',
         "maxlumis": -1,
         "perjob": 20,
         "runtime": 40,
@@ -161,10 +164,20 @@ datasets.update({
 workflow_datasets = {}
 workflow_datasets["leptonic"] = {}
 for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"]:
-    me_cfgs["leptonic"]
     D = deepcopy(datasets[k])
     D["mem_cfg"] = "cfg_leptonic.py"
     workflow_datasets["leptonic"][k] = D
+
+
+workflow_datasets["leptonic_nome"] = {}
+for k in ["ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"] + datanames:
+    D = deepcopy(datasets[k])
+    D["perjob"] = 200
+    if "data" in D["script"]:
+        D["perjob"] = 100
+
+    D["mem_cfg"] = "cfg_noME.py"
+    workflow_datasets["leptonic_nome"][k] = D
 
 workflow_datasets["data"] = {}
 for k in datasets.keys():

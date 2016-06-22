@@ -1,6 +1,7 @@
 import TTH.Plotting.Helpers.CompareDistributionsHelpers as compare_utils
 from TTH.Plotting.Helpers.CompareDistributionsHelpers import combinedPlot, plot
 from TTH.MEAnalysis.samples_base import getSitePrefix
+from TTH.MEAnalysis.samples import samples
 from TTH.Plotting.Datacards.sparse import save_hdict
 import os
 
@@ -10,21 +11,23 @@ ROOT.TH1.SetDefaultSumw2(True)
 DATASETPATH = os.environ["DATASETPATH"]
 sample = DATASETPATH.split("__")[1]
 FILE_NAMES = os.environ["FILE_NAMES"].split()
+samp = samples[sample]
 
 combinedPlot(
     "numJets",
     [
         plot("sl", "numJets", "is_sl", "sample"),
+        plot("dl", "numJets", "is_dl", "sample"),
+    ] + [
         plot("sl_JESUp", "numJets_JESUp", "is_sl", "sample"),
         plot("sl_JESDown", "numJets_JESDown", "is_sl", "sample"),
         plot("sl_JERUp", "numJets_JERUp", "is_sl", "sample"),
         plot("sl_JERDown", "numJets_JERDown", "is_sl", "sample"),
-        plot("dl", "numJets", "is_dl", "sample"),
         plot("dl_JESUp", "numJets_JESUp", "is_dl", "sample"),
         plot("dl_JESDown", "numJets_JESDown", "is_dl", "sample"),
         plot("dl_JERUp", "numJets_JERUp", "is_dl", "sample"),
         plot("dl_JERDown", "numJets_JERDown", "is_dl", "sample"),
-    ],
+    ] if samp["isMC"] else [],
     10,
     0,
     10,
@@ -34,21 +37,22 @@ combinedPlot(
     "nBCSVM",
     [
         plot("sl", "nBCSVM", "is_sl", "sample"),
-        plot("sl_JESUp", "nBCSVM_JESUp", "is_sl", "sample"),
-        plot("sl_JESDown", "nBCSVM_JESDown", "is_sl", "sample"),
-        plot("sl_JERUp", "nBCSVM_JERUp", "is_sl", "sample"),
-        plot("sl_JERDown", "nBCSVM_JERDown", "is_sl", "sample"),
         plot("dl", "nBCSVM", "is_dl", "sample"),
-        plot("dl_JESUp", "nBCSVM_JESUp", "is_dl", "sample"),
-        plot("dl_JESDown", "nBCSVM_JESDown", "is_dl", "sample"),
-        plot("dl_JERUp", "nBCSVM_JERUp", "is_dl", "sample"),
-        plot("dl_JERDown", "nBCSVM_JERDown", "is_dl", "sample"),
         plot("sl_j4", "nBCSVM", "is_sl && numJets==4", "sample"),
         plot("sl_j5", "nBCSVM", "is_sl && numJets==5", "sample"),
         plot("sl_jge6", "nBCSVM", "is_sl && numJets>=6", "sample"),
         plot("dl_j3", "nBCSVM", "is_sl && numJets==3", "sample"),
         plot("dl_jge4", "nBCSVM", "is_sl && numJets>=4", "sample"),
-    ],
+    ] + [
+        plot("sl_JESUp", "nBCSVM_JESUp", "is_sl", "sample"),
+        plot("sl_JESDown", "nBCSVM_JESDown", "is_sl", "sample"),
+        plot("sl_JERUp", "nBCSVM_JERUp", "is_sl", "sample"),
+        plot("sl_JERDown", "nBCSVM_JERDown", "is_sl", "sample"),
+        plot("dl_JESUp", "nBCSVM_JESUp", "is_dl", "sample"),
+        plot("dl_JESDown", "nBCSVM_JESDown", "is_dl", "sample"),
+        plot("dl_JERUp", "nBCSVM_JERUp", "is_dl", "sample"),
+        plot("dl_JERDown", "nBCSVM_JERDown", "is_dl", "sample"),
+    ] if samp["isMC"] else [],
     10,
     0,
     10,
@@ -58,6 +62,7 @@ combinedPlot(
     "jets_pt_0",
     [
         plot("sl", "jets_pt[0]", "is_sl", "sample"),
+    ] + ([
         plot("sl_JESUp", "jets_pt[0]*jets_corr_JESUp[0]/jets_corr[0]", "is_sl", "sample"),
         plot("sl_JESDown", "jets_pt[0]*jets_corr_JESDown[0]/jets_corr[0]", "is_sl", "sample"),
         plot("sl_bTagWeight", "jets_pt[0]", "bTagWeight * is_sl", "sample"),
@@ -65,7 +70,7 @@ combinedPlot(
     ] + [
         plot("sl_bTagWeight_{0}".format(bw), "jets_pt[0]", "bTagWeight_{0} * is_sl".format(bw), "sample") for
         bw in [a+b for a in ["HF", "JES", "LF", "cErr1", "cErr2", "HFStats1", "HFStats2", "LFStats1", "LFStats2"] for b in ["Up", "Down"]] 
-    ],
+    ]) if samp["isMC"] else [],
     100,
     0,
     400,
@@ -75,6 +80,7 @@ combinedPlot(
     "jets_eta_0",
     [
         plot("sl", "jets_eta[0]", "is_sl", "sample"),
+    ] + ([
         plot("sl_JESUp", "jets_eta[0]*jets_corr_JESUp[0]/jets_corr[0]", "is_sl", "sample"),
         plot("sl_JESDown", "jets_eta[0]*jets_corr_JESDown[0]/jets_corr[0]", "is_sl", "sample"),
         plot("sl_bTagWeight", "jets_eta[0]", "bTagWeight * is_sl", "sample"),
@@ -82,7 +88,7 @@ combinedPlot(
     ] + [
         plot("sl_bTagWeight_{0}".format(bw), "jets_eta[0]", "bTagWeight_{0} * is_sl".format(bw), "sample") for
         bw in [a+b for a in ["HF", "JES", "LF", "cErr1", "cErr2", "HFStats1", "HFStats2", "LFStats1", "LFStats2"] for b in ["Up", "Down"]] 
-    ],
+    ]) if samp["isMC"] else [],
     100,
     -5,
     5,
@@ -130,7 +136,7 @@ combinedPlot(
     ] + [
         plot("sl_bTagWeight_{0}".format(bw), "jets_btagCSV", "bTagWeight_{0} * is_sl".format(bw), "sample") for
         bw in [a+b for a in ["HF", "JES", "LF", "cErr1", "cErr2", "HFStats1", "HFStats2", "LFStats1", "LFStats2"] for b in ["Up", "Down"]] 
-    ],
+    ] if samp["isMC"] else [],
     100,
     0,
     1,
@@ -146,7 +152,7 @@ combinedPlot(
     ] + [
         plot("sl_bTagWeight_{0}".format(bw), "jets_btagCMVA", "bTagWeight_{0} * is_sl".format(bw), "sample") for
         bw in [a+b for a in ["HF", "JES", "LF", "cErr1", "cErr2", "HFStats1", "HFStats2", "LFStats1", "LFStats2"] for b in ["Up", "Down"]] 
-    ],
+    ] if samp["isMC"] else [],
     100,
     -1,
     1,
