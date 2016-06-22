@@ -272,7 +272,7 @@ class Conf:
         #Actually run the ME calculation
         #If False, all ME values will be 0
         "calcME": False,
-        "calcMECommon": True,
+        "calcMECommon": False,
         "n_integration_points_mult": 1.0,
 
         "weight": 0.15, #k in Psb = Ps/(Ps+k*Pb)
@@ -340,18 +340,19 @@ class Conf:
 
         #This configures the MEMs to actually run, the rest will be set to 0
         "methodsToRun": [
-            "SL_0w2h2t",
-            "DL_0w2h2t",
-            "SL_1w2h2t",
+            #"SL_0w2h2t",
+            #"DL_0w2h2t",
+            #"SL_1w2h2t",
             #"SL_2w2h1t_l",
             #"SL_2w2h1t_h",
             "SL_2w2h2t",
-            "SL_2w2h2t_sj",
+            "SL_2w2h2t_1j",
+            #"SL_2w2h2t_sj",
             #"SL_0w2h2t_sj",
             #"SL_2w2h2t_memLR",
             #"SL_0w2h2t_memLR",
             #"DL_0w2h2t_Rndge4t",
-            "FH_4w2h2t", #8j,4b
+            #"FH_4w2h2t", #8j,4b
             #"FH_3w2h2t", #7j,4b
             #"FH_4w2h1t", #7j,3b & 8j,3b
             #"FH_0w0w2h2t", #all 4b cats
@@ -369,7 +370,6 @@ CvectorPSVar = getattr(ROOT, "std::vector<MEM::PSVar::PSVar>")
 ###
 ### SL_2w2h2t
 ###
-#FIXME: why == here and not >= ?
 c = MEMConfig(Conf)
 c.do_calculate = lambda ev, mcfg: (
     len(mcfg.lepton_candidates(ev)) == 1 and
@@ -383,6 +383,24 @@ strat.push_back(MEM.Permutations.QUntagged)
 strat.push_back(MEM.Permutations.BTagged)
 c.cfg.perm_pruning = strat
 Conf.mem_configs["SL_2w2h2t"] = c
+
+###
+### SL_2w2h2t_1j
+###
+c = MEMConfig(Conf)
+c.do_calculate = lambda ev, mcfg: (
+    len(mcfg.lepton_candidates(ev)) == 1 and
+    len(mcfg.b_quark_candidates(ev)) >= 4 and
+    len(mcfg.l_quark_candidates(ev)) >= 3
+)
+c.mem_assumptions.add("sl")
+strat = CvectorPermutations()
+strat.push_back(MEM.Permutations.QQbarBBbarSymmetry)
+strat.push_back(MEM.Permutations.QUntagged)
+strat.push_back(MEM.Permutations.BTagged)
+c.cfg.perm_pruning = strat
+c.cfg.int_code += ROOT.MEM.IntegrandType.AdditionalRadiation
+Conf.mem_configs["SL_2w2h2t_1j"] = c
 
 ###
 ### SL_1w2h2t
