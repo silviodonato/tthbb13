@@ -173,9 +173,7 @@ class MEAnalyzer(FilterAnalyzer):
         cfg.configure_btag_pdf(self.conf)
         cfg.configure_transfer_function(self.conf)
         self.integrator = MEM.Integrand(
-            0, 
-            #MEM.output,
-            #MEM.output + MEM.input + MEM.init + MEM.init_more,
+            MEM.output, #verbosity level
             cfg.cfg
         )
 
@@ -221,8 +219,8 @@ class MEAnalyzer(FilterAnalyzer):
                 p4s=(jet.pt, jet.eta, jet.phi, jet.mass),
                 obs_dict={
                     MEM.Observable.BTAG: jet.btagFlag,
-                    MEM.Observable.CSV: getattr(jet, mem_cfg.btagMethod, -1),
-                    MEM.Observable.PDGID: getattr(jet, "PDGID", 0)
+                    #MEM.Observable.CSV: getattr(jet, mem_cfg.btagMethod, -1),
+                    #MEM.Observable.PDGID: getattr(jet, "PDGID", 0)
                     },
                 tf_dict={
                     MEM.TFType.bReco: jet.tf_b, MEM.TFType.qReco: jet.tf_l,
@@ -233,8 +231,8 @@ class MEAnalyzer(FilterAnalyzer):
                     jet.pt, jet.eta, jet.phi, jet.mass,\
                     ", Flag: ", jet.btagFlag,\
                     ", CSV: ",  getattr(jet, mem_cfg.btagMethod, -1),\
-                    ", PDGID: ",  getattr(jet, "PDGID", 0)
-                    #", Match: ", jet.tth_match_label, jet.tth_match_index\
+                    ", PDGID: ",  getattr(jet, "PDGID", -1),\
+                    ", Match: ", jet.tth_match_label, jet.tth_match_index
                 
                 
         for lep in mem_cfg.lepton_candidates(event):
@@ -402,6 +400,10 @@ class MEAnalyzer(FilterAnalyzer):
                         hypo, confname,
                         event.input.run, event.input.lumi, event.input.evt,
                         event.category_string, event.btag_LR_4b_2b
+                    )
+                    print "Integrator conf: b={0} l={1}".format(
+                        len(mem_cfg.b_quark_candidates(event)),
+                        len(mem_cfg.l_quark_candidates(event))
                     )
                     self.configure_mem(event, mem_cfg)
                     r = self.integrator.run(

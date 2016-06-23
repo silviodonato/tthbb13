@@ -192,8 +192,8 @@ class Conf:
         #"systematics": ["nominal"],
         "systematics": [
             "nominal",
-            "JESUp", "JESDown",
-            "JERUp", "JERDown"
+            #"JESUp", "JESDown",
+            #"JERUp", "JERDown"
         ],
         
         
@@ -214,7 +214,7 @@ class Conf:
         ],
 
         #"eventWhitelist": [
-        #    (1, 6627, 1321096)
+        #    (1, 144279, 14372670)
         #]
     }
 
@@ -271,7 +271,7 @@ class Conf:
 
         #Actually run the ME calculation
         #If False, all ME values will be 0
-        "calcME": False,
+        "calcME": True,
         "calcMECommon": False,
         "n_integration_points_mult": 1.0,
 
@@ -335,7 +335,8 @@ class Conf:
             "FH_4w2h1t", #7j,3b & 8j,3b
             "FH_0w0w2h2t", #all 4b cats
             "FH_0w0w2h1t", #all cats
-            "FH_0w0w1h2t"  #all cats
+            "FH_0w0w1h2t",  #all cats
+            "SL_2w2h2t_1j",
         ],
 
         #This configures the MEMs to actually run, the rest will be set to 0

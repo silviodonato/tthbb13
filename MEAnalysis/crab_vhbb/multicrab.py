@@ -56,7 +56,7 @@ for sd in sets_data:
     datasets[name] = {
         "ds": sd,
         "maxlumis": -1,
-        "perjob": 200,
+        "perjob": 400,
         "runtime": 40,
         "mem_cfg": me_cfgs["nome"],
         "script": 'heppy_crab_script_data.sh'
@@ -65,7 +65,7 @@ datasets.update({
     'ttHTobb': {
         "ds": '/ttHTobb_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2/MINIAODSIM',
         "maxlumis": -1,
-        "perjob": 20,
+        "perjob": 10,
         "runtime": 40,
         "mem_cfg": me_cfgs["default"],
         "script": 'heppy_crab_script.sh'
@@ -81,7 +81,7 @@ datasets.update({
     'TTbar_inc': {
         "ds": '/TT_TuneEE5C_13TeV-powheg-herwigpp/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM',
         "maxlumis": -1,
-        "perjob": 100,
+        "perjob": 200,
         "runtime": 40,
         "mem_cfg": me_cfgs["default"],
         "script": 'heppy_crab_script.sh'
@@ -166,6 +166,7 @@ workflow_datasets["leptonic"] = {}
 for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"]:
     D = deepcopy(datasets[k])
     D["mem_cfg"] = "cfg_leptonic.py"
+
     workflow_datasets["leptonic"][k] = D
 
 
@@ -225,14 +226,11 @@ for k in ["ttHTobb", "SingleMuon-Run2016B-PromptReco-v2"]:
     workflow_datasets["localtesting"][k] = D
 
 workflow_datasets["testing_withme"] = {}
-for k in ["ttHTobb", "TTbar_inc", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v1"]:
+for k in ["ttHTobb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v1"]:
     D = deepcopy(datasets[k])
-    D["maxlumis"] = 10
-    D["perjob"] = 1
-    if "data" in D["script"]:
-        D["maxlumis"] = 50
-        D["perjob"] = 5
-    D["runtime"] = 5
+    D["perjob"] = int(D["perjob"]/10)
+    D["maxlumis"] = 20 * D["perjob"] 
+    D["runtime"] = int(D["runtime"]/5)
     D["mem_cfg"] = me_cfgs["default"]
     workflow_datasets["testing_withme"][k] = D
 
