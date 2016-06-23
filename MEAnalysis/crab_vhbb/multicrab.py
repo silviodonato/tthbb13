@@ -166,9 +166,7 @@ workflow_datasets["leptonic"] = {}
 for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"]:
     D = deepcopy(datasets[k])
     D["mem_cfg"] = "cfg_leptonic.py"
-
     workflow_datasets["leptonic"][k] = D
-
 
 workflow_datasets["leptonic_nome"] = {}
 for k in ["ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"] + datanames:
@@ -229,7 +227,7 @@ workflow_datasets["testing_withme"] = {}
 for k in ["ttHTobb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v1"]:
     D = deepcopy(datasets[k])
     D["perjob"] = int(D["perjob"]/10)
-    D["maxlumis"] = 20 * D["perjob"] 
+    D["maxlumis"] = 100 * D["perjob"] 
     D["runtime"] = int(D["runtime"]/5)
     D["mem_cfg"] = me_cfgs["default"]
     workflow_datasets["testing_withme"][k] = D
