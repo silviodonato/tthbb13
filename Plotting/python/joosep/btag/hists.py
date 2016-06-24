@@ -1,6 +1,6 @@
 import ROOT, sys, os
 from TTH.MEAnalysis.samples_base import getSitePrefix
-from TTH.MEAnalysis.samples import samples
+from TTH.MEAnalysis.samples import samples_dict
 ROOT.gROOT.SetBatch(True)
 ROOT.TH1.SetDefaultSumw2(True)
 ROOT.TH1.AddDirectory(False)
@@ -8,7 +8,7 @@ ROOT.TH1.AddDirectory(False)
 DATASETPATH = os.environ.get("DATASETPATH", "")
 spl = DATASETPATH.split("__")
 sample_name = spl[-1]
-sample = samples[sample_name]
+sample = samples_dict[sample_name]
 
 INFILES = sys.argv[2:]
 OUTFILE = sys.argv[1]
@@ -95,8 +95,9 @@ if __name__ == "__main__":
     of = ROOT.TFile(OUTFILE, "RECREATE")
     of.cd()
 
-    makeControlPlots("btagCSV", "Jet_btagCSV", 0.0, 1.0)
-    makeControlPlots("btagCMVA", "Jet_btagCMVA", -1.0, 1.0)
+    if sample.isMC:
+        makeControlPlots("btagCSV", "Jet_btagCSV", 0.0, 1.0)
+        makeControlPlots("btagCMVA", "Jet_btagCMVA", -1.0, 1.0)
     
     of.Write()
     of.Close()

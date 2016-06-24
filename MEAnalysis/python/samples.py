@@ -6,56 +6,24 @@
 import FWCore.ParameterSet.Config as cms
 from TTH.MEAnalysis.samples_base import *
 
-version = "Jun17_leptonic_nome"
-datasetpath = "src/TTH/MEAnalysis/gc/datasets/Jun17_leptonic_nome/"
+version = "Jun23_leptonic_v1"
+datasetpath = "src/TTH/MEAnalysis/gc/datasets/Jun23_leptonic_v1/"
 samples_dict = {
  
-        "DoubleMuon": cms.PSet(
-            name     = cms.string("DoubleMuon"),
-            nickname = cms.string("DoubleMuon"),
+        "TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8": cms.PSet(
+            name     = cms.string("TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"),
+            nickname = cms.string("TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"),
             isMC     = cms.bool(False),
             treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "DoubleMuon.txt")),
+            subFiles = cms.vstring(get_files(datasetpath + "TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.txt")),
         ),
      
-        "MuonEG": cms.PSet(
-            name     = cms.string("MuonEG"),
-            nickname = cms.string("MuonEG"),
+        "TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8": cms.PSet(
+            name     = cms.string("TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"),
+            nickname = cms.string("TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"),
             isMC     = cms.bool(False),
             treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "MuonEG.txt")),
-        ),
-     
-        "DoubleEG": cms.PSet(
-            name     = cms.string("DoubleEG"),
-            nickname = cms.string("DoubleEG"),
-            isMC     = cms.bool(False),
-            treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "DoubleEG.txt")),
-        ),
-     
-        "SingleMuon": cms.PSet(
-            name     = cms.string("SingleMuon"),
-            nickname = cms.string("SingleMuon"),
-            isMC     = cms.bool(False),
-            treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "SingleMuon.txt")),
-        ),
-     
-        "ttHToNonbb_M125_13TeV_powheg_pythia8": cms.PSet(
-            name     = cms.string("ttHToNonbb_M125_13TeV_powheg_pythia8"),
-            nickname = cms.string("ttHToNonbb_M125_13TeV_powheg_pythia8"),
-            isMC     = cms.bool(True),
-            treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "ttHToNonbb_M125_13TeV_powheg_pythia8.txt")),
-        ),
-     
-        "TTTo2L2Nu_13TeV-powheg": cms.PSet(
-            name     = cms.string("TTTo2L2Nu_13TeV-powheg"),
-            nickname = cms.string("TTTo2L2Nu_13TeV-powheg"),
-            isMC     = cms.bool(True),
-            treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "TTTo2L2Nu_13TeV-powheg.txt")),
+            subFiles = cms.vstring(get_files(datasetpath + "TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.txt")),
         ),
      
         "TT_TuneEE5C_13TeV-powheg-herwigpp": cms.PSet(
@@ -66,27 +34,11 @@ samples_dict = {
             subFiles = cms.vstring(get_files(datasetpath + "TT_TuneEE5C_13TeV-powheg-herwigpp.txt")),
         ),
      
-        "TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8": cms.PSet(
-            name     = cms.string("TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"),
-            nickname = cms.string("TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"),
-            isMC     = cms.bool(False),
+        "ttHTobb_M125_13TeV_powheg_pythia8": cms.PSet(
+            name     = cms.string("ttHTobb_M125_13TeV_powheg_pythia8"),
+            nickname = cms.string("ttHTobb_M125_13TeV_powheg_pythia8"),
+            isMC     = cms.bool(True),
             treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.txt")),
-        ),
-     
-        "SingleElectron": cms.PSet(
-            name     = cms.string("SingleElectron"),
-            nickname = cms.string("SingleElectron"),
-            isMC     = cms.bool(False),
-            treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "SingleElectron.txt")),
-        ),
-     
-        "TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8": cms.PSet(
-            name     = cms.string("TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"),
-            nickname = cms.string("TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"),
-            isMC     = cms.bool(False),
-            treeName = cms.string("vhbb/tree"),
-            subFiles = cms.vstring(get_files(datasetpath + "TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.txt")),
+            subFiles = cms.vstring(get_files(datasetpath + "ttHTobb_M125_13TeV_powheg_pythia8.txt")),
         ),
     }

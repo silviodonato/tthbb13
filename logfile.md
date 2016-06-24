@@ -206,3 +206,11 @@ tthbb13=50cd8ca
 CommonClassifier=1f9feec
 MEIntegratorStandalone=08a88dd
 CMSSW=842f5a5
+
+
+Jun23_data_v2
+-------------
+tthbb13=3dd3d89
+CommonClassifier=1f9feec
+MEIntegratorStandalone=4689401
+CMSSW=842f5a5
