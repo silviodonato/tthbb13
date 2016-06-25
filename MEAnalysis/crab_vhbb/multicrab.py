@@ -56,7 +56,7 @@ for sd in sets_data:
     datasets[name] = {
         "ds": sd,
         "maxlumis": -1,
-        "perjob": 400,
+        "perjob": 200,
         "runtime": 40,
         "mem_cfg": me_cfgs["nome"],
         "script": 'heppy_crab_script_data.sh'
@@ -73,7 +73,7 @@ datasets.update({
     'ttHToNonbb': {
         "ds": '/ttHToNonbb_M125_13TeV_powheg_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',
         "maxlumis": -1,
-        "perjob": 100,
+        "perjob": 50,
         "runtime": 40,
         "mem_cfg": me_cfgs["default"],
         "script": 'heppy_crab_script.sh'
