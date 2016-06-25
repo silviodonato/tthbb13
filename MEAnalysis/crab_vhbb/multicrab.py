@@ -56,7 +56,7 @@ for sd in sets_data:
     datasets[name] = {
         "ds": sd,
         "maxlumis": -1,
-        "perjob": 200,
+        "perjob": 100,
         "runtime": 40,
         "mem_cfg": me_cfgs["nome"],
         "script": 'heppy_crab_script_data.sh'

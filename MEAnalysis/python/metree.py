@@ -150,6 +150,12 @@ memType = NTupleObjectType("memType", variables = [
     NTupleVariable("nperm", lambda x : x.num_perm, type=int),
 ])
 
+memPermType = NTupleObjectType("memPermType", variables = [
+    NTupleVariable("idx", lambda x : x.idx, type=int),
+    NTupleVariable("p_mean", lambda x : x.p_mean),
+    NTupleVariable("p_std", lambda x : x.p_std),
+])
+
 commonMemType = NTupleObjectType("commonMemType", variables = [
     NTupleVariable("p", lambda x : x.p),
     NTupleVariable("p_sig", lambda x : x.p_sig),
@@ -593,14 +599,6 @@ def getTreeProducer(conf):
                     "common_mem" + syst_suffix2, commonMemType, 1,
                     help="Single common MEM result array", mcOnly=is_mc_only
                 ),
-                "mem_results_tth" + syst_suffix: NTupleCollection(
-                    "mem_tth" + syst_suffix2, memType, len(conf.mem["methodOrder"]),
-                    help="MEM tth results array, element per config.methodOrder", mcOnly=is_mc_only
-                ),
-                "mem_results_ttbb" + syst_suffix: NTupleCollection(
-                    "mem_ttbb" + syst_suffix2, memType, len(conf.mem["methodOrder"]),
-                    help="MEM ttbb results array, element per config.methodOrder", mcOnly=is_mc_only
-                ),
                 "fw_h_alljets" + syst_suffix: NTupleCollection(
                     "fw_aj" + syst_suffix2, FoxWolframType, 8,
                     help="Fox-Wolfram momenta calculated with all jets", mcOnly=is_mc_only
@@ -614,7 +612,22 @@ def getTreeProducer(conf):
                     help="Fox-Wolfram momenta calculated with untagged jets", mcOnly=is_mc_only
                 ),
             })
-
+            for hypo in conf.mem["methodsToRun"]:
+                for proc in ["tth", "ttbb"]:
+                    name = "mem_{0}_{1}".format(proc, hypo) 
+                    treeProducer.globalObjects.update({
+                        name + syst_suffix: NTupleObject(
+                            name + syst_suffix2, memType,
+                            help="MEM result for proc={0} hypo={1}".format(proc, hypo
+                        )),
+                    })
+                    treeProducer.collections.update({
+                        name + "_perm" + syst_suffix: NTupleCollection(
+                            name + "perm_" + syst_suffix2, memPermType, 50,
+                            help="MEM result permutations for proc={0} hypo={1}".format(
+                                proc, hypo
+                        )),
+                    })
             if conf.bran["enabled"]:
                 for cat in conf.bran["jetCategories"].items():
                     treeProducer.globalObjects.update({ 
@@ -631,7 +644,7 @@ def getTreeProducer(conf):
 
     for vtype in [
         ("weight_xs",               float,  ""),
-        ("ttCls",                   int,    ""),
+        ("ttCls",                   int,    "ttbar classification from GenHFHadronMatcher"),
         ("genHiggsDecayMode",       int,    ""),
         ("bTagWeight",              float,  ""),
         ("bTagWeight_HFDown",       float,  ""),
