@@ -623,7 +623,7 @@ def getTreeProducer(conf):
                     })
                     treeProducer.collections.update({
                         name + "_perm" + syst_suffix: NTupleCollection(
-                            name + "perm_" + syst_suffix2, memPermType, 50,
+                            name + "_perm" + syst_suffix2, memPermType, 50,
                             help="MEM result permutations for proc={0} hypo={1}".format(
                                 proc, hypo
                         )),
