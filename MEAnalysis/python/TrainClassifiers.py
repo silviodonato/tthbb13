@@ -22,32 +22,35 @@ brs = ["l_pt", "l_eta", "l_phi", "l_pdgid",
 ]
 
 # Variables to feed to BDT
-input_vars = ["l_pt", "l_eta", "l_phi", "l_pdgid",
-              "met_pt", "met_phi",
-              "j0_pt", "j0_eta", "j0_phi", "j0_mass", "j0_btagCSV", 
-              "j1_pt", "j1_eta", "j1_phi", "j1_mass", "j1_btagCSV", 
-              "j2_pt", "j2_eta", "j2_phi", "j2_mass", "j2_btagCSV", 
-              "j3_pt", "j3_eta", "j3_phi", "j3_mass", "j3_btagCSV", 
-              "j4_pt", "j4_eta", "j4_phi", "j4_mass", "j4_btagCSV", 
-              "j5_pt", "j5_eta", "j5_phi", "j5_mass", "j5_btagCSV"
-              ]
+input_vars = [
+    "l_pt", "l_eta", 
+    "j0_pt", "j0_eta",  "j0_mass", "j0_btagCSV", 
+    "j1_pt", "j1_eta",  "j1_mass", "j1_btagCSV", 
+    "j2_pt", "j2_eta",  "j2_mass", "j2_btagCSV", 
+    "j3_pt", "j3_eta",  "j3_mass", "j3_btagCSV", 
+    "j4_pt", "j4_eta",  "j4_mass", "j4_btagCSV", 
+    "j5_pt", "j5_eta",  "j5_mass", "j5_btagCSV"
+]
               
 
 default_params = {        
 
     # Common parameters
+
     "n_chunks"          : 1,
-    "lr"                : 0.015,
-    "decay"             : 1e-6,
-    "momentum"          : 0.9,            
-    "nb_epoch"          : 2,
+
+    "n_estimators"   : 140,
+    "max_depth"      : 2, 
+    "learning_rate"  : 0.1,    
+    "subsample"      : 0.5,     
+    "verbose"        : 2,    
+
     "samples_per_epoch" : None, # later filled from input files
 }
 
 colors = ['black', 'red','blue','green','orange','green','magenta']
 
 infname = "/mnt/t3nfs01/data01/shome/gregor/tth/gc/mvatuple/v1/out.root"
-
 
 
 
@@ -121,22 +124,15 @@ def to_image(df):
     return df[input_vars].values
 
 
-
-
 def model(params):
 
-    
-    #classif = AdaBoostClassifier(
-    #    DecisionTreeClassifier(max_depth=2,class_weight="balanced"),
-    #    n_estimators=600,        
-    #    learning_rate=1)
-    
-    classif =GradientBoostingClassifier(n_estimators=600, 
-                                        learning_rate=1.0,
-                                        max_depth=2)
-
-    #DecisionTreeClassifier()
-
+    classif =GradientBoostingClassifier(
+        n_estimators  = params["n_estimators"],   
+        max_depth     = params["max_depth"],      
+        learning_rate = params["learning_rate"],  
+        subsample     = params["subsample"],      
+        verbose       = params["verbose"],        
+    )
 
     return classif
 
@@ -146,7 +142,7 @@ classifiers = [
     Classifier("BDT", 
                "scikit",
                params,
-               False,
+               True,
                datagen_train,
                datagen_test,               
                model(params),
@@ -157,7 +153,8 @@ classifiers = [
                    2: "tt2b",
                    3: "ttbb",
                    4: "ttcc",
-               }
+               },
+               input_vars = input_vars
                )    
 ]
 
@@ -169,7 +166,7 @@ classifiers = [
 ########################################
 
 [clf.prepare() for clf in classifiers]
-[analyze(clf) for clf in classifiers]
+#[analyze(clf) for clf in classifiers]
 
 
  
