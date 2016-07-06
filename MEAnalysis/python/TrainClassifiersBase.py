@@ -90,6 +90,7 @@ class Classifier:
                  class_names,
                  inpath = ".",
                  plot_name = "",                 
+                 input_vars = [],
              ):
         self.name = name
         self.backend = backend
@@ -109,6 +110,8 @@ class Classifier:
         else:
             self.plot_name = name
 
+        self.input_vars = input_vars
+
     def prepare(self):
 
         if not self.load_from_file:
@@ -121,6 +124,7 @@ class Classifier:
                 f = open(os.path.join(self.inpath,self.name + ".pickle"), "r")
                 self.model = pickle.load(f)
                 f.close()
+                                
             elif self.backend == "keras":
                 f = open(os.path.join(self.inpath,self.name + ".yaml"), "r")
                 yaml_string = f.read()
@@ -145,12 +149,9 @@ def train_scikit(clf):
     y = df["tt_class"].values
             
     weight_dic = df["tt_class"].value_counts().to_dict()
-    weight_dic = {k:v/float(len(X)) for k,v in weight_dic.iteritems()}
-
+    weight_dic = {k:float(len(X))/v for k,v in weight_dic.iteritems()}
     weights = np.vectorize(weight_dic.get)(y)
     
-
-
     clf.model.fit(X, y, sample_weight=weights)
 
     f = open(clf.name + ".pickle","wb")
@@ -308,25 +309,40 @@ def datagen(sel, brs, infname, n_chunks=10):
 
 def analyze(clf):
 
-    df = clf.datagen_test.next()        
-    
-    X = clf.image_fun(df)
+    # Get the data
+    # We need test and train as we want to plat to evolution as well
+    print "Get train sample"
+    df_train = clf.datagen_train.next()            
+    print "Get test sample"
+    df_test  = clf.datagen_test.next()            
 
-    df["output"] = clf.model.predict(X)
+    # Evaluate models
+    print "Eval test"
+    X_test = clf.image_fun(df_test)
+    df_test["output"] = clf.model.predict(X_test)
 
+    print "Eval train"
+    X_train = clf.image_fun(df_train)
+    df_train["output"] = clf.model.predict(X_train)
+
+    # Generate the training weight dictionary 
+    # (using weights derived on testing sample would be cheating)            
+    weight_dic = df_train["tt_class"].value_counts().to_dict()
+    weight_dic = {k:float(len(X_train))/v for k,v in weight_dic.iteritems()}
+
+    # and apply to both samples
+    weights_train = np.vectorize(weight_dic.get)(df_train["tt_class"].values)
+    weights_test  = np.vectorize(weight_dic.get)(df_test["tt_class"].values)
+
+    # Generate category matrix
     matrix = np.zeros((len(clf.classes),len(clf.classes)))
-
-    for true_class in clf.classes:
-        
-        num = float( len(df.loc[ (df["tt_class"] == true_class),"evt"]))
-
-        for found_class in clf.classes:
+    for true_class in clf.classes:        
+        num = float( len(df_test.loc[ (df_test["tt_class"] == true_class),"evt"]))
+        for found_class in clf.classes:            
+            matrix[true_class][found_class] = len(df_test.loc[ (df_test["tt_class"] == true_class) & (df_test["output"] == found_class),"evt"])/num
             
-            matrix[true_class][found_class] = len(df.loc[ (df["tt_class"] == true_class) & (df["output"] == found_class),"evt"])/num
-            
-        
+    # Plot the category matrix
     fig, ax = plt.subplots()
-
     min_val, max_val, diff = 0., float(len(clf.classes)), 1.
 
     #imshow portion
@@ -359,16 +375,40 @@ def analyze(clf):
             transform=ax.transAxes,
             color='black', fontsize=15)
 
-
-    #ax.grid()
     plt.show()
-
     plt.savefig("matrix.png")
+    
+    feautures = sorted(zip(clf.input_vars, clf.model.feature_importances_), key = lambda x:x[1])    
+    for f in feautures:
+        print "{0: <15}: {1:.4f}".format(f[0],f[1])
 
 
+    plt.clf()
 
+    pdb.set_trace()
 
+#    # Loss function/time    
+#    print "Calculating test scores for all iterations. Samples:", len(X_test)
+#    predictor_test  = clf.model.staged_predict(X_test)	
+#    test_scores  = [clf.model.score(X_test ,predictor_test.next(), weights_test)   for _ in range(clf.params["n_estimators"])]
+#
+#    print "Calculating train scores for all iterations. Samples:", len(X_train)
+#    predictor_train  = clf.model.staged_predict(X_train)	
+#    train_scores  = [clf.model.score(X_train ,predictor_train.next(), weights_train)   for _ in range(clf.params["n_estimators"])]
+#
+#    print "Train:", train_scores
+#    print "Test:",  test_scores
+#
+#    plt.plot(train_scores, label="Train", color = 'blue')
+#    plt.plot(test_scores, label="Test", color = 'red')
+#
+#    plt.xlabel('Iterations')
+#    plt.ylabel('Score')
+#    plt.grid(False)
+#    plt.show()
+#    plt.savefig("score.png")
 
+    
 
 
 
