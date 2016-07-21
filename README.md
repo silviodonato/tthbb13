@@ -4,8 +4,8 @@ TTHBB MEM code
 Setup on SLC6 in a clean directory (no CMSSW)
 Please use *bash*
 ~~~
-mkdir -p ~/tth/sw
-cd ~/tth/sw
+mkdir -p ~/choose/a/directory/
+cd ~/choose/a/directory/
 wget --no-check-certificate https://raw.githubusercontent.com/silviodonato/tthbb13/ttH80X/setup.sh
 source setup.sh
 ~~~
