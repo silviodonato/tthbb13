@@ -8,6 +8,7 @@ mkdir -p ~/choose/a/directory/
 cd ~/choose/a/directory/
 wget --no-check-certificate https://raw.githubusercontent.com/silviodonato/tthbb13/ttH80X/setup.sh
 source setup.sh
+scram b -j16
 ~~~
 This will download CMSSW, the tthbb code and all the dependencies.
 
