@@ -19,7 +19,8 @@ Step1: VHBB code
 This will start with MiniAOD and produce a VHBB ntuple.
 
 ~~~
-make test_VHBB
+cd $CMSSW_BASE/src/TTH
+make test_VHBB >& logTestVHbb &
 #this will call VHbbAnalysis/Heppy/test/vhbb_combined.py
 ~~~
 
@@ -28,7 +29,8 @@ Step2: tthbb code
 Using the VHBB ntuple, we will run the ttH(bb) and matrix element code
 
 ~~~
-make test_MEAnalysis
+cd $CMSSW_BASE/src/TTH
+make test_MEAnalysis >& logTestME &
 #this will call TTH/MEAnalysis/python/MEAnalysis_heppy.py
 ~~~
 
