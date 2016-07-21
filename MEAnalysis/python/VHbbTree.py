@@ -557,14 +557,15 @@ class trgObjects_caloMht:
         return [trgObjects_caloMht(input, i) for i in range(input.ntrgObjects_caloMht)]
 class FatjetCA15softdropz2b1filt:
     def __init__(self, tree, n):
-        self.pt = tree.FatjetCA15softdropz2b1filt_pt[n];
-        self.eta = tree.FatjetCA15softdropz2b1filt_eta[n];
-        self.phi = tree.FatjetCA15softdropz2b1filt_phi[n];
-        self.mass = tree.FatjetCA15softdropz2b1filt_mass[n];
+        #self.pt = tree.FatjetCA15softdropz2b1filt_pt[n];
+        #self.eta = tree.FatjetCA15softdropz2b1filt_eta[n];
+        #self.phi = tree.FatjetCA15softdropz2b1filt_phi[n];
+        #self.mass = tree.FatjetCA15softdropz2b1filt_mass[n];
         pass
     @staticmethod
     def make_array(input):
-        return [FatjetCA15softdropz2b1filt(input, i) for i in range(input.nFatjetCA15softdropz2b1filt)]
+        return [FatjetCA15softdropz2b1filt(input, i) for i in range(0)]
+        #return [FatjetCA15softdropz2b1filt(input, i) for i in range(input.nFatjetCA15softdropz2b1filt)]
 class trgObjects_hltDoubleCentralJet90:
     def __init__(self, tree, n):
         pass
@@ -1323,6 +1324,7 @@ class Jet:
         self.pt_regVBF_corrJERUp = tree.Jet_pt_regVBF_corrJERUp[n];
         self.pt_reg_corrJERDown = tree.Jet_pt_reg_corrJERDown[n];
         self.pt_regVBF_corrJERDown = tree.Jet_pt_regVBF_corrJERDown[n];
+	'''
         self.bTagWeightJESUp = tree.Jet_bTagWeightJESUp[n];
         self.bTagWeightJESDown = tree.Jet_bTagWeightJESDown[n];
         self.bTagWeightLFUp = tree.Jet_bTagWeightLFUp[n];
@@ -1360,6 +1362,7 @@ class Jet:
         self.btagCMVAV2TSF = tree.Jet_btagCMVAV2TSF[n];
         self.btagCMVAV2TSF_Up = tree.Jet_btagCMVAV2TSF_Up[n];
         self.btagCMVAV2TSF_Down = tree.Jet_btagCMVAV2TSF_Down[n];
+	'''
         pass
     @staticmethod
     def make_array(input):
@@ -1995,7 +1998,7 @@ class EventAnalyzer(Analyzer):
         event.FatjetCA15pruned = FatjetCA15pruned.make_array(event.input)
         event.trgObjects_hltVBFCaloJetEtaSortedMqq150Deta1p5 = trgObjects_hltVBFCaloJetEtaSortedMqq150Deta1p5.make_array(event.input)
         event.trgObjects_caloMht = trgObjects_caloMht.make_array(event.input)
-        event.FatjetCA15softdropz2b1filt = FatjetCA15softdropz2b1filt.make_array(event.input)
+        #event.FatjetCA15softdropz2b1filt = FatjetCA15softdropz2b1filt.make_array(event.input)
         event.trgObjects_hltDoubleCentralJet90 = trgObjects_hltDoubleCentralJet90.make_array(event.input)
         event.GenJet = GenJet.make_array(event.input)
         event.trgObjects_hltDoublePFJetsC100 = trgObjects_hltDoublePFJetsC100.make_array(event.input)
@@ -2006,11 +2009,11 @@ class EventAnalyzer(Analyzer):
         event.trgObjects_pfHt = trgObjects_pfHt.make_array(event.input)
         event.dRaddJetsdR08 = dRaddJetsdR08.make_array(event.input)
         event.GenBQuarkFromH = GenBQuarkFromH.make_array(event.input)
-        event.SubjetCA15softdropz2b1filt = SubjetCA15softdropz2b1filt.make_array(event.input)
+        #event.SubjetCA15softdropz2b1filt = SubjetCA15softdropz2b1filt.make_array(event.input)
         event.trgObjects_hltDoubleJet65 = trgObjects_hltDoubleJet65.make_array(event.input)
         event.FatjetCA15trimmed = FatjetCA15trimmed.make_array(event.input)
         event.GenHiggsSisters = GenHiggsSisters.make_array(event.input)
-        event.SubjetCA15softdropfilt = SubjetCA15softdropfilt.make_array(event.input)
+        #event.SubjetCA15softdropfilt = SubjetCA15softdropfilt.make_array(event.input)
         event.trgObjects_hltBTagCaloCSVp026DoubleWithMatching = trgObjects_hltBTagCaloCSVp026DoubleWithMatching.make_array(event.input)
         event.aLeptons = aLeptons.make_array(event.input)
         event.trgObjects_hltPFQuadJetLooseID15 = trgObjects_hltPFQuadJetLooseID15.make_array(event.input)
@@ -2018,7 +2021,7 @@ class EventAnalyzer(Analyzer):
         event.trgObjects_hltBTagCaloCSVp067Single = trgObjects_hltBTagCaloCSVp067Single.make_array(event.input)
         event.trgObjects_hltVBFPFJetCSVSortedMqq200Detaqq1p2 = trgObjects_hltVBFPFJetCSVSortedMqq200Detaqq1p2.make_array(event.input)
         event.hjidxaddJetsdR08 = hjidxaddJetsdR08.make_array(event.input)
-        event.FatjetCA15softdropfilt = FatjetCA15softdropfilt.make_array(event.input)
+        #event.FatjetCA15softdropfilt = FatjetCA15softdropfilt.make_array(event.input)
         event.trgObjects_hltMHTNoPU90 = trgObjects_hltMHTNoPU90.make_array(event.input)
         event.FatjetAK08ungroomed = FatjetAK08ungroomed.make_array(event.input)
         event.trgObjects_hltPFMHTTightID90 = trgObjects_hltPFMHTTightID90.make_array(event.input)
@@ -2125,7 +2128,8 @@ class EventAnalyzer(Analyzer):
         event.Flag_hbheFilterNew = getattr(event.input, "Flag_hbheFilterNew", None)
         event.simPrimaryVertex_z = getattr(event.input, "simPrimaryVertex_z", None)
         event.genHiggsDecayMode = getattr(event.input, "genHiggsDecayMode", None)
-        event.bTagWeight_LFUp = getattr(event.input, "bTagWeight_LFUp", None)
+'''
+	event.bTagWeight_LFUp = getattr(event.input, "bTagWeight_LFUp", None)
         event.bTagWeight_LFStats2Down = getattr(event.input, "bTagWeight_LFStats2Down", None)
         event.bTagWeight_LFDown = getattr(event.input, "bTagWeight_LFDown", None)
         event.bTagWeight_HFUp = getattr(event.input, "bTagWeight_HFUp", None)
@@ -2144,3 +2148,4 @@ class EventAnalyzer(Analyzer):
         event.bTagWeight_cErr2Down = getattr(event.input, "bTagWeight_cErr2Down", None)
         event.bTagWeight_HFStats1Down = getattr(event.input, "bTagWeight_HFStats1Down", None)
         event.bTagWeight_HFStats2Down = getattr(event.input, "bTagWeight_HFStats2Down", None)
+'''
