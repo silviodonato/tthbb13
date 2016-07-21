@@ -20,6 +20,7 @@ This will start with MiniAOD and produce a VHBB ntuple.
 
 ~~~
 cd $CMSSW_BASE/src/TTH
+#edit inputFiles and maxEvents in  $CMSSW_BASE/src/VHbbAnalysis/Heppy/test/vhbb_combined.py 
 make test_VHBB >& logTestVHbb &
 #this will call VHbbAnalysis/Heppy/test/vhbb_combined.py
 ~~~
