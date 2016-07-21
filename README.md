@@ -2,6 +2,7 @@ TTHBB MEM code
 ==============
 
 Setup on SLC6 in a clean directory (no CMSSW)
+Please use *bash*
 ~~~
 mkdir -p ~/tth/sw
 cd ~/tth/sw
