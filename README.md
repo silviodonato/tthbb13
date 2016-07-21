@@ -47,6 +47,7 @@ To submit a few test workflows with crab do:
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
 ## adding "ttbar-spring16-80X.weights.xml" among input files in multicrab.py
+## remove missing datasets
 python multicrab.py --workflow testing_withme --tag my_test1
 ~~~
 
