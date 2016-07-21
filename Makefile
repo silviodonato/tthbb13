@@ -1,6 +1,6 @@
 
 #sample vhbb+tthbb file
-testfile_vhbb_tthbb=/store/user/jpata/tth/Jun17_leptonic_nome/TT_TuneEE5C_13TeV-powheg-herwigpp/Jun17_leptonic_nome/160617_165529/0000/tree_101.root
+testfile_vhbb_tthbb=file:///scratch/sdonato/ttH/test/CMSSW/src/TTH/tests_out/VHBB.root
 DATASETPATH=Jun17_leptonic_nome__TT_TuneEE5C_13TeV-powheg-herwigpp
 #testfile_vhbb_tthbb=file:///home/joosep/tth/sw/CMSSW/src/TTH/test.root
 test_out_dir=$(CMSSW_BASE)/src/TTH/tests_out
