@@ -8,7 +8,7 @@ git cms-init
 git cms-merge-topic vhbb:vhbbHeppy80X
 
 #get the TTH code
-git clone https://github.com/jpata/silviodonato.git TTH --branch ttH80X
+git clone https://github.com/silviodonato/tthbb13.git TTH --branch ttH80X
 cd $CMSSW_BASE/src/TTH
 
 git clone https://github.com/jpata/Code.git MEIntegratorStandalone --branch v0.3
