@@ -40,13 +40,13 @@ Step1+2: VHBB & tthbb13 with CRAB
 To submit a few test workflows with crab do:
 
 ~~~
-cd TTH/MEAnalysis/crab_vhbb
+cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
 python multicrab.py --workflow testing_withme --tag my_test1
 ~~~
 
 To produce all the SL/DL samples, do
 ~~~
-cd TTH/MEAnalysis/crab_vhbb
+cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
 python multicrab.py --workflow leptonic --tag May13
 ~~~
 
@@ -56,7 +56,7 @@ Step3: skim with `projectSkim.sh`
 When some of the samples are done, you can produce small (<5GB) skims of the files using
 
 ~~~
-cd TTH/MEAnalysis/gc
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 ./grid-control/go.py confs/projectSkim.conf
 ...
 ./hadd.py /path/to/output/GC1234/
