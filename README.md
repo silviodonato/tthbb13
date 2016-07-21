@@ -20,7 +20,8 @@ This will start with MiniAOD and produce a VHBB ntuple.
 
 ~~~
 cd $CMSSW_BASE/src/TTH
-#edit inputFiles and maxEvents in  $CMSSW_BASE/src/VHbbAnalysis/Heppy/test/vhbb_combined.py 
+#edit nEvents in  $CMSSW_BASE/src/VHbbAnalysis/Heppy/test/vhbb_combined.py 
+#edit files in  $CMSSW_BASE/src/VHbbAnalysis/Heppy/test/vhbb.py (eg. root://cms-xrd-global.cern.ch//store/mc/RunIISpring16MiniAODv2/ttHTobb_M125_13TeV_powheg_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/40000/0089CC67-6338-E611-947D-0025904C4E2A.root)
 make test_VHBB >& logTestVHbb &
 #this will call VHbbAnalysis/Heppy/test/vhbb_combined.py
 ~~~
