@@ -63,8 +63,19 @@ Step3: skim with `projectSkim.sh`
 When some of the samples are done, you can produce small (<5GB) skims of the files using
 
 ~~~
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/datasets
+#edit getListOfFiles.py
+python getListOfFiles.py
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
+source makeEnv.sh
+#edit confs/projectSkim.conf
+#eg. find datasets/ttHDaniel/ | grep tth
+
+screen
+cmsenv
 ./grid-control/go.py confs/projectSkim.conf
+#exit from screen with: CTRL+A D 
+#go back in screen with: screen -r
 ...
 ./hadd.py /path/to/output/GC1234/
 ~~~
