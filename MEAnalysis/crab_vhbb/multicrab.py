@@ -244,7 +244,7 @@ for k in ["mc", "data"]:
     workflow_datasets["localtesting_withme"][k] = D
 
 workflow_datasets["testing_withme"] = {}
-for k in ["ttHTobb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v1"]:
+for k in ["ttHTobb", "TTbar_inc"]:#, "SingleMuon-Run2016B-PromptReco-v1"]:
     D = deepcopy(datasets[k])
     D["perjob"] = int(D["perjob"]/10)
     D["maxlumis"] = 100 * D["perjob"] 
@@ -344,6 +344,7 @@ env
         vhbb_dir + '/puDataPlus.root',
         'puMC.root',
         'json.txt',
+	vhbb_dir + '/ttbar-spring16-80X.weights.xml',
         vhbb_dir + "/Zll-spring15.weights.xml",
         vhbb_dir + "/Wln-spring15.weights.xml",
         vhbb_dir + "/Znn-spring15.weights.xml",
