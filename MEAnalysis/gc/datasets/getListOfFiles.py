@@ -20,9 +20,18 @@ for dataset in datasets:
 
 counter = 0
 for dataset in datasets:
-    outFile = open(folder+"/"+dataset.replace("/","_")[1:]+".txt","w")
+    fileName = dataset
+    cut = -1
+    for i in range(len(fileName)):
+        if fileName[i] is "-":
+            cut = i
+    fileName = fileName[0:cut]
+    fileName = fileName.replace("/","_")[1:]
+    address = folder+"/"+fileName+".txt"
+    outFile = open(address,"w")
+    outFile.write("[%s]\n"%fileName)
     for file_ in filesPerDict[dataset]:
-        outFile.write(file_ + " = "+str(counter))
+        outFile.write(file_ + " = "+str(counter)+"\n")
         counter+=1
 
 
