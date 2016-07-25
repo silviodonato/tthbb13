@@ -8,6 +8,7 @@ mkdir -p ~/choose/a/directory/
 cd ~/choose/a/directory/
 wget --no-check-certificate https://raw.githubusercontent.com/silviodonato/tthbb13/ttH80X/setup.sh
 source setup.sh
+scram b -j16
 ~~~
 This will download CMSSW, the tthbb code and all the dependencies.
 
@@ -18,7 +19,10 @@ Step1: VHBB code
 This will start with MiniAOD and produce a VHBB ntuple.
 
 ~~~
-make test_VHBB
+cd $CMSSW_BASE/src/TTH
+#edit nEvents in  $CMSSW_BASE/src/VHbbAnalysis/Heppy/test/vhbb_combined.py 
+#edit files in  $CMSSW_BASE/src/VHbbAnalysis/Heppy/test/vhbb.py (eg. /store/mc/RunIISpring16MiniAODv2/ttHJetTobb_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext3-v2/70000/001C3ACD-2C31-E611-A7EE-003048F5ADF6.root or  root://cms-xrd-global.cern.ch//store/mc/RunIISpring16MiniAODv2/ttHTobb_M125_13TeV_powheg_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/40000/0089CC67-6338-E611-947D-0025904C4E2A.root)
+make test_VHBB >& logTestVHbb &
 #this will call VHbbAnalysis/Heppy/test/vhbb_combined.py
 ~~~
 
@@ -27,7 +31,11 @@ Step2: tthbb code
 Using the VHBB ntuple, we will run the ttH(bb) and matrix element code
 
 ~~~
-make test_MEAnalysis
+cd $CMSSW_BASE/src/TTH
+#edit testfile_vhbb_tthbb in CMSSW_BASE/src/TTH/Makefile
+#eg. file:///scratch/sdonato/ttH/test/CMSSW/src/TTH/tests_out/VHBB.root
+#in $CMSSW_BASE/src/TTH/MEAnalysis/python/samples_local.py, replace 'vhbb/tree' with 'tree'
+make test_MEAnalysis >& logTestME &
 #this will call TTH/MEAnalysis/python/MEAnalysis_heppy.py
 ~~~
 
@@ -37,13 +45,15 @@ Step1+2: VHBB & tthbb13 with CRAB
 To submit a few test workflows with crab do:
 
 ~~~
-cd TTH/MEAnalysis/crab_vhbb
+cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
+## adding "ttbar-spring16-80X.weights.xml" among input files in multicrab.py
+## remove missing datasets
 python multicrab.py --workflow testing_withme --tag my_test1
 ~~~
 
 To produce all the SL/DL samples, do
 ~~~
-cd TTH/MEAnalysis/crab_vhbb
+cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
 python multicrab.py --workflow leptonic --tag May13
 ~~~
 
@@ -53,8 +63,15 @@ Step3: skim with `projectSkim.sh`
 When some of the samples are done, you can produce small (<5GB) skims of the files using
 
 ~~~
-cd TTH/MEAnalysis/gc
-./grid-control/go.py confs/projectSkim.conf
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/datasets
+#edit getListOfFiles.py
+python getListOfFiles.py
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
+source makeEnv.sh
+#edit confs/projectSkim.conf
+#eg. find datasets/ttHDaniel/ | grep tth
+
+./grid-control/go.py confs/projectSkim.conf -cG
 ...
 ./hadd.py /path/to/output/GC1234/
 ~~~
