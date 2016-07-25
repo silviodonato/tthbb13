@@ -71,8 +71,7 @@ source makeEnv.sh
 #edit confs/projectSkim.conf
 #eg. find datasets/ttHDaniel/ | grep tth
 
-./grid-control/go.py confs/projectSkim.conf
-./grid-control/go.py -cG confs/projectSkim.conf #to monitor the jobs
+./grid-control/go.py confs/projectSkim.conf -cG
 ...
 ./hadd.py /path/to/output/GC1234/
 ~~~
