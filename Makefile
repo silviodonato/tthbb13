@@ -1,4 +1,3 @@
-
 #sample vhbb+tthbb file
 testfile_vhbb_tthbb=file:///scratch/sdonato/ttH/test/CMSSW/src/TTH/tests_out/VHBB.root
 DATASETPATH=Jun17_leptonic_nome__TT_TuneEE5C_13TeV-powheg-herwigpp
@@ -56,6 +55,13 @@ test_MEAnalysis_withme: test_mkdir
 	du -csh MEAnalysis/Loop_sample/tree.root &>> $(test_out_dir)/MEAnalysis_MEAnalysis_heppy_calcME.log
 	python -c "import ROOT; f=ROOT.TFile('MEAnalysis/Loop_sample/tree.root'); print f.Get('tree').GetEntries()" &>> $(test_out_dir)/MEAnalysis_MEAnalysis_heppy.log
 	cp MEAnalysis/Loop_sample/tree.root $(test_out_dir)/MEAnalysis_MEAnalysis_heppy_calcME.root
+
+CODE_SPARSINATOR=python Plotting/python/joosep/sparsinator.py
+test_sparsinator:
+	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/Jul18_data_v1/SingleMuon.txt | grep root | cut -f1 -d' '` DATASETPATH=Jul18__SingleMuon $(CODE_SPARSINATOR)
+	mv out.root $(test_out_dir)/sparse_SingleMuon.root
+	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/Jul15_leptonic_v1/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
+	mv out.root $(test_out_dir)/sparse_ttH_hbb.root
 
 test_MELooper: test_mkdir melooper
 	cd Plotting && FILE_NAMES=$(testfile_vhbb_tthbb) DATASETPATH=$(DATASETPATH) ./python/makeJobfile.py && ./melooper job.json &> $(test_out_dir)/Plotting_MELooper.log

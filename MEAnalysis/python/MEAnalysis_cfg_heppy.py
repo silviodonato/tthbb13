@@ -184,7 +184,7 @@ class Conf:
     general = {
         "passall": False,
         "doQGL": False,
-        "controlPlotsFile": os.environ["CMSSW_BASE"]+"/src/TTH/MEAnalysis/data/ControlPlotsV20.root",
+        "controlPlotsFile": os.environ["CMSSW_BASE"]+"/src/TTH/MEAnalysis/data/ControlPlotsJul13.root",
         "QGLPlotsFile_flavour": os.environ["CMSSW_BASE"]+"/src/TTH/MEAnalysis/data/Histos_QGL_flavour.root",
         "sampleFile": os.environ["CMSSW_BASE"]+"/python/TTH/MEAnalysis/samples.py",
         "transferFunctionsPickle": os.environ["CMSSW_BASE"]+"/src/TTH/MEAnalysis/data/transfer_functions.pickle",
@@ -317,7 +317,7 @@ class Conf:
             #"SL_2w2h1t_l",
             #"SL_2w2h1t_h",
             "SL_2w2h2t",
-            "SL_2w2h2t_1j",
+            #"SL_2w2h2t_1j",
             #"SL_2w2h2t_sj",
             #"SL_0w2h2t_sj",
             #"SL_2w2h2t_memLR",
@@ -381,7 +381,7 @@ c.do_calculate = lambda ev, mcfg: (
     len(mcfg.lepton_candidates(ev)) == 1 and
     len(mcfg.b_quark_candidates(ev)) >= 4 and
     len(mcfg.l_quark_candidates(ev)) >= 1 and
-    ev.numJets >= 5
+    ev.numJets == 5
 )
 c.mem_assumptions.add("sl")
 c.mem_assumptions.add("1w2h2t")
@@ -436,7 +436,7 @@ c.l_quark_candidates = lambda ev: []
 c.do_calculate = lambda ev, mcfg: (
     len(mcfg.lepton_candidates(ev)) == 1 and
     len(mcfg.b_quark_candidates(ev)) >= 4 and
-    ev.numJets >= 4
+    ev.numJets == 4
 )
 c.mem_assumptions.add("sl")
 c.mem_assumptions.add("0w2h2t")

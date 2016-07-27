@@ -97,7 +97,12 @@ samples_nick = {
         'QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
         'QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
         'QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
-        }
+    "SingleMuon": "data_m",
+    "SingleElectron": "data_e",
+    "MuonEG": "data_em",
+    "DoubleEG": "data_ee",
+    "DoubleMuon": "data_mm",
+}
 
 xsec_sample = {
     "TT_TuneCUETP8M1_13TeV-powheg-pythia8": xsec[("ttjets", "13TeV")],
@@ -154,6 +159,18 @@ def getSitePrefix(fn=""):
         return fn
     else:
         raise Exception("Could not open file: {0}".format(fn))
+
+def get_prefix_sample(datasetpath):
+    spl = datasetpath.split("__")
+    if len(spl) == 2:
+        prefix = spl[0]
+        sample = spl[1]
+    elif len(spl) == 1:
+        prefix = ""
+        sample = datasetpath
+    else:
+        raise Exception("could not parse DATASETPATH: {0}".format(datasetpath))
+    return (prefix, sample)
 
 def getSampleNGen(sample):
     import ROOT
