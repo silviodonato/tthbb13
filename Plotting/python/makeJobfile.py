@@ -84,7 +84,7 @@ ret = {
             "nBins": nbins_mem
         },
         {
-            "func": "mem_DL_0w2h2t",
+            "func": "mem_SL_2w2h2t",
             "xMin": 0,
             "xMax": 1,
             "nBins": nbins_mem
@@ -107,24 +107,24 @@ ret = {
             "xMax": 5,
             "nBins": 4
         },
-        {
-            "func": "nBCMVAM",
-            "xMin": 1,
-            "xMax": 5,
-            "nBins": 4
-        },
-        {
-            "func": "btag_LR_4b_2b_logit_btagBDT",
-            "xMin": -20,
-            "xMax": 20,
-            "nBins": 50
-        },
-        {
-            "func": "btag_LR_4b_2b_logit_btagCMVA",
-            "xMin": -20,
-            "xMax": 20,
-            "nBins": 50
-        },
+#        {
+#            "func": "nBCMVAM",
+#            "xMin": 1,
+#            "xMax": 5,
+#            "nBins": 4
+#        },
+#        {
+#            "func": "btag_LR_4b_2b_logit_btagBDT",
+#            "xMin": -20,
+#            "xMax": 20,
+#            "nBins": 50
+#        },
+#        {
+#            "func": "btag_LR_4b_2b_logit_btagCMVA",
+#            "xMin": -20,
+#            "xMax": 20,
+#            "nBins": 50
+#        },
         {
             "func": "jet0_pt",
             "xMin": 0,

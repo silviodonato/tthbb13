@@ -109,8 +109,8 @@ const map<string, AxisFunction> AxisFunctions = {
     {"jet1_btagCSV", [](const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) { return ev.jets.size() > 1 ? ev.jets.at(1).btagCSV : -99;}},
     {"lep0_pt", [](const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) { return ev.leptons.size() > 0 ? ev.leptons.at(0).p4.Pt() : -99;}},
     {"lep0_eta", [](const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) { return ev.leptons.size() > 0 ? ev.leptons.at(0).p4.Eta() : -99;}},
-    {"btag_LR_4b_2b_logit_btagCSV", [](const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) { return ev.btag_LR_4b_2b_logit_CSV;}},
-    {"btag_LR_4b_2b_logit_btagCMVA", [](const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) { return ev.btag_LR_4b_2b_logit_CMVA;}},
+    //{"btag_LR_4b_2b_logit_btagCSV", [](const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) { return ev.btag_LR_4b_2b_logit_CSV;}},
+    //{"btag_LR_4b_2b_logit_btagCMVA", [](const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) { return ev.btag_LR_4b_2b_logit_CMVA;}},
    
     //boosted control variables
     {"topCandidate_mass", [](const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) { return ev.topCandidate_mass;}},
@@ -153,6 +153,7 @@ const Configuration Configuration::makeConfiguration(JsonValue& value) {
     vector<SparseAxis> sparseAxes;
     for (auto lev1 : value) {
         const string ks = string(lev1->key);
+        cout << "\nks="<<ks;
         if (ks == "filenames") {
             for (auto lev2 : lev1->value) {
                 if (lev2->value.getTag() == JSON_STRING) {
@@ -179,7 +180,9 @@ const Configuration Configuration::makeConfiguration(JsonValue& value) {
             }
         }
         else if (ks == "process") {
+            cout << "process "  << endl;
             process = ProcessKey::from_string(lev1->value.toString());
+            cout << "DONE "  << endl;
         }
         else if (ks == "prefix") {
             prefix = lev1->value.toString();
@@ -201,6 +204,7 @@ const Configuration Configuration::makeConfiguration(JsonValue& value) {
             //loop over list of sparse
             for (auto lev2 : lev1->value) {
 
+                cout << "\nlev2=" << lev2;
                 AxisFunction _func;
                 int nBins = -1;
                 float xMin = 0.0;
@@ -209,8 +213,10 @@ const Configuration Configuration::makeConfiguration(JsonValue& value) {
                 //loop over keys in one sparse axis
                 for (auto lev3 : lev2->value) {
                     const string spk = string(lev3->key);
+                    cout << "\nspk=" << spk;
                     if (spk == "func") {
                         name = lev3->value.toString();
+                        cout << "\nname=" << name;
                         _func = AxisFunctions.at(name);
                     } else if (spk == "nBins") {
                         nBins = (int)(lev3->value.toNumber());
@@ -228,6 +234,7 @@ const Configuration Configuration::makeConfiguration(JsonValue& value) {
             }
         }
     }
+    cout << "\nCiao!\n";
     return Configuration(
         filenames,
         lumi,
@@ -915,7 +922,9 @@ void CategoryProcessor::fillHistograms(
         SystematicKey::SystematicKey> key,
     double weight,
     const Configuration& conf
-    ) const {
+    ) 
+    const {
+    cout << " fillHistograms "<< endl;
 }
 
 void CategoryProcessor::process(
@@ -928,9 +937,15 @@ void CategoryProcessor::process(
 
     //Check if event passes cuts
     bool passes = isCategoryEnabled(conf, catKeys);
+    cout << "   passes1 " << passes << endl;
+//    cout << "   event " << event << endl;
+    cout << "   conf.process " << conf.process << endl;
+//    cout << "   catKeys " << catKeys << endl;
+    cout << "   systKey " << systKey << endl;
     if (passes) {
         passes = passes && (*this)(event, conf.process, catKeys, systKey);
     } 
+    cout << "   pass " << passes << endl;
 
     if (passes) {
 
@@ -949,7 +964,7 @@ void CategoryProcessor::process(
             _weightFuncs = this->weightFuncs;
         }
         for (auto& kvWeight : _weightFuncs) {
-            //cout << "   weight " << SystematicKey::to_string(kvWeight.first) << endl;
+            cout << "   weight " << SystematicKey::to_string(kvWeight.first) << endl;
             const double weight = kvWeight.second(event, conf);
             SystematicKey::SystematicKey _systKey = systKey;
             if (systKey == SystematicKey::nominal) {

@@ -2,8 +2,9 @@ import glob, os
 
 
 ngen = {'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1815355.0, 'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__ttHTobb_M125_13TeV_powheg_pythia8': 396368.0, 'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1860322.0, 'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TTTo2L2Nu_13TeV-powheg': 1999194.0,
-        'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TT_TuneEE5C_13TeV-powheg-herwigpp': 999319.0}
+        'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TT_TuneEE5C_13TeV-powheg-herwigpp': 999319.0,
 
+        'ttHToNonbb_M125_13TeV_powheg_pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_3': 397732.0, 'QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3': 1922551.0, 'QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3': 4344709.0, 'ttHTobb_M125_13TeV_powheg_pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_3': 39694.0, 'QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3': 9130214.0, 'TT_TuneCUETP8M1_13TeV-powheg-pythia8': 1990613.0,'TT_TuneCUETP8M1_13TeV-powheg-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_2': 1990613.0, 'QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3': 8371432.0, 'QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3': 6067303.0, 'QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3': 1943589.0}
 
 #Cross-sections from
 # $t \bar{t} + \mathrm{jets}$ - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO, $M_{top} = 172.5$ GeV
@@ -66,9 +67,12 @@ samples_nick = {
     'TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': "ttbarUnsplit",
     'TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': "ttbarUnsplit",
     'TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': "ttbarUnsplit",
+    'ttHTobb_M125_13TeV_powheg_pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_3': "ttbarUnsplit",
     'TTTo2L2Nu_13TeV-powheg': 'ttbarUnsplit',
     'TT_TuneEE5C_13TeV-powheg-herwigpp': 'ttbarUnsplit',
     'TT_TuneCUETP8M1_13TeV-amcatnlo-pythia8': "ttbarUnsplit",
+    'TT_TuneCUETP8M1_13TeV-powheg-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_2': "ttbarUnsplit",
+    'TT_TuneCUETP8M1_13TeV-powheg-pythia8': "ttbarUnsplit",
     'TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8': "ttW_Wlnu",
     'TTWJetsToQQ_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8':"ttW_Wqq",
     'TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo-pythia8': "ttZ_Zqq",
@@ -80,8 +84,20 @@ samples_nick = {
     'WZ_TuneCUETP8M1_13TeV-pythia8': "wz",
     'ZZ_TuneCUETP8M1_13TeV-pythia8': "zz",
     'ttHToNonbb_M125_13TeV_powheg_pythia8': "ttH_nonhbb",
-    'ttHTobb_M125_13TeV_powheg_pythia8': "ttH_hbb"
-}
+    'ttHTobb_M125_13TeV_powheg_pythia8': "ttH_hbb",
+
+
+        'TT_TuneCUETP8M1_13TeV-powheg-pythia8' : 'ttbarUnsplit',
+        'TT_TuneCUETP8M1_13TeV-powheg-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_2' : 'ttbarUnsplit',
+        'ttHTobb_M125_13TeV_powheg_pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_3' : 'ttH_hbb',
+        'ttHToNonbb_M125_13TeV_powheg_pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_3' : 'ttH_nonhbb',
+        'QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
+        'QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
+        'QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
+        'QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
+        'QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
+        'QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : 'qcd',
+        }
 
 xsec_sample = {
     "TT_TuneCUETP8M1_13TeV-powheg-pythia8": xsec[("ttjets", "13TeV")],
@@ -90,7 +106,21 @@ xsec_sample = {
     "TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8": 0.5*xsec[("ttjets", "tt_to_lj", "13TeV")],
     "TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8": 0.5*xsec[("ttjets", "tt_to_lj", "13TeV")],
     "ttHTobb_M125_13TeV_powheg_pythia8": xsec[("tthbb", "13TeV")],
+    'TT_TuneCUETP8M1_13TeV-powheg-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_2': xsec[("tthbb", "13TeV")],
     "ttHToNonbb_M125_13TeV_powheg_pythia8": xsec[("tth_nonhbb", "13TeV")],
+    "ttHTobb_M125_13TeV_powheg_pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_3": xsec[("ttjets", "13TeV")],
+
+
+        'TT_TuneCUETP8M1_13TeV-powheg-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_2' : xsec[("ttjets", "13TeV")],
+        'ttHTobb_M125_13TeV_powheg_pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_3' : xsec[("tthbb", "13TeV")],
+        'ttHToNonbb_M125_13TeV_powheg_pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3_3' : xsec[("tth_nonhbb", "13TeV")],
+        'QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : xsec[("qcd_ht300to500", "13TeV")],
+        'QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : xsec[("qcd_ht500to700", "13TeV")],
+        'QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : xsec[("qcd_ht700to1000", "13TeV")],
+        'QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : xsec[("qcd_ht1000to1500", "13TeV")],
+        'QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : xsec[("qcd_ht1500to2000", "13TeV")],
+        'QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_dsalerno-VHBBHeppyV21_tthbbV9_v3' : xsec[("qcd_ht2000toinf", "13TeV")],
+        
 }
 
 #Configure the site-specific file path

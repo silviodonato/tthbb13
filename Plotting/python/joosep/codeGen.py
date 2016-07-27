@@ -291,6 +291,7 @@ processes = [
     "stop_tW",
     "stop_tbarW",
     "stop_s",
+    "qcd",
     "UNKNOWN"
 ]
 
@@ -388,6 +389,7 @@ if __name__ == "__main__":
 
     #Create the function that fills the category processor tree
     categories_c.write("const vector<const CategoryProcessor*> makeCategories(const Configuration& conf) {\n" +
+        'cout << "calling makeCategories"; \n' + 
         "return { \n" + 
         ",\n".join([makeCategory(cat) for cat in categories_tree]) + 
         "\n}; // categories"

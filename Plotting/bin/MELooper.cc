@@ -121,6 +121,8 @@ int main(int argc, const char** argv) {
                 cout << SystematicKey::to_string(kvSyst.first) << " " << event.to_string();
             }
             for (auto& cat : categorymap) {
+                cout << "I'm doing category" << endl;
+//                cout << cat->cutFunc << endl;
                 cat->process(event, ev_conf, results, {}, kvSyst.first);
             } //categorymap
         } // systmap

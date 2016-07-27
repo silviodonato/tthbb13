@@ -347,6 +347,7 @@ public:
     {}
 
     const bool operator()(const Event& ev, const ProcessKey::ProcessKey& proc, const vector<CategoryKey::CategoryKey>& cats, const SystematicKey::SystematicKey& syst) const {
+        cout << "calling cutFunc" << endl;
         return cutFunc(ev, proc, cats, syst);
     }
 
