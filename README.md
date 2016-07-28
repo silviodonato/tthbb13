@@ -114,7 +114,7 @@ Step4: Categories with `makecategories.sh`
 Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py`, then call
 
 ~~~
-cd TTH/MEAnalysis/gc
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
 python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
 ./grid-control/go.py confs/makecategories.conf
