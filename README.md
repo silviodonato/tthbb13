@@ -116,8 +116,10 @@ Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecification
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
+#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py
+#change at least "input_file"
 python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
-./grid-control/go.py confs/makecategories.conf
+./grid-control/go.py confs/makecategory.conf
 ~~~
 
 Step5: Limits with `makelimits.sh`
