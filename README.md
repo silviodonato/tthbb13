@@ -64,8 +64,8 @@ When some of the samples are done, you can produce small (<5GB) skims of the fil
 
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/datasets
-#edit getListOfFiles.py
-python getListOfFiles.py
+#produce the dataset folder
+python ../python/MakeDatasetFiles.py --datasetfile datasets/ttHDaniel/datasetList.txt --version myDatasetFolder --instance prod/phys03
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 source makeEnv.sh
 #edit confs/projectSkim.conf
