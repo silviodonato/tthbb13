@@ -130,6 +130,8 @@ Configure the path to the category output in `confs/makelimits.conf` by setting 
 ~~~
 cd TTH/MEAnalysis/gc
 cp local-example.conf local.conf 
+## edit makelimits and change datacards (eg. ~/tth/gc/makecategory/GC46066f85f573/)
+vi confs/makelimits.conf
 ./grid-control/go.py confs/makelimits.conf
 ~~~
 
