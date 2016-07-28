@@ -85,27 +85,18 @@ cd TTH/MEAnalysis/gc
 python ../python/getCounts.py /path/to/output/GC1234/
 ~~~
 
-Step3: Sparse histograms with `Plotting/bin/MELooper.cc`
+
+Step3: Sparse histograms with `sparsinator.py`
 ------------------
 In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
 
-First make the `melooper` exe:
+First test the `sparsinator.py` :
 ~~~
-cd TTH
-make melooper
-~~~
-
-Then submit the jobs
-~~~
-cd TTH/MEAnalysis/gc
-./grid-control/go.py confs/plots.conf
+source $CMSSW_BASE/src/TTH/setenv_psi.sh
+cd $CMSSW_BASE/src/TTH
+make test_sparsinator
 ~~~
 
-Once the jobs are done:
-~~~
-hadd ControlPlotsSparse.root `find /path/to/output/GC1234/ -name "*.root"`
-~~~
-This creates a histogram file `ControlPlotsSparse.root`
 
 Step4: Categories with `makecategories.sh`
 -----------------
@@ -128,3 +119,27 @@ Configure the path to the category output in `confs/makelimits.conf` by setting 
 cd TTH/MEAnalysis/gc
 ./grid-control/go.py confs/makelimits.conf
 ~~~
+
+
+######### OLD #####################
+Step3: Sparse histograms with `Plotting/bin/MELooper.cc`
+------------------
+In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
+
+First make the `melooper` exe:
+~~~
+cd TTH
+make melooper
+~~~
+
+Then submit the jobs
+~~~
+cd TTH/MEAnalysis/gc
+./grid-control/go.py confs/plots.conf
+~~~
+
+Once the jobs are done:
+~~~
+hadd ControlPlotsSparse.root `find /path/to/output/GC1234/ -name "*.root"`
+~~~
+This creates a histogram file `ControlPlotsSparse.root`
