@@ -90,11 +90,16 @@ Step3: Sparse histograms with `sparsinator.py`
 ------------------
 In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
 
-First test the `sparsinator.py` :
+First test the `sparsinator.py` locally:
 ~~~
 source $CMSSW_BASE/src/TTH/setenv_psi.sh
 cd $CMSSW_BASE/src/TTH
 make test_sparsinator
+~~~
+Then launch the jobs:
+~~~
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
+./grid-control/go.py confs/sparse.conf -cG
 ~~~
 
 
