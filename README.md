@@ -101,6 +101,11 @@ Then launch the jobs:
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 ./grid-control/go.py confs/sparse.conf -cG
 ~~~
+Once the jobs are done:
+~~~
+hadd ControlPlotsSparse.root `find /path/to/output/GC1234/ -name "*.root"`
+~~~
+This creates a histogram file `ControlPlotsSparse.root`
 
 
 Step4: Categories with `makecategories.sh`
