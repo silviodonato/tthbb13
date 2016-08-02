@@ -9,6 +9,8 @@ blr_cuts = {
     "sl_jge6_t3": 2.9,
 }
 
+#input_file = "ControlPlots.root"
+#input_file = "/mnt/t3nfs01/data01/shome/sdonato/tth/CMSSW/src/TTH/MEAnalysis/gc/ControlPlotsSparse.root"
 input_file = "/mnt/t3nfs01/data01/shome/jpata/tth/gc/melooper/GCdf683f856c22/ControlPlots.root"
 
 do_stat_variations = False
