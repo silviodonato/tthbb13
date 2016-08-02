@@ -62,6 +62,12 @@ sets_data = [
     "/SingleMuon/Run2016B-PromptReco-v2/MINIAOD",
     "/SingleMuon/Run2016C-PromptReco-v2/MINIAOD",
     "/SingleMuon/Run2016D-PromptReco-v2/MINIAOD",
+
+    "/BTagCSV/Run2016B-PromptReco-v1/MINIAOD",
+    "/BTagCSV/Run2016B-PromptReco-v2/MINIAOD",
+    "/BTagCSV/Run2016C-PromptReco-v2/MINIAOD",
+    "/BTagCSV/Run2016D-PromptReco-v2/MINIAOD",
+    "/BTagCSV/Run2016E-PromptReco-v2/MINIAOD",
 ]
 
 #all available datasets.
@@ -72,16 +78,16 @@ for sd in sets_data:
     datanames += [name]
     datasets[name] = {
         "ds": sd,
-        "maxlumis": -1,
+        "maxlumis": 1,
         "perjob": 50,
         "runtime": 40,
-        "mem_cfg": me_cfgs["nome"],
+        "mem_cfg": me_cfgs["default"],
         "script": 'heppy_crab_script_data.sh'
     }
 datasets.update({
     'ttHTobb': {
         "ds": '/ttHTobb_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',
-        "maxlumis": -1,
+        "maxlumis": 1,
         "perjob": 10,
         "runtime": 40,
         "mem_cfg": me_cfgs["default"],
@@ -89,7 +95,7 @@ datasets.update({
     },
     'ttHToNonbb': {
         "ds": '/ttHToNonbb_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',
-        "maxlumis": -1,
+        "maxlumis": 1,
         "perjob": 50,
         "runtime": 40,
         "mem_cfg": me_cfgs["default"],
@@ -97,7 +103,7 @@ datasets.update({
     },
     'TTbar_inc': {
         "ds": '/TT_TuneCUETP8M1_13TeV-powheg-pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14_ext3-v1/MINIAODSIM',
-        "maxlumis": -1,
+        "maxlumis": 1,
         "perjob": 200,
         "runtime": 40,
         "mem_cfg": me_cfgs["default"],
@@ -127,54 +133,54 @@ datasets.update({
         "mem_cfg": me_cfgs["leptonic"],
         "script": 'heppy_crab_script.sh'
     },
-    #'QCD300': {
-    #    "ds": '/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',
-    #    "maxlumis": -1,
-    #    "perjob": 500,
-    #    "runtime": 40,
-    #    "mem_cfg": me_cfgs["hadronic"],
-    #    "script": 'heppy_crab_script.sh'
-    #},
-    #'QCD500': {
-    #    "ds": '/QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',
-    #    "maxlumis": -1,
-    #    "perjob": 500,
-    #    "runtime": 40,
-    #    "mem_cfg": me_cfgs["hadronic"],
-    #    "script": 'heppy_crab_script.sh'
-    #},
-    #'QCD700': {
-    #    "ds": '/QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',
-    #    "maxlumis": -1,
-    #    "perjob": 300,
-    #    "runtime": 40,
-    #    "mem_cfg": me_cfgs["hadronic"],
-    #    "script": 'heppy_crab_script.sh'
-    #},
-    #'QCD1000': {
-    #    "ds": '/QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',
-    #    "maxlumis": -1,
-    #    "perjob": 200,
-    #    "runtime": 40,
-    #    "mem_cfg": me_cfgs["hadronic"],
-    #    "script": 'heppy_crab_script.sh'
-    #},
-    #'QCD1500': {
-    #    "ds": '/QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',
-    #    "maxlumis": -1,
-    #    "perjob": 100,
-    #    "runtime": 40,
-    #    "mem_cfg": me_cfgs["hadronic"],
-    #    "script": 'heppy_crab_script.sh'
-    #},
-    #'QCD2000': {
-    #    "ds": '/QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',
-    #    "maxlumis": -1,
-    #    "perjob": 100,
-    #    "runtime": 40,
-    #    "mem_cfg": me_cfgs["hadronic"],
-    #    "script": 'heppy_crab_script.sh'
-    #},
+    'QCD300': {
+        "ds": '/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
+        "maxlumis": 1,
+        "perjob": 500,
+        "runtime": 40,
+        "mem_cfg": me_cfgs["hadronic"],
+        "script": 'heppy_crab_script.sh'
+    },
+    'QCD500': {
+        "ds": '/QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
+        "maxlumis": 1,
+        "perjob": 500,
+        "runtime": 40,
+        "mem_cfg": me_cfgs["hadronic"],
+        "script": 'heppy_crab_script.sh'
+    },
+    'QCD700': {
+        "ds": '/QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
+        "maxlumis": 1,
+        "perjob": 300,
+        "runtime": 40,
+        "mem_cfg": me_cfgs["hadronic"],
+        "script": 'heppy_crab_script.sh'
+    },
+    'QCD1000': {
+        "ds": '/QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
+        "maxlumis": 1,
+        "perjob": 200,
+        "runtime": 40,
+        "mem_cfg": me_cfgs["hadronic"],
+        "script": 'heppy_crab_script.sh'
+    },
+    'QCD1500': {
+        "ds": '/QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
+        "maxlumis": 1,
+        "perjob": 100,
+        "runtime": 40,
+        "mem_cfg": me_cfgs["hadronic"],
+        "script": 'heppy_crab_script.sh'
+    },
+    'QCD2000': {
+        "ds": '/QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
+        "maxlumis": 1,
+        "perjob": 100,
+        "runtime": 40,
+        "mem_cfg": me_cfgs["hadronic"],
+        "script": 'heppy_crab_script.sh'
+    },
 })
 
 #now we construct the workflows from all the base datasets
@@ -186,7 +192,8 @@ for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar
     workflow_datasets["leptonic"][k] = D
 
 workflow_datasets["leptonic_nome"] = {}
-for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"] + datanames:
+#for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"] + datanames:
+for k in datanames:
     D = deepcopy(datasets[k])
     D["perjob"] = 200
     if "data" in D["script"]:
@@ -201,21 +208,21 @@ for k in datasets.keys():
         D = deepcopy(datasets[k])
         workflow_datasets["data"][k] = D
 
-#workflow_datasets["hadronic"] = {}
-#for k in datasets.keys():
-#    if "QCD" in k or "ttH" in k:
-#        workflow_datasets["hadronic"][k] = datasets[k]
-#    elif k == "TTbar_inc":
-#        #don't run all of tt+jets
-#        D = deepcopy(datasets[k])
-#        D["maxlumis"] = 10000
-#        workflow_datasets["hadronic"][k] = D
+workflow_datasets["hadronic"] = {}
+for k in datasets.keys():
+    if "QCD" in k or "ttH" in k:
+        workflow_datasets["hadronic"][k] = datasets[k]
+    elif k == "TTbar_inc":
+        #don't run all of tt+jets
+        D = deepcopy(datasets[k])
+        D["maxlumis"] = 1
+        workflow_datasets["hadronic"][k] = D
 
 #Pilot job for updating transfer functions, retraining BLR
 workflow_datasets["pilot"] = {}
 pilot_name = 'ttHTobb'
 D = deepcopy(datasets[pilot_name])
-D["perjob"] = 50
+D["perjob"] = 20
 D["mem_cfg"] = me_cfgs["nome"]
 workflow_datasets["pilot"][pilot_name] = D
 
@@ -348,22 +355,22 @@ env
         'python.tar.gz',
         'data.tar.gz',
         "MEAnalysis_heppy.py",
-        'MVAJetTags_620SLHCX_Phase1And2Upgrade.db',
-        'combined_cmssw.py',
+        vhbb_dir + '/MVAJetTags_620SLHCX_Phase1And2Upgrade.db',
+        vhbb_dir + '/combined_cmssw.py',
         vhbb_dir + '/vhbb.py',
         vhbb_dir + '/vhbb_combined.py',
-        'TMVAClassification_BDT.weights.xml',
-        'puData.root',
+        vhbb_dir + '/TMVAClassification_BDT.weights.xml',
+        vhbb_dir + '/puData.root',
         vhbb_dir + '/puDataMinus.root',
         vhbb_dir + '/puDataPlus.root',
-        'puMC.root',
-        'json.txt',
-	vhbb_dir + '/ttbar-spring16-80X.weights.xml',
+        vhbb_dir + '/puMC.root',
+        vhbb_dir + '/json.txt',
+        vhbb_dir + '/triggerEmulation.root',
         vhbb_dir + "/Zll-spring15.weights.xml",
         vhbb_dir + "/Wln-spring15.weights.xml",
         vhbb_dir + "/Znn-spring15.weights.xml",
         vhbb_dir + "/VBF-spring15.weights.xml",
-        vhbb_dir + "/ttbar-fall15_TargetGenOverPt_GenPtCut0.weights.xml",
+        vhbb_dir + "/ttbar-spring16-80X.weights.xml",
         vhbb_dir + '/TMVA_blikelihood_vbf_cmssw76_h21trained.weights.xml'
     ]
 
