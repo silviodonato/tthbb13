@@ -9,6 +9,6 @@ Conf.mem["methodsToRun"] = [
     #"SL_2w2h1t_l",
     #"SL_2w2h1t_h",
     "SL_2w2h2t",
-    "SL_2w2h2t_1j",
-    "SL_2w2h2t_sj",
+#    "SL_2w2h2t_1j",
+#    "SL_2w2h2t_sj",
 ]

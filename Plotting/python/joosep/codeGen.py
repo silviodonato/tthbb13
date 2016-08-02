@@ -327,20 +327,20 @@ all_histogram_keys = (
     additional_histograms
 )
 
-class EventFunction:
-    def __init__(self, syst, func):
-        self.func = func
+#class EventFunction:
+#    def __init__(self, syst, func):
+#        self.func = func
 
-class EventVariable:
-    def __init__(self, name, typ, nominal, systematics):
-        self.name = name
-        self.typ = typ
-        self.nominal = nominal
-        self.systematics = systematics
+#class EventVariable:
+#    def __init__(self, name, typ, nominal, systematics):
+#        self.name = name
+#        self.typ = typ
+#        self.nominal = nominal
+#        self.systematics = systematics
 
-event_structure = [
-    EventVariable("is_sl", "bool", EventFunction("data->is_sl"), {}),
-]
+#event_structure = [
+#    EventVariable("is_sl", "bool", EventFunction("data->is_sl"), {}),
+#]
 
 if __name__ == "__main__":
     #file with enum includes
