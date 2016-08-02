@@ -64,8 +64,8 @@ When some of the samples are done, you can produce small (<5GB) skims of the fil
 
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/datasets
-#edit getListOfFiles.py
-python getListOfFiles.py
+#produce the dataset folder
+python ../python/MakeDatasetFiles.py --datasetfile datasets/ttHDaniel/datasetList.txt --version myDatasetFolder --instance prod/phys03
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 source makeEnv.sh
 #edit confs/projectSkim.conf
@@ -85,6 +85,58 @@ cd TTH/MEAnalysis/gc
 python ../python/getCounts.py /path/to/output/GC1234/
 ~~~
 
+
+Step3: Sparse histograms with `sparsinator.py`
+------------------
+In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
+
+First test the `sparsinator.py` locally:
+~~~
+source $CMSSW_BASE/src/TTH/setenv_psi.sh
+cd $CMSSW_BASE/src/TTH
+make test_sparsinator
+~~~
+Then launch the jobs:
+~~~
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
+./grid-control/go.py confs/sparse.conf -cG
+~~~
+Once the jobs are done:
+~~~
+hadd ControlPlotsSparse.root `find /path/to/output/GC1234/ -name "*.root"`
+~~~
+This creates a histogram file `ControlPlotsSparse.root`
+
+
+Step4: Categories with `makecategories.sh`
+-----------------
+
+Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py`, then call
+
+~~~
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
+#generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
+#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py
+#change at least "input_file"
+python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
+./grid-control/go.py confs/makecategory.conf
+~~~
+
+Step5: Limits with `makelimits.sh`
+-----------------
+
+Configure the path to the category output in `confs/makelimits.conf` by setting `datacardbase` to the output of step 4.
+
+~~~
+cd TTH/MEAnalysis/gc
+cp local-example.conf local.conf 
+## edit makelimits and change datacards (eg. /mnt/t3nfs01/data01/shome/sdonato/tth/gc/makecategory/GC46066f85f573/)
+vi confs/makelimits.conf
+./grid-control/go.py confs/makelimits.conf
+~~~
+
+
+######### OLD #####################
 Step3: Sparse histograms with `Plotting/bin/MELooper.cc`
 ------------------
 In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
@@ -106,25 +158,3 @@ Once the jobs are done:
 hadd ControlPlotsSparse.root `find /path/to/output/GC1234/ -name "*.root"`
 ~~~
 This creates a histogram file `ControlPlotsSparse.root`
-
-Step4: Categories with `makecategories.sh`
------------------
-
-Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py`, then call
-
-~~~
-cd TTH/MEAnalysis/gc
-#generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
-python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
-./grid-control/go.py confs/makecategories.conf
-~~~
-
-Step5: Limits with `makelimits.sh`
------------------
-
-Configure the path to the category output in `confs/makelimits.conf` by setting `datacardbase` to the output of step 4.
-
-~~~
-cd TTH/MEAnalysis/gc
-./grid-control/go.py confs/makelimits.conf
-~~~
