@@ -67,6 +67,10 @@ cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/datasets
 #produce the dataset folder
 das_client --limit 0 --query "dataset  dataset=/*/sdonato-hadronic_*_V24_*/USER instance=prod/phys03"  > datasets.txt
 python ../python/MakeDatasetFiles.py --datasetfile datasets/ttHDaniel/datasetList.txt --version myDatasetFolder --instance prod/phys03
+cd $CMSSW_BASE/src/TTH/MEAnalysis
+#edit python/prepareSamples.py
+python python/prepareSamples.py
+scram b
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 source makeEnv.sh
 #edit confs/projectSkim.conf
