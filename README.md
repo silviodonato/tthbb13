@@ -77,16 +77,6 @@ source makeEnv.sh
 ./hadd.py /path/to/output/GC1234/
 ~~~
 
-The total processed yields can be extracted with
-~~~
-cd TTH/MEAnalysis/gc
-./grid-control/go.py confs/count.conf
-...
-./hadd.py /path/to/output/GC1234/
-python ../python/getCounts.py /path/to/output/GC1234/
-~~~
-
-
 Step3: Sparse histograms with `sparsinator.py`
 ------------------
 In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
@@ -159,3 +149,13 @@ Once the jobs are done:
 hadd ControlPlotsSparse.root `find /path/to/output/GC1234/ -name "*.root"`
 ~~~
 This creates a histogram file `ControlPlotsSparse.root`
+
+The total processed yields can be extracted with
+~~~
+cd TTH/MEAnalysis/gc
+./grid-control/go.py confs/count.conf
+...
+./hadd.py /path/to/output/GC1234/
+python ../python/getCounts.py /path/to/output/GC1234/
+~~~
+
