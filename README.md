@@ -94,6 +94,7 @@ First test the `sparsinator.py` locally:
 ~~~
 source $CMSSW_BASE/src/TTH/setenv_psi.sh
 cd $CMSSW_BASE/src/TTH
+#edit MakeFile (look at "test_sparsinator:" line)
 make test_sparsinator
 ~~~
 Then launch the jobs:
