@@ -1,6 +1,6 @@
 #sample vhbb+tthbb file
 #testfile_vhbb_tthbb=/store/user/jpata/tth/tth_Jul31_V24_v1/ttHTobb_M125_13TeV_powheg_pythia8/tth_Jul31_V24_v1/160731_130548/0000/tree_1.root
-testfile_vhbb_tthbb=file:///mnt/t3nfs01/data01/shome/jpata/tth/sw/CMSSW/src/TTH/test.root
+testfile_vhbb_tthbb=file:///shome/sdonato/tth/V24/CMSSW/src/TTH/tests_out/new.root
 DATASETPATH=Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8
 
 #testfile_vhbb_tthbb=file:///home/joosep/tth/sw/CMSSW/src/TTH/test.root
@@ -61,10 +61,15 @@ test_MEAnalysis_withme: test_mkdir
 	cp MEAnalysis/Loop_sample/tree.root $(test_out_dir)/MEAnalysis_MEAnalysis_heppy_calcME.root
 
 CODE_SPARSINATOR=python Plotting/python/joosep/sparsinator.py
+#test_sparsinator:
+#	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/Jul18_data_v1/SingleMuon.txt | grep root | cut -f1 -d' '` DATASETPATH=Jul18__SingleMuon $(CODE_SPARSINATOR)
+#	mv out.root $(test_out_dir)/sparse_SingleMuon.root
+#	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/Jul15_leptonic_v1/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
+#	mv out.root $(test_out_dir)/sparse_ttH_hbb.root
 test_sparsinator:
-	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/Jul18_data_v1/SingleMuon.txt | grep root | cut -f1 -d' '` DATASETPATH=Jul18__SingleMuon $(CODE_SPARSINATOR)
+	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24/BTagCSV.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__BTagCSV $(CODE_SPARSINATOR)
 	mv out.root $(test_out_dir)/sparse_SingleMuon.root
-	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/Jul15_leptonic_v1/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
+	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
 	mv out.root $(test_out_dir)/sparse_ttH_hbb.root
 
 test_MELooper: test_mkdir melooper

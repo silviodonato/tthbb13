@@ -111,6 +111,7 @@ samples_nick = {
     "MuonEG": "data_em",
     "DoubleEG": "data_ee",
     "DoubleMuon": "data_mm",
+    "BTagCSV": "data_had",
 }
 
 #Numeric keys for processes, used for filling the process axis
@@ -124,12 +125,15 @@ PROCESS_MAP = {
     "ttbarPlusCCbar": 5,
     "ttbarOther": 6,
 
+    "qcd": 13,
+
 #need to keep different data samples separate at this point
     "data_e": 7,
     "data_m": 8,
     "data_mm": 9,
     "data_ee": 10,
     "data_em": 11,
+    "data_had": 12,
 }
 
 xsec_sample = {

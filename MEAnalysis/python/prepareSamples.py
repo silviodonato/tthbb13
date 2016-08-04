@@ -9,7 +9,13 @@ cmssw_base = os.environ["CMSSW_BASE"]
 version = "Aug2"
 
 samples = [
-    "gc/datasets/pilot_Jul30_v1/ttHTobb_M125_13TeV_powheg_pythia8.txt",
+ "gc/datasets/had_V24/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.txt",
+ "gc/datasets/had_V24/ttHTobb_M125_13TeV_powheg_pythia8.txt",
+ "gc/datasets/had_V24/BTagCSV.txt",
+ "gc/datasets/had_V24/QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.txt",
+ "gc/datasets/had_V24/TT_TuneCUETP8M1_13TeV-powheg-pythia8.txt",
+ "gc/datasets/had_V24/ttHToNonbb_M125_13TeV_powheg_pythia8.txt",
+#    "gc/datasets/pilot_Jul30_v1/ttHTobb_M125_13TeV_powheg_pythia8.txt",
 ]
 
 samples = ["$CMSSW_BASE/src/TTH/MEAnalysis/" + s for s in samples]
