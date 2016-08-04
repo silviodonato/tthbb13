@@ -66,7 +66,9 @@ When some of the samples are done, you can produce small (<5GB) skims of the fil
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/datasets
 #produce the dataset folder
 das_client --limit 0 --query "dataset  dataset=/*/sdonato-hadronic_*_V24_*/USER instance=prod/phys03"  > datasets.txt
-python ../python/MakeDatasetFiles.py --datasetfile datasets/ttHDaniel/datasetList.txt --version myDatasetFolder --instance prod/phys03
+#check and remove duplicates in datasets.txt
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/
+python ../python/MakeDatasetFiles.py --datasetfile datasets/datasets.txt --version had_V24_1 --instance prod/phys03
 cd $CMSSW_BASE/src/TTH/MEAnalysis
 #edit python/prepareSamples.py
 python python/prepareSamples.py
@@ -74,9 +76,11 @@ scram b
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 source makeEnv.sh
 #edit confs/projectSkim.conf
-#eg. find datasets/ttHDaniel/ | grep tth
+#eg. find datasets/had_V24/ | grep tth
+#edit confs/projectSkimData.conf
 
 ./grid-control/go.py confs/projectSkim.conf -cG
+./grid-control/go.py confs/projectSkimData.conf -cG
 ...
 ./hadd.py /path/to/output/GC1234/
 ~~~
