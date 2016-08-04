@@ -14,18 +14,6 @@ LOG_MODULE_NAME = logging.getLogger(__name__)
 # for more details. In case you use rootpy.io.File instead of TFile,
 # the tree automatically has this buffer.
 #Try loading rootpy (installed via anaconda)
-
-HAVE_ROOTPY = False
-#try:
-#    from rootpy.tree.chain import TreeChain
-#    from rootpy.vector import LorentzVector
-#    import rootpy
-#    import rootpy.io
-#    HAVE_ROOTPY = True
-#except ImportError as e:
-#    LOG_MODULE_NAME.warning("Could not import rootpy, disabling")
-#    LOG_MODULE_NAME.error("This code will NOT work without rootpy, try setenv_psi.sh!")
-#    raise e
     
 import numpy as np
 from TTH.MEAnalysis.samples_base import getSitePrefix, xsec, samples_nick, xsec_sample, get_prefix_sample, PROCESS_MAP
@@ -179,7 +167,6 @@ Event(
     return r
 
 def lv_p4s(pt, eta, phi, m):
-#    ret = LorentzVector()
     ret = ROOT.TLorentzVector()
     ret.SetPtEtaPhiM(pt, eta, phi, m)
     return ret
@@ -207,34 +194,28 @@ desc = Desc([
     ),
 
     Var(name="leps_pdgId", nominal=Func("leps_pdgId", func=lambda ev: [int(ev.leps_pdgId[i]) for i in range(ev.nleps)])),
-#    Var(name="leps_pdgId", nominal=Func("leps_pdgId", func=lambda ev: [int(x) for x in ev.leps_pdgId[:ev.nleps]])), 
 
     Var(name="jets_p4",
         nominal=Func(
             "jets_p4",
             func=lambda ev: [lv_p4s(ev.jets_pt[i], ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
-#            func=lambda ev: [lv_p4s(pt, eta, phi, m) for (pt, eta, phi, m) in zip(ev.jets_pt[:ev.njets], ev.jets_eta[:ev.njets], ev.jets_phi[:ev.njets], ev.jets_mass[:ev.njets])]
         ),
         systematics = {
             "CMS_scale_jUp": Func(
                 "jets_p4_JESUp",
-                func=lambda ev: [lv_p4s(ev.jets_pt[i]*float(cvar)/float(c), ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
-#                func=lambda ev: [lv_p4s(pt*float(cvar)/float(c), eta, phi, m) for (pt, eta, phi, m, cvar, c) in zip(ev.jets_pt[:ev.njets], ev.jets_eta[:ev.njets], ev.jets_phi[:ev.njets], ev.jets_mass[:ev.njets], ev.jets_corr_JESUp[:ev.njets], ev.jets_corr[:ev.njets])]
+                func=lambda ev: [lv_p4s(ev.jets_pt[i]*float(ev.jets_corr_JESUp[i])/float(ev.jets_corr[i]), ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
             ),
             "CMS_scale_jDown": Func(
                 "jets_p4_JESDown",
-                func=lambda ev: [lv_p4s(ev.jets_pt[i]*float(cvar)/float(c), ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
-#                func=lambda ev: [lv_p4s(pt*float(cvar)/float(c), eta, phi, m) for (pt, eta, phi, m, cvar, c) in zip(ev.jets_pt[:ev.njets], ev.jets_eta[:ev.njets], ev.jets_phi[:ev.njets], ev.jets_mass[:ev.njets], ev.jets_corr_JESDown[:ev.njets], ev.jets_corr[:ev.njets])]
+                func=lambda ev: [lv_p4s(ev.jets_pt[i]*float(ev.jets_corr_JESDown[i])/float(ev.jets_corr[i]), ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
             ),
             "CMS_res_jUp": Func(
                 "jets_p4_JERUp",
-                func=lambda ev: [lv_p4s(ev.jets_pt[i]*float(cvar)/float(c) if c>0 else 0.0, ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
-#                func=lambda ev: [lv_p4s(pt*float(cvar)/float(c) if c>0 else 0.0, eta, phi, m) for (pt, eta, phi, m, cvar, c) in zip(ev.jets_pt[:ev.njets], ev.jets_eta[:ev.njets], ev.jets_phi[:ev.njets], ev.jets_mass[:ev.njets], ev.jets_corr_JERUp[:ev.njets], ev.jets_corr_JER[:ev.njets])]
+                func=lambda ev: [lv_p4s(ev.jets_pt[i]*float(ev.jets_corr_JERUp[i])/float(ev.jets_corr_JER[i]) if ev.jets_corr_JER[i]>0 else 0.0, ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
             ),
             "CMS_res_jDown": Func(
                 "jets_p4_JERDown",
-                func=lambda ev: [lv_p4s(ev.jets_pt[i]*float(cvar)/float(c) if c>0 else 0.0, ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
-#                func=lambda ev: [lv_p4s(pt*float(cvar)/float(c) if c>0 else 0.0, eta, phi, m) for (pt, eta, phi, m, cvar, c) in zip(ev.jets_pt[:ev.njets], ev.jets_eta[:ev.njets], ev.jets_phi[:ev.njets], ev.jets_mass[:ev.njets], ev.jets_corr_JERDown[:ev.njets], ev.jets_corr_JER[:ev.njets])]
+                func=lambda ev: [lv_p4s(ev.jets_pt[i]*float(ev.jets_corr_JERDown[i])/float(ev.jets_corr_JER[i]) if ev.jets_corr_JER[i]>0 else 0.0, ev.jets_eta[i], ev.jets_phi[i], ev.jets_mass[i]) for i in range(ev.njets)]
             )
         }
     ),
@@ -455,10 +436,7 @@ if __name__ == "__main__":
     nevents = 0
     for file_name in file_names:
         print("opening {0}".format(file_name))
-        if HAVE_ROOTPY:
-            tf = rootpy.io.File.Open(file_name)
-        else:
-            tf = ROOT.TFile.Open(file_name)
+        tf = ROOT.TFile.Open(file_name)
         events = tf.Get("tree")
         print("opened {0}".format(events))
         print("looping over {0} events".format(events.GetEntries()))
@@ -477,7 +455,6 @@ if __name__ == "__main__":
                 continue
 
             for syst in systematics_event:
-                print ("cvar: ",cvar)
                 ret = desc.getValue(event, syst, schema)
                 proc_label = assign_process_label(process, ret)
                 ret["process"] = PROCESS_MAP[proc_label]
