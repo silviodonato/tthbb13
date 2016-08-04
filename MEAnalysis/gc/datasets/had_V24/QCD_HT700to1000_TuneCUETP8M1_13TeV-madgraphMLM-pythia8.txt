@@ -1,0 +1,2 @@
+[had_V24__QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8]
+/store/user/sdonato/tth/hadronic_mc_V24_2/QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_2/160802_201045/0000/tree_490.root = 14

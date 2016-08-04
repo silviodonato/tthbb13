@@ -1,0 +1,20 @@
+[had_V24__QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8]
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_111.root = 287
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_116.root = 302
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_117.root = 312
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_146.root = 286
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_180.root = 296
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_188.root = 313
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_23.root = 340
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_25.root = 6
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_27.root = 274
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_38.root = 309
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_407.root = 17
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_41.root = 302
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_46.root = 291
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_48.root = 315
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_62.root = 277
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_68.root = 323
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_70.root = 312
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_76.root = 296
+/store/user/sdonato/tth/hadronic_mc_V24_1/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/hadronic_mc_V24_1/160802_165922/0000/tree_85.root = 320
