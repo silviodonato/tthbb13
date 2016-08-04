@@ -82,7 +82,8 @@ source makeEnv.sh
 ./grid-control/go.py confs/projectSkim.conf -cG
 ./grid-control/go.py confs/projectSkimData.conf -cG
 ...
-./hadd.py /path/to/output/GC1234/
+./hadd.py ~/tth/gc/projectSkim/GCb7f111222333/ #for mc
+./hadd.py ~/tth/gc/projectSkim/GCb7f111222334/ #for data
 ~~~
 
 Step3: Sparse histograms with `sparsinator.py`
