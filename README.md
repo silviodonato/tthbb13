@@ -112,12 +112,12 @@ This creates a histogram file `ControlPlotsSparse.root`
 Step4: Categories with `makecategories.sh`
 -----------------
 
-Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py`, then call
+Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py`, then call
 
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
-#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py
+#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py
 #change at least "input_file"
 python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
 ./grid-control/go.py confs/makecategory.conf
