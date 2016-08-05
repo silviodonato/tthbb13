@@ -104,7 +104,7 @@ cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 ~~~
 Once the jobs are done:
 ~~~
-hadd ControlPlotsSparse.root `find /path/to/output/GC1234/ -name "*.root"`
+hadd ControlPlotsSparse.root `find ~/tth/gc/sparse/GCde1112222333 -name "*.root"`
 ~~~
 This creates a histogram file `ControlPlotsSparse.root`
 
