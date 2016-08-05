@@ -178,6 +178,7 @@ desc = Desc([
 
     Var(name="is_sl"),
     Var(name="is_dl"),
+    Var(name="is_fh"),
 
     Var(name="numJets", systematics="suffix"),
     Var(name="nBCSVM", systematics="suffix"),
@@ -221,16 +222,19 @@ desc = Desc([
     ),
 
     Var(name="mem_SL_0w2h2t_p",
-        nominal=Func("mem_p_SL_0w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_SL_0w2h2t_p/(ev.mem_tth_SL_0w2h2t_p + sf*ev.mem_ttbb_SL_0w2h2t_p) if ev.mem_tth_SL_0w2h2t_p>0 else 0.0),
+        nominal=Func("mem_p_SL_0w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_SL_0w2h2t_p/(ev.mem_tth_SL_0w2h2t_p + sf*ev.mem_ttbb_SL_0w2h2t_p) if getattr(ev,"mem_tth_SL_0w2h2t_p",0)>0 else 0.0),
     ),
     Var(name="mem_SL_1w2h2t_p",
-        nominal=Func("mem_p_SL_1w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_SL_1w2h2t_p/(ev.mem_tth_SL_1w2h2t_p + sf*ev.mem_ttbb_SL_1w2h2t_p) if ev.mem_tth_SL_1w2h2t_p>0 else 0.0),
+        nominal=Func("mem_p_SL_1w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_SL_1w2h2t_p/(ev.mem_tth_SL_1w2h2t_p + sf*ev.mem_ttbb_SL_1w2h2t_p) if getattr(ev,"mem_tth_SL_1w2h2t_p",0)>0 else 0.0),
     ),
     Var(name="mem_SL_2w2h2t_p",
-        nominal=Func("mem_p_SL_2w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_SL_2w2h2t_p/(ev.mem_tth_SL_2w2h2t_p + sf*ev.mem_ttbb_SL_2w2h2t_p) if ev.mem_tth_SL_2w2h2t_p>0 else 0.0),
+        nominal=Func("mem_p_SL_2w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_SL_2w2h2t_p/(ev.mem_tth_SL_2w2h2t_p + sf*ev.mem_ttbb_SL_2w2h2t_p) if getattr(ev,"mem_tth_SL_2w2h2t_p",0)>0 else 0.0),
     ),
     Var(name="mem_DL_0w2h2t_p",
-        nominal=Func("mem_p_DL_0w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_DL_0w2h2t_p/(ev.mem_tth_DL_0w2h2t_p + sf*ev.mem_ttbb_DL_0w2h2t_p) if ev.mem_tth_DL_0w2h2t_p>0 else 0.0),
+        nominal=Func("mem_p_DL_0w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_DL_0w2h2t_p/(ev.mem_tth_DL_0w2h2t_p + sf*ev.mem_ttbb_DL_0w2h2t_p) if getattr(ev,"mem_tth_DL_0w2h2t_p",0)>0 else 0.0),
+    ),
+    Var(name="mem_FH_4w2h2t_p",
+        nominal=Func("mem_p_FH_4w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_FH_4w2h2t_p/(ev.mem_tth_FH_4w2h2t_p + sf*ev.mem_ttbb_FH_4w2h2t_p) if getattr(ev,"mem_tth_FH_4w2h2t_p",0)>0 else 0.0),
     ),
 
 #MC-only branches
@@ -320,6 +324,7 @@ axes = [
     Axis("mem_SL_1w2h2t_p", 36, 0, 1, lambda ev: ev["mem_SL_1w2h2t_p"]),
     Axis("mem_SL_0w2h2t_p", 36, 0, 1, lambda ev: ev["mem_SL_0w2h2t_p"]),
     Axis("mem_DL_0w2h2t_p", 36, 0, 1, lambda ev: ev["mem_DL_0w2h2t_p"]),
+    Axis("mem_FH_4w2h2t_p", 36, 0, 1, lambda ev: ev["mem_FH_4w2h2t_p"]),
     Axis("common_bdt", 36, 0, 1, lambda ev: ev["common_bdt"]),
     Axis("numJets", 5, 3, 8, lambda ev: ev["numJets"]),
     Axis("nBCSVM", 4, 1, 5, lambda ev: ev["nBCSVM"]),
@@ -369,6 +374,13 @@ def createOutputs(dirs, systematics):
             axes,
             dirs["dl"]
         )
+        dirs["fh"].cd()
+        outdict["fh/sparse"] = SparseOut(
+            "sparse" + syststr,
+            lambda ev: ev["is_fh"] == 1,
+            axes,
+            dirs["fh"]
+        )
         outdict_syst[syst] = outdict
     return outdict_syst
 
@@ -401,6 +413,8 @@ def triggerPath(event):
         return 4
     elif event["is_dl"] and pass_HLT_dl_elel(event):
         return 5
+    elif event["is_fh"]: #and pass_HLT_fh(event) ???
+        return 6
     return 0
 
 if __name__ == "__main__":
@@ -429,6 +443,7 @@ if __name__ == "__main__":
     dirs["sample"].cd()
     dirs["sl"] = dirs["sample"].mkdir("sl")
     dirs["dl"] = dirs["sample"].mkdir("dl")
+    dirs["fh"] = dirs["sample"].mkdir("fh")
     
     #pre-create output histograms
     outdict_syst = createOutputs(dirs, systematics_event+systematics_weight)
@@ -445,7 +460,7 @@ if __name__ == "__main__":
 
         for event in events:
             #apply some basic preselection
-            if not (event.is_sl or event.is_dl):
+            if not (event.is_sl or event.is_dl or event.is_fh):
                 continue
             if not event.numJets >= 4:
                 continue
