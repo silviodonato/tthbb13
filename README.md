@@ -39,10 +39,11 @@ Using the VHBB ntuple, we will run the ttH(bb) and matrix element code
 
 This is to test the code
 ~~~
+cd $CMSSW_BASE/src/TTH/tests_out
+python moveTTree.py #simple script that moves VHBB.root in new.root and 'tree' in 'vhbb/tree'
 cd $CMSSW_BASE/src/TTH
 #edit testfile_vhbb_tthbb in $CMSSW_BASE/src/TTH/Makefile
-#eg. file:///scratch/sdonato/ttH/test/CMSSW/src/TTH/tests_out/VHBB.root
-#in $CMSSW_BASE/src/TTH/MEAnalysis/python/samples_local.py, replace 'vhbb/tree' with 'tree'
+#eg. file:///scratch/sdonato/ttH/test/CMSSW/src/TTH/tests_out/new.root
 make test_MEAnalysis >& logTestME &
 #this will call TTH/MEAnalysis/python/MEAnalysis_heppy.py
 ~~~
