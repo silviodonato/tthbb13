@@ -112,7 +112,7 @@ cd TTH/MEAnalysis/gc
 ./grid-control/go.py confs/count.conf -cG
 ...
 ./hadd.py ~/tth/gc/count/GC1234/
-python $CMSSW_BASE/src/TTH/MEAnalysis/python/getCounts.py ~/tth/gc/count/GC1234/
+python $CMSSW_BASE/src/TTH/MEAnalysis/python/getCounts.py `ls ~/tth/gc/count/GC1234/*.root`
 ~~~
 
 The counts need to be introduced to `TTH/MEAnalysis/python/samples_base.py` as the `ngen` dictionary.
