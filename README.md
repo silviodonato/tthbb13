@@ -256,5 +256,10 @@ TTH/Plotting/python/joosep/sparsinator.py:
   - add: dirs["fh"] = dirs["sample"].mkdir("fh")
   - add "or event.is_fh" after "apply some basic preselection"
   - 
-
+TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py:
+  - _lumis
+TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py:
+  - everything
+TTH/Plotting/python/Datacards/AnalysisSpecification.py:
+  - add FH
 
