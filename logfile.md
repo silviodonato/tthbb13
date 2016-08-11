@@ -336,7 +336,6 @@ MEIntegratorStandalone=02d58d6
 CMSSW=5727125
 
 
-<<<<<<< HEAD
 testHadronicV1p0
 -------------
 tthbb13=b62528d
@@ -486,4 +485,11 @@ tthbb13=c27f544
 CommonClassifier=f326dcc
 MEIntegratorStandalone=02d58d6
 CMSSW=5727125
->>>>>>> 5c0efb22302f65904aa3077a7ce1a38bc23ef5ac
+
+
+Aug11_data_v1
+-------------
+tthbb13=4536d72
+CommonClassifier=f326dcc
+MEIntegratorStandalone=02d58d6
+CMSSW=5727125
