@@ -98,7 +98,7 @@ First test the `sparsinator.py` locally:
 ~~~
 source $CMSSW_BASE/src/TTH/setenv_psi.sh
 cd $CMSSW_BASE/src/TTH
-#edit datasets and files in Plotting/python/test_sparsinator.py
+#edit datasets, files, and histo folder in Plotting/python/test_sparsinator.py
 python Plotting/python/test_sparsinator.py
 ~~~
 Then launch the jobs:
