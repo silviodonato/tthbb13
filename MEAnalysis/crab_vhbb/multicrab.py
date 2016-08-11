@@ -196,9 +196,9 @@ workflow_datasets["leptonic_nome"] = {}
 #for k in ["ttHTobb", "ttHToNonbb", "TTbar_inc", "TTbar_sl1", "TTbar_sl2", "TTbar_dl"] + datanames:
 for k in datanames:
     D = deepcopy(datasets[k])
-    D["perjob"] = 200
+    D["perjob"] = 100
     if "data" in D["script"]:
-        D["perjob"] = 100
+        D["perjob"] = 50
 
     D["mem_cfg"] = "cfg_noME.py"
     workflow_datasets["leptonic_nome"][k] = D
@@ -225,16 +225,24 @@ for k in datasets.keys():
         workflow_datasets["only_qcd"][k] = datasets[k]
 
 #Pilot job for updating transfer functions, retraining BLR
+workflow_datasets["pilot"] = {}
+pilot_name = 'ttHTobb'
+D = deepcopy(datasets[pilot_name])
+D["perjob"] = 20
+D["mem_cfg"] = me_cfgs["nome"]
+workflow_datasets["pilot"][pilot_name] = D
 
 #1-lumi per job, 10 job testing of a few samples
 workflow_datasets["testing"] = {}
-for k in ["ttHToNonbb"]:
+
+for k in ["ttHTobb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v2"]:
+#for k in ["SingleMuon-Run2016B-PromptReco-v2"]:
     D = deepcopy(datasets[k])
-    D["maxlumis"] = 50
-    D["perjob"] = 5
+    D["maxlumis"] = 40
+    D["perjob"] =2 
     if "data" in D["script"]:
-        D["maxlumis"] = 250
-        D["perjob"] = 25
+        D["maxlumis"] = 100 
+        D["perjob"] = 10 
     D["runtime"] = 2
     D["mem_cfg"] = "cfg_noME.py"
     workflow_datasets["testing"][k] = D
@@ -355,6 +363,7 @@ env
         'python.tar.gz',
         'data.tar.gz',
         "MEAnalysis_heppy.py",
+        'BDT.pickle',
         vhbb_dir + '/MVAJetTags_620SLHCX_Phase1And2Upgrade.db',
         vhbb_dir + '/combined_cmssw.py',
         vhbb_dir + '/vhbb.py',
@@ -394,9 +403,9 @@ env
             dataset = sel_datasets[sample]["ds"]
             nlumis = sel_datasets[sample]["maxlumis"]
             perjob = sel_datasets[sample]["perjob"]
-            runtime = sel_datasets[sample]["runtime"]
+            runtime_min = sel_datasets[sample].get("runtime_min", sel_datasets[sample]["runtime"]*60)
 
-            config.JobType.maxJobRuntimeMin = runtime * 60
+            config.JobType.maxJobRuntimeMin = runtime_min
             config.General.requestName = sample + "_" + submitname
             config.Data.inputDataset = dataset
             config.Data.unitsPerJob = perjob
