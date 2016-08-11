@@ -17,7 +17,8 @@ workflows = [
     "testing", #single-lumi jobs, a few samples
     "localtesting", #run combined jobs locally
     "localtesting_withme", #run combined jobs locally
-    "testing_withme" #single-lumi jobs, a few samples
+    "testing_withme", #single-lumi jobs, a few samples
+    "only_qcd"
 ]
 
 import argparse
@@ -85,14 +86,14 @@ for sd in sets_data:
         "script": 'heppy_crab_script_data.sh'
     }
 datasets.update({
-#    'ttHTobb': {
-#        "ds": '/ttHTobb_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',
-#        "maxlumis": -1,
-#        "perjob": 10,
-#        "runtime": 40,
-#        "mem_cfg": me_cfgs["default"],
-#        "script": 'heppy_crab_script.sh'
-#    },
+    'ttHTobb': {
+        "ds": '/ttHTobb_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',
+        "maxlumis": -1,
+        "perjob": 10,
+        "runtime": 40,
+        "mem_cfg": me_cfgs["default"],
+        "script": 'heppy_crab_script.sh'
+    },
     'ttHToNonbb': {
         "ds": '/ttHToNonbb_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',
         "maxlumis": -1,
@@ -133,14 +134,14 @@ datasets.update({
         "mem_cfg": me_cfgs["leptonic"],
         "script": 'heppy_crab_script.sh'
     },
-#    'QCD300': {
-#        "ds": '/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
-#        "maxlumis": -1,
-#        "perjob": 500,
-#        "runtime": 40,
-#        "mem_cfg": me_cfgs["hadronic"],
-#        "script": 'heppy_crab_script.sh'
-#    },
+    'QCD300': {
+        "ds": '/QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
+        "maxlumis": -1,
+        "perjob": 500,
+        "runtime": 40,
+        "mem_cfg": me_cfgs["hadronic"],
+        "script": 'heppy_crab_script.sh'
+    },
     'QCD500': {
         "ds": '/QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
         "maxlumis": -1,
@@ -176,7 +177,7 @@ datasets.update({
     'QCD2000': {
         "ds": '/QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
         "maxlumis": -1,
-        "perjob": 100,
+        "perjob": 1,
         "runtime": 40,
         "mem_cfg": me_cfgs["hadronic"],
         "script": 'heppy_crab_script.sh'
@@ -217,6 +218,11 @@ for k in datasets.keys():
         D = deepcopy(datasets[k])
      #   D["maxlumis"] = 1
         workflow_datasets["hadronic"][k] = D
+
+workflow_datasets["only_qcd"] = {}
+for k in datasets.keys():
+    if "QCD" in k:
+        workflow_datasets["only_qcd"][k] = datasets[k]
 
 #Pilot job for updating transfer functions, retraining BLR
 
