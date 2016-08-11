@@ -4,7 +4,14 @@ import glob, os
 ngen = {'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1815355.0, 'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__ttHTobb_M125_13TeV_powheg_pythia8': 396368.0, 'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1860322.0, 'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TTTo2L2Nu_13TeV-powheg': 1999194.0,
         'VHBBHeppyV22pre_tthbbV10pre_leptonic_Jun10_mc_withme__TT_TuneEE5C_13TeV-powheg-herwigpp': 999319.0,
 
-        'ttHToNonbb_M125_13TeV_powheg_pythia8_3': 397732.0, 'QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1922551.0, 'QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 4344709.0, 'ttHTobb_M125_13TeV_powheg_pythia8_3': 39694.0, 'QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 9130214.0, 'TT_TuneCUETP8M1_13TeV-powheg-pythia8': 1990613.0,'TT_TuneCUETP8M1_13TeV-powheg-pythia8_2': 1990613.0, 'QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 8371432.0, 'QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 6067303.0, 'QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1943589.0}
+        'ttHToNonbb_M125_13TeV_powheg_pythia8_3': 397732.0, 'QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1922551.0, 'QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 4344709.0, 'ttHTobb_M125_13TeV_powheg_pythia8_3': 39694.0, 'QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 9130214.0, 'TT_TuneCUETP8M1_13TeV-powheg-pythia8': 1990613.0,'TT_TuneCUETP8M1_13TeV-powheg-pythia8_2': 1990613.0, 'QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 8371432.0, 'QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 6067303.0, 'QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1943589.0,
+            'TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 9468936.0,
+        'TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 11947951.0,
+        'TTTo2L2Nu_13TeV-powheg': 104607104.0,
+        'TT_TuneCUETP8M1_13TeV-powheg-pythia8': 88506656.0,
+        'ttHToNonbb_M125_13TeV_powheg_pythia8': 2756598.0,
+        'ttHTobb_M125_13TeV_powheg_pythia8': 3912212.0,
+}
 
 #Cross-sections from
 # $t \bar{t} + \mathrm{jets}$ - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO, $M_{top} = 172.5$ GeV
@@ -28,12 +35,12 @@ xsec[("tth", "13TeV")] = 0.5085
 xsec[("tthbb", "13TeV")] = xsec[("tth", "13TeV")] * br_h_to_bb
 xsec[("tth_nonhbb", "13TeV")] = xsec[("tth", "13TeV")] * (1.0 - br_h_to_bb)
 
-xsec[("qcd_ht300to500", "13TeV")] = 366800.0
-xsec[("qcd_ht500to700", "13TeV")] = 29370.0
-xsec[("qcd_ht700to1000", "13TeV")] = 6524.0
-xsec[("qcd_ht1000to1500", "13TeV")] = 1064.0
-xsec[("qcd_ht1500to2000", "13TeV")] = 121.5
-xsec[("qcd_ht2000toinf", "13TeV")] = 25.42
+xsec[("qcd300", "13TeV")] = 366800.0
+xsec[("qcd500", "13TeV")] = 29370.0
+xsec[("qcd700", "13TeV")] = 6524.0
+xsec[("qcd1000", "13TeV")] = 1064.0
+xsec[("qcd1500", "13TeV")] = 121.5
+xsec[("qcd2000", "13TeV")] = 25.42
 
 #From the AN
 xsec[("wjets", "13TeV")] = 61526.7
@@ -52,14 +59,14 @@ xsec[("ww", "13TeV")] = 118.7
 xsec[("wz", "13TeV")] = 47.13
 xsec[("zz", "13TeV")] = 16.523
 
-ngen = {
-    'TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 9468936.0,
-    'TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 11947951.0,
-    'TTTo2L2Nu_13TeV-powheg': 104607104.0,
-    'TT_TuneCUETP8M1_13TeV-powheg-pythia8': 88506656.0,
-    'ttHToNonbb_M125_13TeV_powheg_pythia8': 2756598.0,
-    'ttHTobb_M125_13TeV_powheg_pythia8': 3912212.0,
-}
+#ngen = {
+#    'TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 9468936.0,
+#    'TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 11947951.0,
+#    'TTTo2L2Nu_13TeV-powheg': 104607104.0,
+#    'TT_TuneCUETP8M1_13TeV-powheg-pythia8': 88506656.0,
+#    'ttHToNonbb_M125_13TeV_powheg_pythia8': 2756598.0,
+#    'ttHTobb_M125_13TeV_powheg_pythia8': 3912212.0,
+#}
 
 samples_nick = {
     'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1': "stop_s",
@@ -150,12 +157,12 @@ xsec_sample = {
         'TT_TuneCUETP8M1_13TeV-powheg-pythia8_2' : xsec[("ttjets", "13TeV")],
         'ttHTobb_M125_13TeV_powheg_pythia8_3' : xsec[("tthbb", "13TeV")],
         'ttHToNonbb_M125_13TeV_powheg_pythia8_3' : xsec[("tth_nonhbb", "13TeV")],
-        'QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd_ht300to500", "13TeV")],
-        'QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd_ht500to700", "13TeV")],
-        'QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd_ht700to1000", "13TeV")],
-        'QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd_ht1000to1500", "13TeV")],
-        'QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd_ht1500to2000", "13TeV")],
-        'QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd_ht2000toinf", "13TeV")],
+        'QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd300", "13TeV")],
+        'QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd500", "13TeV")],
+        'QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd700", "13TeV")],
+        'QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd1000", "13TeV")],
+        'QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd1500", "13TeV")],
+        'QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8' : xsec[("qcd2000", "13TeV")],
         
 }
 
