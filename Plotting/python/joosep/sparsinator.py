@@ -6,17 +6,9 @@ import sys, os
 from collections import OrderedDict
 import logging
 LOG_MODULE_NAME = logging.getLogger(__name__)
-
-# We use rootpy because it has a nice buffer arount TTree,
-# which allows us to not re-read the whole tree every time we access
-# one branch from python using tree.branch.
-# See https://github.com/rootpy/rootpy/blob/master/rootpy/tree/treebuffer.py
-# for more details. In case you use rootpy.io.File instead of TFile,
-# the tree automatically has this buffer.
-#Try loading rootpy (installed via anaconda)
     
 import numpy as np
-from TTH.MEAnalysis.samples_base import getSitePrefix, xsec, samples_nick, xsec_sample, get_prefix_sample, PROCESS_MAP
+from TTH.MEAnalysis.samples_base import getSitePrefix, xsec, samples_nick, xsec_sample, get_prefix_sample, PROCESS_MAP, TRIGGERPATH_MAP
 from TTH.Plotting.Datacards.sparse import save_hdict
 
 #placeholder value
@@ -24,7 +16,6 @@ NA = -999
 
 #default MEM scale factor in the likelihood ratio
 MEM_SF = 0.1
-
 
 SYSTEMATICS_EVENT = [
     "CMS_scale_jUp", "CMS_scale_jDown",
@@ -43,10 +34,12 @@ systematic_weights = []
 btag_weights = []
 for sdir in ["up", "down"]:
     for syst in ["cferr1", "cferr2", "hf", "hfstats1", "hfstats2", "jes", "lf", "lfstats1", "lfstats2"]:
-        for tagger in ["CSV"]:
+        for tagger in ["CSV", "CMVAV2"]:
             bweight = "btagWeight{0}_{1}_{2}".format(tagger, syst, sdir)
+            #make systematic outputs consistent in Up/Down naming
+            sdir_cap = sdir.capitalize()
             systematic_weights += [
-                ("CMS_ttH_{0}{1}{2}".format(tagger, syst, sdir), lambda ev, bweight=bweight: ev["weight_nominal"]/ev["btagWeight"+tagger]*ev[bweight])
+                ("CMS_ttH_{0}{1}{2}".format(tagger, syst, sdir_cap), lambda ev, bweight=bweight: ev["weight_nominal"]/ev["btagWeight"+tagger]*ev[bweight])
             ]
             btag_weights += [bweight]
 
@@ -112,6 +105,7 @@ class Var:
 
         #in case function not defined, just use variable name
         self.nominal_func = kwargs.get("nominal", Func(self.name))
+        self.funcs_schema = kwargs.get("funcs_schema", {})
 
         self.systematics_funcs = kwargs.get("systematics", {})
         #in case this variable is just a pre-calculated branch on the tree (e.g. numJets),
@@ -123,9 +117,9 @@ class Var:
 
         self.schema = kwargs.get("schema", ["mc", "data"])
 
-    def getValue(self, event, systematic="nominal"):
+    def getValue(self, event, schema, systematic="nominal"):
         if systematic == "nominal" or not self.systematics_funcs.has_key(systematic):
-            return self.nominal_func(event)
+            return self.funcs_schema.get(schema, self.nominal_func)(event)
         else:
             return self.systematics_funcs[systematic](event)
 
@@ -134,11 +128,11 @@ class Desc:
         self.variables = variables
         self.variables_dict = OrderedDict([(v.name, v) for v in self.variables])
 
-    def getValue(self, event, systematic="nominal", schema="mc"):
+    def getValue(self, event, schema="mc", systematic="nominal"):
         ret = OrderedDict()
         for vname, v in self.variables_dict.items():
             if schema in v.schema:
-                ret[vname] = v.getValue(event, systematic)
+                ret[vname] = v.getValue(event, schema, systematic)
         return ret
 
 def event_as_str(ret):
@@ -236,16 +230,25 @@ desc = Desc([
     Var(name="mem_FH_4w2h2t_p",
         nominal=Func("mem_p_FH_4w2h2t", func=lambda ev, sf=MEM_SF: ev.mem_tth_FH_4w2h2t_p/(ev.mem_tth_FH_4w2h2t_p + sf*ev.mem_ttbb_FH_4w2h2t_p) if getattr(ev,"mem_tth_FH_4w2h2t_p",0)>0 else 0.0),
     ),
+    
+    Var(name="HLT_ttH_DL_mumu", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_DL_mumu}),
+    Var(name="HLT_ttH_DL_elel", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_DL_elel}),
+    Var(name="HLT_ttH_DL_elmu", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_DL_elmu}),
+    Var(name="HLT_ttH_SL_el", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_SL_el}),
+    Var(name="HLT_ttH_SL_mu", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_SL_mu}),
 
 #MC-only branches
     Var(name="ttCls", schema=["mc"]),
     Var(name="puWeight", schema=["mc"]),
     Var(name="puWeightUp", schema=["mc"]),
     Var(name="puWeightDown", schema=["mc"]),
+    Var(name="triggerEmulationWeight", schema=["mc"]),
 
     #nominal b-tag weight, systematic weights added later
     Var(name="btagWeightCSV", schema=["mc"]),
-    ] + [Var(name=bw, schema=["mc"]) for bw in btag_weights])
+    Var(name="btagWeightCMVAV2", schema=["mc"]),
+    ] + [Var(name=bw, schema=["mc"]) for bw in btag_weights]
+)
 
 class Axis:
     def __init__(self, name, nbins, lo, hi, func):
@@ -385,36 +388,39 @@ def createOutputs(dirs, systematics):
     return outdict_syst
 
 def pass_HLT_sl_mu(event):
-    return abs(event["leps_pdgId"][0]) == 13
+    pass_hlt = event["HLT_ttH_SL_mu"]
+    return pass_hlt and abs(event["leps_pdgId"][0]) == 13
 
 def pass_HLT_sl_el(event):
-    return abs(event["leps_pdgId"][0]) == 11
+    pass_hlt = event["HLT_ttH_SL_el"]
+    return pass_hlt and abs(event["leps_pdgId"][0]) == 11
 
 def pass_HLT_dl_mumu(event):
+    pass_hlt = event["HLT_ttH_DL_mumu"]
     st = sum(map(abs, event["leps_pdgId"]))
-    return st == 26
+    return pass_hlt and st == 26
 
 def pass_HLT_dl_elmu(event):
+    pass_hlt = event["HLT_ttH_DL_elmu"]
     st = sum(map(abs, event["leps_pdgId"]))
-    return st == 24
+    return pass_hlt and st == 24
 
 def pass_HLT_dl_elel(event):
+    pass_hlt = event["HLT_ttH_DL_elel"]
     st = sum(map(abs, event["leps_pdgId"]))
-    return st == 22
+    return pass_hlt and st == 22
 
 def triggerPath(event):
     if event["is_sl"] and pass_HLT_sl_mu(event):
-        return 1
+        return TRIGGERPATH_MAP["m"]
     elif event["is_sl"] and pass_HLT_sl_el(event):
-        return 2
+        return TRIGGERPATH_MAP["e"]
     elif event["is_dl"] and pass_HLT_dl_mumu(event):
-        return 3
+        return TRIGGERPATH_MAP["mm"]
     elif event["is_dl"] and pass_HLT_dl_elmu(event):
-        return 4
+        return TRIGGERPATH_MAP["em"]
     elif event["is_dl"] and pass_HLT_dl_elel(event):
-        return 5
-    elif event["is_fh"]: #and pass_HLT_fh(event) ???
-        return 6
+        return TRIGGERPATH_MAP["ee"]
     return 0
 
 if __name__ == "__main__":
@@ -422,7 +428,7 @@ if __name__ == "__main__":
         file_names = map(getSitePrefix, os.environ["FILE_NAMES"].split())
         prefix, sample = get_prefix_sample(os.environ["DATASETPATH"])
     else:
-        file_names = [getSitePrefix("/store/user/jpata/tth/pilot_Jul30_v1/ttHTobb_M125_13TeV_powheg_pythia8/pilot_Jul30_v1/160730_115048/0000/tree_{0}.root".format(i)) for i in range(1, 10)]
+        file_names = [getSitePrefix("/store/user/jpata/tth/tth_Jul31_V24_v1/ttHTobb_M125_13TeV_powheg_pythia8/tth_Jul31_V24_v1/160731_130548/0000/tree_{0}.root".format(i)) for i in range(1, 10)]
         prefix = ""
         sample = "ttHTobb_M125_13TeV_powheg_pythia8"
 
@@ -462,15 +468,17 @@ if __name__ == "__main__":
             #apply some basic preselection
             if not (event.is_sl or event.is_dl or event.is_fh):
                 continue
-            if not event.numJets >= 4:
+            if not event.numJets >= 3:
                 continue
-            if not (event.nBCSVM>=3 or event.nBCMVAM>=3):
+            if not (event.nBCSVM>=2 or event.nBCMVAM>=2):
+                continue
+            if schema == "data" and not event.json:
                 continue
             if schema == "data" and not event.json:
                 continue
 
             for syst in systematics_event:
-                ret = desc.getValue(event, syst, schema)
+                ret = desc.getValue(event, schema, syst)
                 proc_label = assign_process_label(process, ret)
                 ret["process"] = PROCESS_MAP[proc_label]
                 ret["syst"] = syst
@@ -481,7 +489,7 @@ if __name__ == "__main__":
 
                 ret["weight_nominal"] = 1.0
                 if schema == "mc":
-                    ret["weight_nominal"] *= ret["puWeight"] * ret["btagWeightCSV"]
+                    ret["weight_nominal"] *= ret["puWeight"] * ret["btagWeightCSV"] * ret["triggerEmulationWeight"]
                 
                 #Fill the base histogram
                 for (k, v) in outdict_syst[syst].items():
