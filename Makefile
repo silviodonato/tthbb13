@@ -46,7 +46,7 @@ test_Plotting_btaghists: test_mkdir
 
 test_MEAnalysis: test_mkdir
 	rm -Rf MEAnalysis/Loop_*
-	cd MEAnalysis && TTH_CALCME=0 INPUT_FILE=$(testfile_vhbb_tthbb) ME_CONF=python/cfg_local.py python python/MEAnalysis_heppy.py &> $(test_out_dir)/MEAnalysis_MEAnalysis_heppy.log
+	cd MEAnalysis && TTH_CALCME=1 INPUT_FILE=$(testfile_vhbb_tthbb) ME_CONF=python/cfg_local.py python python/MEAnalysis_heppy.py &> $(test_out_dir)/MEAnalysis_MEAnalysis_heppy.log
 	sleep 5
 	du -csh MEAnalysis/Loop_sample/tree.root &>> $(test_out_dir)/MEAnalysis_MEAnalysis_heppy.log
 	python -c "import ROOT; f=ROOT.TFile('MEAnalysis/Loop_sample/tree.root'); print f.Get('tree').GetEntries()" &>> $(test_out_dir)/MEAnalysis_MEAnalysis_heppy.log
@@ -67,9 +67,9 @@ CODE_SPARSINATOR=python Plotting/python/joosep/sparsinator.py
 #	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/Jul15_leptonic_v1/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
 #	mv out.root $(test_out_dir)/sparse_ttH_hbb.root
 test_sparsinator:
-	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24/BTagCSV.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__BTagCSV $(CODE_SPARSINATOR)
+	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24_1/BTagCSV.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__BTagCSV $(CODE_SPARSINATOR)
 	mv out.root $(test_out_dir)/sparse_SingleMuon.root
-	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
+	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24_1/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
 	mv out.root $(test_out_dir)/sparse_ttH_hbb.root
 
 test_MELooper: test_mkdir melooper
@@ -105,7 +105,7 @@ test_VHBB_MEAnalysis_data: test_mkdir
 	cp MEAnalysis/Loop_sample/tree.root $(test_out_dir)/VHBB_MEAnalysis_data.root
 
 test_MEAnalysis_crab_vhbb: test_mkdir
-	egrep -o "file:.*root" MEAnalysis/crab_vhbb/PSet.py
+	#egrep -o "file:.*root" MEAnalysis/crab_vhbb/PSet.py
 	rm -Rf MEAnalysis/crab_vhbb/Output* 
 	cd MEAnalysis/crab_vhbb && ./heppy_crab_script.sh 1 &> $(test_out_dir)/MEAnalysis_crab_vhbb.log
 	cp MEAnalysis/crab_vhbb/tree.root $(test_out_dir)/MEAnalysis_crab_vhbb.root

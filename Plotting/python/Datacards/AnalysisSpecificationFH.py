@@ -1,33 +1,22 @@
-from TTH.Plotting.Datacards.AnalysisSpecificationSL import data_samples, base_samples, ttjets_powheg, signal_processes, common_shape_uncertainties, common_scale_uncertainties, scale_uncertainties, make_control_categories, input_file
+from TTH.Plotting.Datacards.AnalysisSpecificationSL import data_samples, base_samples, ttjets_powheg, qcd, signal_processes, common_shape_uncertainties, common_scale_uncertainties, scale_uncertainties, make_control_categories, input_file
 from TTH.Plotting.Datacards.AnalysisSpecificationClasses import Sample, Category, Analysis, make_csv_categories_abstract, make_csv_groups_abstract
 
-qcd = [
-    Sample(
-        input_name = "QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8",
-        output_name = qcd,
-        xs_weight = LUMI*samples_base.xsec_sample["QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"]/samples_base.ngen["QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"],
-        cuts = [processCut(qcd)]
-    ) for tt in [
-        "ttbarOther", "ttbarPlusBBbar", "ttbarPlus2B", "ttbarPlusB", "ttbarPlusCCbar"
-    ]
-]
 
-
-fh_data = [data_samples["BtagCSV"]]
+fh_data = [data_samples["BTagCSV"]]
 
 fh_categories = [
     # == 4 jets, == 4 tags
     Category(
         name = "fh_jge8_tge4",
         cuts = [("numJets", 8, 9), ("nBCSVM", 4, 5)],
-        samples = base_samples + ttjets_powheg + qcd,
+        samples = base_samples + ttjets_powheg, ## ADDME: + qcd
         data_samples = fh_data,
         signal_processes = signal_processes,
         common_shape_uncertainties = common_shape_uncertainties,
         common_scale_uncertainties = common_scale_uncertainties,
         scale_uncertainties = scale_uncertainties,
         discriminator = "mem_FH_4w2h2t_p",
-        src_histogram = "fq/sparse"
+        src_histogram = "fh/sparse"
     ),
 #   EXAMPLE FROM DL
 #    # >= 4 jets, >= 4 tags
