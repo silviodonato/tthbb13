@@ -67,9 +67,9 @@ CODE_SPARSINATOR=python Plotting/python/joosep/sparsinator.py
 #	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/Jul15_leptonic_v1/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
 #	mv out.root $(test_out_dir)/sparse_ttH_hbb.root
 test_sparsinator:
-	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24_1/BTagCSV.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__BTagCSV $(CODE_SPARSINATOR)
+	MAX_EVENTS=100 FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24_1/BTagCSV.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__BTagCSV $(CODE_SPARSINATOR)
 	mv out.root $(test_out_dir)/sparse_SingleMuon.root
-	FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24_1/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
+	MAX_EVENTS=100 FILE_NAMES=`head -n5 MEAnalysis/gc/datasets/had_V24_1/ttHTobb_M125_13TeV_powheg_pythia8.txt | grep root | cut -f1 -d' '` DATASETPATH=had_V24__ttHTobb_M125_13TeV_powheg_pythia8 $(CODE_SPARSINATOR)
 	mv out.root $(test_out_dir)/sparse_ttH_hbb.root
 
 test_MELooper: test_mkdir melooper
