@@ -329,15 +329,19 @@ class MEAnalyzer(FilterAnalyzer):
                 event.nMatch_tb,
             )
         }
-        memidx = self.conf.mem["methodOrder"].index(confname)
-        outobjects["output"] = {
-            "mem_cfg": confname,
-            "p_tth": event.mem_results_tth[memidx].p,
-            "p_ttbb": event.mem_results_ttbb[memidx].p,
-            "p": event.mem_results_tth[memidx].p / (
-                event.mem_results_tth[memidx].p + self.conf.mem["weight"]*event.mem_results_ttbb[memidx].p
-            ) if event.mem_results_tth[memidx].p > 0 else 0.0
-        }
+        try:
+            memidx = self.conf.mem["methodOrder"].index(confname)
+            print self.conf
+            outobjects["output"] = {
+                "mem_cfg": confname,
+                "p_tth": event.mem_results_tth[memidx].p,
+                "p_ttbb": event.mem_results_ttbb[memidx].p,
+                "p": event.mem_results_tth[memidx].p / (
+                    event.mem_results_tth[memidx].p + self.conf.mem["weight"]*event.mem_results_ttbb[memidx].p
+                ) if event.mem_results_tth[memidx].p > 0 else 0.0
+            }
+        except:
+            print "Potential error!!"
         self.jsonout = open("events.json", "a")
         self.jsonout.write(
             json.dumps(outobjects) + "\n"
