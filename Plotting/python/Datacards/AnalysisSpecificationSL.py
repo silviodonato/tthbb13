@@ -26,7 +26,7 @@ blr_cuts = {
     "dl_jge4_tge4": -20,
 }
 
-input_file = "/mnt/t3nfs01/data01/shome/jpata/tth/sw/CMSSW/src/TTH/MEAnalysis/gc/Sparse.root"
+input_file = "/mnt/t3nfs01/data01/shome/sdonato/tth/V24/CMSSW/src/TTH/MEAnalysis/gc/ControlPlotsSparse.root"
 
 #https://github.com/vhbb/cmssw/issues/493#issuecomment-233123300
 #however, actual lumi may be a bit smaller, as not 100% of the data was processed successfully 
@@ -147,6 +147,30 @@ ttjets_split += [
     ]
 ]
 
+
+qcd = [
+    Sample(
+        input_name = "QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8",
+        output_name = qcd,
+        xs_weight = LUMI*samples_base.xsec_sample["QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"]/samples_base.ngen["QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"],
+        cuts = [processCut(qcd)]
+    ) for qcd in [
+        "qcd",
+    ]
+]
+
+qcd += [
+    Sample(
+        input_name = "QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8",
+        output_name = qcd,
+        xs_weight = LUMI*samples_base.xsec_sample["QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"]/samples_base.ngen["QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"],
+        cuts = [processCut(qcd)]
+    ) for qcd in [
+        "qcd",
+    ]
+]
+
+
 # On the data samples, we only need to choose the events that pass the correct
 # trigger path, e.g. in SingleMuon, the ones that passed the singlemuon selection
 data_samples = {
@@ -181,7 +205,12 @@ data_samples = {
         xs_weight = 1.0,
         cuts = [("triggerPath", 5, 6)]
     ),
-
+    "BTagCSV": Sample(
+        input_name = "BTagCSV",
+        output_name = "data",
+        xs_weight = 1.0,
+        cuts = [("triggerPath", 6, 7)]
+    ),
 }
 
 #For single-leptonic analyses, use these data samples
