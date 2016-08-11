@@ -100,6 +100,7 @@ make test_sparsinator
 Then launch the jobs:
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
+#edit confs/sparse.conf
 ./grid-control/go.py confs/sparse.conf -cG
 ~~~
 Once the jobs are done:
@@ -172,5 +173,7 @@ python ../python/getCounts.py /path/to/output/GC1234/
 
 Debug
 ------------------
+~~~
 #edit PSet_local.py
 ME_CONF=cfg_FH.py python heppy_crab_script.py
+~~~
