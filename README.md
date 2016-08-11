@@ -170,3 +170,7 @@ cd TTH/MEAnalysis/gc
 python ../python/getCounts.py /path/to/output/GC1234/
 ~~~
 
+Debug
+------------------
+#edit PSet_local.py
+ME_CONF=cfg_FH.py python heppy_crab_script.py
