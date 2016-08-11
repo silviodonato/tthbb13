@@ -300,3 +300,6 @@ Things that need to be changed for fully hadronic ttH
 -----------------
 TTH/MEAnalysis/python/samples_base.py:
   - PROCESS_MAP
+
+TTH/Plotting/python/joosep/sparsinator.py:
+
