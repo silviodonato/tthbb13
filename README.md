@@ -149,10 +149,13 @@ Step3: Sparse histograms with `Plotting/bin/MELooper.cc`
 In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
 
 First make the `melooper` exe:
+
+~~~
 $ python TTH/MEAnalysis/python/MakeDatasetFiles.py --version {TAG}
 ~~~
 
 ## Step3: skim with `projectSkim`
+------------------
 
 When some of the samples are done, you can produce smallis (<10GB) skims of the files using local batch jobs.
 
@@ -278,15 +281,16 @@ ttbarPlusB
 ~~~
 
 ## Step5: Limits with `makelimits.sh`
+------------------
 
 Configure the path to the category output in `confs/makelimits.conf` by setting `datacardbase` to the output of step 4.
 
-~~~
 #edit PSet_local.py
+
 ME_CONF=cfg_FH.py python heppy_crab_script.py
-~~~
 
 ## Step6: data/mc plots
+------------------
 
 From the output of makecategory, you can make data/MC plots using code in `plotlib.py` and `controlPlot.py`. See `TTH/MEAnalysis/python/joosep/controlPlot.py` for an example. For this to work, you need to use the rootpy environment.
 
