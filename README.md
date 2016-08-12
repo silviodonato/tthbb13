@@ -248,11 +248,12 @@ export PYTHONPATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/python2.7/site-pa
 export LD_LIBRARY_PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/:$LD_LIBRARY_PATH
 export PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/bin:$PATH
 ##or try /mnt/t3nfs01/data01/shome/sdonato/anaconda2
-python controlPlot.py
 
-
-#edit controlPlot.py
+#edit controlPlot.py (add and use only "cats_fh")
+mkdir FH
+ln -s /shome/sdonato/tth/gc/makecategory/GCc4352248c511/FH/fh_jge8_tge4.root FH/fh_jge8_tge4.root
 python controlPlot.py
+#possibly, fix missing variables in plotlib.py
 ~~~
 
 On the T3 using 10 cores, you can make about 100 pdf plots per minute.
