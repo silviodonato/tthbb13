@@ -170,6 +170,7 @@ cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
 #edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py
 #edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py (change input_file)
+#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py (use only analyses_FH)
 python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
 
 #edit and test make-category 
