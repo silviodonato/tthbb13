@@ -242,7 +242,13 @@ vi confs/makelimits.conf
 From the output of makecategory, you can make data/MC plots using code in `plotlib.py` and `controlPlot.py`. See `$CMSSW_BASE/src/TTH/Plotting/python/joosep/controlPlot.py` for an example. For this to work, you need to use the rootpy environment.
 ~~~
 cd $CMSSW_BASE/src/TTH/Plotting/python/joosep
-source $CMSSW_BASE/src/TTH/setenv_psi.sh
+#source $CMSSW_BASE/src/TTH/setenv_psi.sh
+
+eval `scramv1 runtime -sh`
+export PYTHONPATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/python2.7/site-packages:$PYTHONPATH
+export LD_LIBRARY_PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/:$LD_LIBRARY_PATH
+export PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/bin:$PATH
+
 #edit controlPlot.py
 python controlPlot.py
 ~~~
