@@ -240,6 +240,12 @@ vi confs/makelimits.conf
 ## Step6: data/mc plots
 
 From the output of makecategory, you can make data/MC plots using code in `plotlib.py` and `controlPlot.py`. See `$CMSSW_BASE/src/TTH/Plotting/python/joosep/controlPlot.py` for an example. For this to work, you need to use the rootpy environment.
+~~~
+cd $CMSSW_BASE/src/TTH/Plotting/python/joosep
+source $CMSSW_BASE/src/TTH/setenv_psi.sh
+#edit controlPlot.py
+python controlPlot.py
+~~~
 
 On the T3 using 10 cores, you can make about 100 pdf plots per minute.
 
