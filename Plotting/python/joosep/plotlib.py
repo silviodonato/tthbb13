@@ -109,6 +109,8 @@ samplelist_d = dict(samplelist)
 
 #list of all variable names, suitable for latex
 varnames = {
+    "jetsByPt_0_pt": r"leading jet $p_T$ [GeV]",
+
     "jet0_pt": r"leading jet $p_T$ [GeV]",
     "jet1_pt": r"subleading jet $p_T$ [GeV]",
 
