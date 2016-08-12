@@ -7,10 +7,11 @@ from TTH.MEAnalysis.inputs import sparse_data
 import copy
 from copy import deepcopy
 
-input_file = sparse_data["Aug11"].infile
-ngen = sparse_data["Aug11"].ngen
-lumi = sparse_data["Aug11"].lumi
-blr_cuts = sparse_data["Aug11"].blr_cuts
+input_file = sparse_data["had_V24_1"].infile
+ngen = sparse_data["had_V24_1"].ngen
+print ngen
+lumi = sparse_data["had_V24_1"].lumi
+blr_cuts = sparse_data["had_V24_1"].blr_cuts
 
 do_stat_variations = False
 do_fake_data = True
@@ -106,6 +107,7 @@ def splitByTriggerPath(samples):
         "mm": lumi["DoubleMuon"],
         "em": lumi["MuonEG"],
         "ee": lumi["DoubleEG"],
+        "fh": lumi["BTagCSV"],
     }
 
     for name, trigpath in TRIGGERPATH_MAP.items():
@@ -196,6 +198,12 @@ data_samples = {
         output_name = "data",
         lumi = lumi["DoubleEG"],
         cuts = [("triggerPath", 5, 6)]
+    ),
+    "BTagCSV": DataSample(
+        input_name = "BTagCSV",
+        output_name = "data",
+        lumi = lumi["BTagCSV"],
+        cuts = [("triggerPath", 6, 7)]
     ),
 }
 
