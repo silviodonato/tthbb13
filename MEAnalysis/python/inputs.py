@@ -166,6 +166,68 @@ sparse_data = {
             "CMS_ttH_CSVlfstats1",
             "CMS_ttH_CSVlfstats2"
         ]
+    ),
+    #see AnalysisSpecificationFH.py and MEAnalysis_cfg_heppy.py 
+    "had_V24_1": SparseHistogram(
+        infile = "file:///mnt/t3nfs01/data01/shome/sdonato/tth/V24/CMSSW/src/TTH/MEAnalysis/gc/ControlPlotsSparse.root",
+        ngen = {
+            'ttHTobb_M125_13TeV_powheg_pythia8': 3792518.0,
+            'TT_TuneCUETP8M1_13TeV-powheg-pythia8': 88622464.0, 
+            'ttHToNonbb_M125_13TeV_powheg_pythia8': 3770981.0,
+            
+            'TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1.0,
+            'TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8': 1.0,
+#            'had_V24_1__ttHTobb_M125_13TeV_powheg_pythia8': 3792518.0,
+#            'had_V24_1__TT_TuneCUETP8M1_13TeV-powheg-pythia8': 88622464.0, 
+#            'had_V24_1__ttHToNonbb_M125_13TeV_powheg_pythia8': 3770981.0
+            },
+        # brilcalc on golden json, overestimated by a few % for SingleElectron
+        # http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=Joosep+Pata&refresh=60&table=Mains&p=1&records=-1&sorting%5B%5D=2&sorting%5B%5D=desc&activemenu=2&pattern=*tth_Aug3_V24_v2*&task=&from=&till=&timerange=lastMonth
+        lumi = {
+            "BTagCSV": 12891.528,
+            "fh": 12891.528,
+
+            "SingleMuon": 12891.528,
+            "SingleElectron": 12891.528,
+            "MuonEG": 12891.528,
+            "DoubleEG": 12891.528,
+            "DoubleMuon": 12891.528,
+        },
+        blr_cuts = {
+            "sl_j4_t2": 20,
+            "sl_j4_t3": 1.1,
+            "sl_j4_tge4": -20,
+            
+            "sl_j5_t2": 20,
+            "sl_j5_t3": 2.3,
+            "sl_j5_tge4": -20,
+            
+            "sl_jge6_t2": -0.4,
+            "sl_jge6_t3": 2.9,
+            "sl_jge6_tge4": -20,
+
+            "dl_j3_t2": 20,
+            "dl_j3_t3": -20,
+            "dl_jge4_t2": 20,
+            "dl_jge4_t3": 2.3,
+            "dl_jge4_tge4": -20,
+
+            "fh_jge8_tge4": -20, #see analysis specification
+        },
+        systematics = [
+            "CMS_scale_j",
+            "CMS_res_j",
+            "pu",
+            "CMS_ttH_CSVcferr1",
+            "CMS_ttH_CSVcferr2",
+            "CMS_ttH_CSVhf",
+            "CMS_ttH_CSVhfstats1",
+            "CMS_ttH_CSVhfstats2",
+            "CMS_ttH_CSVjes",
+            "CMS_ttH_CSVlf",
+            "CMS_ttH_CSVlfstats1",
+            "CMS_ttH_CSVlfstats2"
+        ]
     )
 }
 
