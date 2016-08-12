@@ -171,6 +171,10 @@ cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py
 #edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py (change input_file)
 python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
+
+#edit and test make-category 
+python ../../Plotting/python/test_MakeCategory.py
+
 #edit confs/makecategory.conf (change at least "workdir")
 ./grid-control/go.py confs/makecategory.conf -cG
 ~~~
