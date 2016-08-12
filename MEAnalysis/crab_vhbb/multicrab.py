@@ -23,7 +23,8 @@ workflows = [
 
 import argparse
 parser = argparse.ArgumentParser(description='Submits crab jobs')
-parser.add_argument('--workflow', action="store", required=True, help="Type of workflow to run", type=str, choices=workflows)
+#parser.add_argument('--workflow', action="store", required=True, help="Type of workflow to run", type=str, choices=workflows)
+parser.add_argument('--workflow', action="store", required=True, help="Type of workflow to run", type=str)
 parser.add_argument('--tag', action="store", required=True, help="the version tag for this run, e.g. VHBBHeppyV22_tthbbV10_test1")
 args = parser.parse_args()
 
@@ -177,7 +178,7 @@ datasets.update({
     'QCD2000': {
         "ds": '/QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',
         "maxlumis": -1,
-        "perjob": 1,
+        "perjob": 100,
         "runtime": 40,
         "mem_cfg": me_cfgs["hadronic"],
         "script": 'heppy_crab_script.sh'
@@ -218,6 +219,9 @@ for k in datasets.keys():
         D = deepcopy(datasets[k])
      #   D["maxlumis"] = 1
         workflow_datasets["hadronic"][k] = D
+    elif k == "BTagCSV":
+        #don't run all of tt+jets
+        workflow_datasets["hadronic"][k] = deepcopy(datasets[k])
 
 workflow_datasets["only_qcd"] = {}
 for k in datasets.keys():
@@ -235,7 +239,7 @@ workflow_datasets["pilot"][pilot_name] = D
 #1-lumi per job, 10 job testing of a few samples
 workflow_datasets["testing"] = {}
 
-for k in ["ttHTobb", "TTbar_inc", "SingleMuon-Run2016B-PromptReco-v2"]:
+for k in ["ttHTobb", "TTbar_inc"]:
 #for k in ["SingleMuon-Run2016B-PromptReco-v2"]:
     D = deepcopy(datasets[k])
     D["maxlumis"] = 40
@@ -282,7 +286,10 @@ for k in []:#, "SingleMuon-Run2016B-PromptReco-v1"]:
     workflow_datasets["testing_withme"][k] = D
 
 #Now select a set of datasets
-sel_datasets = workflow_datasets[args.workflow]
+if args.workflow in workflow_datasets:
+    sel_datasets = workflow_datasets[args.workflow]
+else:
+    sel_datasets = {dataset:datasets[dataset] for dataset in datasets if args.workflow in dataset}
 
 if __name__ == '__main__':
     from CRABAPI.RawCommand import crabCommand
