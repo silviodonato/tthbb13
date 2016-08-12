@@ -8,7 +8,8 @@ from TTH.Plotting.Datacards.AnalysisSpecificationSL import analyses as analyses_
 from TTH.Plotting.Datacards.AnalysisSpecificationDL import analyses as analyses_DL
 from TTH.Plotting.Datacards.AnalysisSpecificationFH import analyses as analyses_FH 
 
-analyses = dict((k, v) for d in [analyses_SL, analyses_DL, analyses_FH] for k, v in d.items())
+#analyses = dict((k, v) for d in [analyses_SL, analyses_DL, analyses_FH] for k, v in d.items())
+analyses = dict((k, v) for d in [analyses_FH] for k, v in d.items())
 
 if __name__ == "__main__":
     print "Printing all analyses"
