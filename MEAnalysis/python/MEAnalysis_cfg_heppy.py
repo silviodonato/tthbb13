@@ -300,6 +300,8 @@ class Conf:
             "dl_jge4_t2": 20,
             "dl_jge4_t3": 2.3,
             "dl_jge4_tge4": -20,
+
+            "fh_jge8_tge4": -20, #see analysis specification
         },
 
         #Generic event-dependent selection function applied
