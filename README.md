@@ -169,7 +169,7 @@ Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecification
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
 #edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py
-#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py (change input_file)
+#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py (change input_file/ngen/lumi/blr_cuts)
 #edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py (use only analyses_FH)
 python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
 
@@ -260,11 +260,16 @@ TTH/Plotting/python/joosep/sparsinator.py:
   - add 'fh' case in triggerPath
   - add: dirs["fh"] = dirs["sample"].mkdir("fh")
   - add "or event.is_fh" after "apply some basic preselection"
-  - 
+ 
+
 TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py:
-  - _lumis
+  - in _lumis, add "fh": lumi["BTagCSV"]"
+  - add "BTagCSV" as DataSample -> triggerPath cut!
+  - 
+
 TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py:
   - everything
+
 TTH/Plotting/python/Datacards/AnalysisSpecification.py:
   - add FH
-
+  - (?) do not loop over SL and DL
