@@ -2,18 +2,18 @@
 
 Setup on SLC6 in a clean directory (no CMSSW) on a **shared file system**
 ~~~
-$ mkdir -p ~/tth/sw
-$ cd ~/tth/sw
-$ wget --no-check-certificate https://raw.githubusercontent.com/silviodonato/tthbb13/ttH80X/setup.sh
-$ source setup.sh
+mkdir -p ~/tth/sw
+cd ~/tth/sw
+wget --no-check-certificate https://raw.githubusercontent.com/silviodonato/tthbb13/ttH80X/setup.sh
+source setup.sh
 ~~~
 This will download CMSSW, the tthbb code and all the dependencies.
 
 In order to compile the code, run
 ~~~
-$ cd ~/tth/sw/CMSSW/src
-$ cmsenv
-$ scram b -j 8
+cd ~/tth/sw/CMSSW/src
+cmsenv
+scram b -j 8
 ~~~
 
 ## Step0: environment
@@ -230,7 +230,7 @@ ttbarPlusB
 Configure the path to the category output in `confs/makelimits.conf` by setting `datacardbase` to the output of step 4.
 
 ~~~
-cd TTH/MEAnalysis/gc
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 cp local-example.conf local.conf 
 ## edit makelimits and change datacards (eg. /mnt/t3nfs01/data01/shome/sdonato/tth/gc/makecategory/GC46066f85f573/)
 vi confs/makelimits.conf
