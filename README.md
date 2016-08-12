@@ -288,3 +288,14 @@ TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py:
 TTH/Plotting/python/Datacards/AnalysisSpecification.py:
   - add FH
   - (?) do not loop over SL and DL
+
+TTH/Plotting/python/joosep/plotlib.py:
+  - add mem_FH_* variables
+  - add QCD in colors
+  - check cats
+  - add QCD in samplelist
+
+TTH/Plotting/python/joosep/controlPlot.py:
+  - add QCD in procs_names
+  - add "cats_fh"
+  - run on cats_fh instead of SL and DL
