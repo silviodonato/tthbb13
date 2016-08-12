@@ -256,11 +256,11 @@ TTH/Plotting/python/joosep/sparsinator.py:
   - (?) add Var(name="HLT_ttH_FH",...
   - add Axis("mem_FH_4w2h2t_p",...
   - add 'fh' section in createOutputs
-  - (?) add definition of pass_HLT_fh(event):
+  - add definition of pass_HLT_fh(event):
   - add 'fh' case in triggerPath
   - add: dirs["fh"] = dirs["sample"].mkdir("fh")
   - add "or event.is_fh" after "apply some basic preselection"
- 
+
 
 TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py:
   - in _lumis, add "fh": lumi["BTagCSV"]"
