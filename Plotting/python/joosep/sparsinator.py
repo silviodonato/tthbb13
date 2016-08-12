@@ -236,6 +236,7 @@ desc = Desc([
     Var(name="HLT_ttH_DL_elmu", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_DL_elmu}),
     Var(name="HLT_ttH_SL_el", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_SL_el}),
     Var(name="HLT_ttH_SL_mu", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_SL_mu}),
+#    Var(name="HLT_ttH_SL_mu", funcs_schema={"mc": lambda ev: 1.0, "data": lambda ev: ev.HLT_ttH_SL_mu}),
 
 #MC-only branches
     Var(name="ttCls", schema=["mc"]),
@@ -410,6 +411,10 @@ def pass_HLT_dl_elel(event):
     st = sum(map(abs, event["leps_pdgId"]))
     return pass_hlt and st == 22
 
+def pass_HLT_fh(event):
+    pass_hlt = event["HLT_BIT_HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_v"] or event["HLT_BIT_HLT_PFHT450_SixJet40_BTagCSV_p056_v"]
+    return pass_hlt
+
 def triggerPath(event):
     if event["is_sl"] and pass_HLT_sl_mu(event):
         return TRIGGERPATH_MAP["m"]
@@ -421,6 +426,8 @@ def triggerPath(event):
         return TRIGGERPATH_MAP["em"]
     elif event["is_dl"] and pass_HLT_dl_elel(event):
         return TRIGGERPATH_MAP["ee"]
+    elif event["is_fh"] and pass_HLT_fh(event):
+        return TRIGGERPATH_MAP["fh"]
     return 0
 
 if __name__ == "__main__":
@@ -438,9 +445,10 @@ if __name__ == "__main__":
         max_events = 10000
 
     if len(file_names) == 0:
+	print("os.environ.has_key('FILE_NAMES'):",os.environ.has_key("FILE_NAMES"))
         raise Exception("No files specified, probably a mistake")
     if max_events == 0:
-        raise Exception("No events specified, probably a mistake")
+        raise Exception("No max events specified, probably a mistake")
 
     process = samples_nick[sample]
     schema = get_schema(sample)
