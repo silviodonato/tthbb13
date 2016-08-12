@@ -1,8 +1,10 @@
-from TTH.Plotting.Datacards.AnalysisSpecificationSL import data_samples, base_samples, ttjets_powheg, qcd, signal_processes, common_shape_uncertainties, common_scale_uncertainties, scale_uncertainties, make_control_categories, input_file
+from TTH.Plotting.Datacards.AnalysisSpecificationSL import data_samples, base_samples, ttjets_powheg, signal_processes, common_shape_uncertainties, common_scale_uncertainties, scale_uncertainties, make_control_categories, input_file
 from TTH.Plotting.Datacards.AnalysisSpecificationClasses import Sample, Category, Analysis, make_csv_categories_abstract, make_csv_groups_abstract
 
 
 fh_data = [data_samples["BTagCSV"]]
+
+print "scale_uncertainties:",scale_uncertainties
 
 fh_categories = [
     # == 4 jets, == 4 tags
