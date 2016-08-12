@@ -131,8 +131,6 @@ PROCESS_MAP = {
     "ttbarPlusCCbar": 5,
     "ttbarOther": 6,
 
-    "qcd": 13,
-
 #need to keep different data samples separate at this point
     "data_e": 7,
     "data_m": 8,
@@ -142,31 +140,13 @@ PROCESS_MAP = {
     "data_had": 12,
 }
 
-#Numeric keys for processes, used for filling the process axis
-#in the sparse histogram
-PROCESS_MAP = {
-    "ttH_hbb": 0,
-    "ttH_nonhbb": 1,
-    "ttbarPlusBBbar": 2,
-    "ttbarPlus2B": 3,
-    "ttbarPlusB": 4,
-    "ttbarPlusCCbar": 5,
-    "ttbarOther": 6,
-
-#need to keep different data samples separate at this point
-    "data_e": 7,
-    "data_m": 8,
-    "data_mm": 9,
-    "data_ee": 10,
-    "data_em": 11,
-}
-
 TRIGGERPATH_MAP = {
     "m": 1,
     "e": 2,
     "mm": 3,
     "em": 4,
     "ee": 5,
+    "fh": 6,
 }
 
 xsec_sample = {
