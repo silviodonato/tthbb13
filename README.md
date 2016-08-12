@@ -2,18 +2,18 @@
 
 Setup on SLC6 in a clean directory (no CMSSW) on a **shared file system**
 ~~~
-$ mkdir -p ~/tth/sw
-$ cd ~/tth/sw
-$ wget --no-check-certificate https://raw.githubusercontent.com/jpata/tthbb13/meanalysis-80x/setup.sh
-$ source setup.sh
+mkdir -p ~/tth/sw
+cd ~/tth/sw
+wget --no-check-certificate https://raw.githubusercontent.com/silviodonato/tthbb13/ttH80X/setup.sh
+source setup.sh
 ~~~
 This will download CMSSW, the tthbb code and all the dependencies.
 
 In order to compile the code, run
 ~~~
-$ cd ~/tth/sw/CMSSW/src
-$ cmsenv
-$ scram b -j 8
+cd ~/tth/sw/CMSSW/src
+cmsenv
+scram b -j 8
 ~~~
 
 ## Step0: environment
@@ -54,15 +54,14 @@ To submit a few test workflows with crab do:
 
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
-## adding "ttbar-spring16-80X.weights.xml" among input files in multicrab.py
-## remove missing datasets
+## remove possible missing datasets in multicrab.py
 python multicrab.py --workflow testing_withme --tag my_test1
 ~~~
 
-To produce all the SL/DL samples, do
+To produce all the hadronic samples, do
 ~~~
-$ cd TTH/MEAnalysis/crab_vhbb
-$ python multicrab.py --workflow leptonic --tag May13
+cd TTH/MEAnalysis/crab_vhbb
+python multicrab.py --workflow hadronic --tag had_V23
 ~~~
 
 To prepare the dataset files in `TTH/MEAnalysis/gc/datasets/{TAG}/{DATASET}`, use the DAS script
@@ -73,6 +72,13 @@ das_client --limit 0 --query "dataset  dataset=/*/sdonato-hadronic_*_V24_*/USER 
 #check and remove duplicates in datasets.txt
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/
 python ../python/MakeDatasetFiles.py --datasetfile datasets/datasets.txt --version had_V24_1 --instance prod/phys03
+~~~
+
+## Step3: skim with `projectSkim`
+
+When some of the samples are done, you can produce smallis (<10GB) skims of the files using local batch jobs.
+
+~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis
 #edit python/prepareSamples.py
 python python/prepareSamples.py
@@ -90,23 +96,63 @@ source makeEnv.sh
 ./hadd.py ~/tth/gc/projectSkim/GCb7f111222334/ #for data
 ~~~
 
-Step3: Sparse histograms with `sparsinator.py`
+This will produce some skimmed ntuples in
+~~~
+/mnt/t3nfs01/data01/shome/jpata/tth/gc/projectSkim/GCe0f041d65b98:
+Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8 <= unmerged
+Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8.root <= merged file
+Jul15_leptonic_v1__TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+...
+~~~
+
+The total processed yields can be extracted with
+~~~
+cd TTH/MEAnalysis/gc
+#edit confs/count.conf 
+./grid-control/go.py confs/count.conf -cG
+...
+./hadd.py ~/tth/gc/count/GC1234/
+python $CMSSW_BASE/src/TTH/MEAnalysis/python/getCounts.py `ls ~/tth/gc/count/GC1234/*.root`
+~~~
+
+The counts need to be introduced to `TTH/MEAnalysis/python/inputs.py` as the `ngen` dictionary.
+
+Step3: N-dimensional histograms with `Plotting/python/joosep/sparsinator.py`
 ------------------
-In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
+In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples with appropriate systematics.
 
 First test the `sparsinator.py` locally:
 ~~~
 source $CMSSW_BASE/src/TTH/setenv_psi.sh
 cd $CMSSW_BASE/src/TTH
-#edit MakeFile (look at "test_sparsinator:" line)
-make test_sparsinator
+#edit datasets, files, and histo folder in Plotting/python/test_sparsinator.py
+python Plotting/python/test_sparsinator.py
 ~~~
-Then launch the jobs:
+then, launch the sparsinator:
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #edit confs/sparse.conf
 ./grid-control/go.py confs/sparse.conf -cG
 ~~~
+
+The output file will contain
+~~~
+$ 
+TTTo2L2Nu_13TeV-powheg <- sample
+-dl <- base category ({sl,dl,fh})
+--sparse (THnSparseT<TArrayF>) <==== nominal distribution
+--sparse_CMS_ttH_CSVHFDown (THnSparseT<TArrayF>) <==== systematically variated distributions
+--sparse_CMS_ttH_CSVHFStats1Down (THnSparseT<TArrayF>)
+-sl
+...
+ttHTobb_M125_13TeV_powheg_pythia8
+-dl
+...
+-sl
+...
+...
+~~~
+
 Once the jobs are done:
 ~~~
 hadd ControlPlotsSparse.root `find ~/tth/gc/sparse/GCde1112222333 -name "*.root"`
@@ -123,113 +169,15 @@ Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecification
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
 #edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py
-#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py (change input_file)
+#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py (change input_file/ngen/lumi/blr_cuts)
+#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py (use only analyses_FH)
 python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
-#edit confs/makecategory.conf (change at least "input_file")
+
+#edit and test make-category 
+python ../../Plotting/python/test_MakeCategory.py
+
+#edit confs/makecategory.conf (change at least "workdir")
 ./grid-control/go.py confs/makecategory.conf -cG
-~~~
-
-Step5: Limits with `makelimits.sh`
------------------
-
-Configure the path to the category output in `confs/makelimits.conf` by setting `datacardbase` to the output of step 4.
-
-~~~
-cd TTH/MEAnalysis/gc
-cp local-example.conf local.conf 
-## edit makelimits and change datacards (eg. /mnt/t3nfs01/data01/shome/sdonato/tth/gc/makecategory/GC46066f85f573/)
-vi confs/makelimits.conf
-./grid-control/go.py confs/makelimits.conf
-~~~
-
-
-######### OLD #####################
-Step3: Sparse histograms with `Plotting/bin/MELooper.cc`
-------------------
-In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples.
-
-First make the `melooper` exe:
-$ python TTH/MEAnalysis/python/MakeDatasetFiles.py --version {TAG}
-~~~
-
-## Step3: skim with `projectSkim`
-
-When some of the samples are done, you can produce smallis (<10GB) skims of the files using local batch jobs.
-
-~~~
-$ cd TTH/MEAnalysis/gc
-$ source makeEnv.sh #make an uncommited script to properly set the environment on the batch system
-v./grid-control/go.py confs/projectSkim.conf
-... #wait
-$ ./hadd.py /path/to/output/GC1234/
-~~~
-
-This will produce some skimmed ntuples in
-~~~
-/mnt/t3nfs01/data01/shome/jpata/tth/gc/projectSkim/GCe0f041d65b98:
-Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8 <= unmerged
-Jul15_leptonic_v1__ttHTobb_M125_13TeV_powheg_pythia8.root <= merged file
-Jul15_leptonic_v1__TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
-Jul15_leptonic_v1__TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root
-Jul15_leptonic_v1__TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
-Jul15_leptonic_v1__TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root
-Jul15_leptonic_v1__TTTo2L2Nu_13TeV-powheg
-Jul15_leptonic_v1__TTTo2L2Nu_13TeV-powheg.root
-Jul15_leptonic_v1__TT_TuneCUETP8M1_13TeV-powheg-pythia8
-Jul15_leptonic_v1__TT_TuneCUETP8M1_13TeV-powheg-pythia8.root
-~~~
-
-The total processed yields can be extracted with
-~~~
-$ cd TTH/MEAnalysis/gc
-$ ./grid-control/go.py confs/count.conf
-...
-$ ./hadd.py /path/to/output/GC1234/
-$ python $CMSSW_BASE/src/TTH/MEAnalysis/python/getCounts.py /path/to/output/GC1234/
-~~~
-
-The counts need to be introduced to `TTH/MEAnalysis/python/samples_base.py` as the `ngen` dictionary.
-
-Step3: N-dimensional histograms with `Plotting/python/joosep/sparsinator.py`
-------------------
-In order to industrially produce all variated histograms, we create an intermediate file containing ROOT THnSparse histograms of the samples with appropriate systematics.
-
-~~~
-$ cd TTH/MEAnalysis/gc
-$ ./grid-control/go.py confs/sparse.conf
-...
-$ hadd -f sparse.root /path/to/output/GC1234/
-~~~
-
-The output file will contain
-~~~
-$ 
-TTTo2L2Nu_13TeV-powheg <- sample
--dl <- base category ({sl,dl,fh})
---sparse (THnSparseT<TArrayF>) <==== nominal distribution
---sparse_CMS_ttH_CSVHFDown (THnSparseT<TArrayF>) <==== systematically variated distributions
---sparse_CMS_ttH_CSVHFStats1Down (THnSparseT<TArrayF>)
---sparse_CMS_ttH_CSVHFStats1Up (THnSparseT<TArrayF>)
---sparse_CMS_ttH_CSVHFStats2Down (THnSparseT<TArrayF>)
---sparse_CMS_ttH_CSVHFStats2Up (THnSparseT<TArrayF>)
---sparse_CMS_ttH_CSVHFUp (THnSparseT<TArrayF>)
--sl
-...
-ttHTobb_M125_13TeV_powheg_pythia8
--dl
-...
--sl
-...
-...
-~~~
-
-The total processed yields can be extracted with
-~~~
-cd TTH/MEAnalysis/gc
-./grid-control/go.py confs/count.conf
-...
-./hadd.py /path/to/output/GC1234/
-python ../python/getCounts.py /path/to/output/GC1234/
 ~~~
 
 This will create all the `combine` datacards (`{ANALYSIS}/{CATEGORY}.root` files and `shapes_*.txt` files) for all analyses and all the categories.
@@ -282,12 +230,72 @@ ttbarPlusB
 Configure the path to the category output in `confs/makelimits.conf` by setting `datacardbase` to the output of step 4.
 
 ~~~
-#edit PSet_local.py
-ME_CONF=cfg_FH.py python heppy_crab_script.py
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
+cp local-example.conf local.conf 
+## edit makelimits and change datacards (eg. /mnt/t3nfs01/data01/shome/sdonato/tth/gc/makecategory/GC46066f85f573/)
+vi confs/makelimits.conf
+./grid-control/go.py confs/makelimits.conf
 ~~~
 
 ## Step6: data/mc plots
 
-From the output of makecategory, you can make data/MC plots using code in `plotlib.py` and `controlPlot.py`. See `TTH/MEAnalysis/python/joosep/controlPlot.py` for an example. For this to work, you need to use the rootpy environment.
+From the output of makecategory, you can make data/MC plots using code in `plotlib.py` and `controlPlot.py`. See `$CMSSW_BASE/src/TTH/Plotting/python/joosep/controlPlot.py` for an example. For this to work, you need to use the rootpy environment.
+~~~
+cd $CMSSW_BASE/src/TTH/Plotting/python/joosep
+
+eval `scramv1 runtime -sh`
+export PYTHONPATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/python2.7/site-packages:$PYTHONPATH
+export LD_LIBRARY_PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/:$LD_LIBRARY_PATH
+export PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/bin:$PATH
+##or try /mnt/t3nfs01/data01/shome/sdonato/anaconda2
+
+#edit controlPlot.py (add and use only "cats_fh")
+mkdir FH
+ln -s /shome/sdonato/tth/gc/makecategory/GCc4352248c511/FH/fh_jge8_tge4.root FH/fh_jge8_tge4.root
+python controlPlot.py
+#possibly, fix missing variables in plotlib.py
+~~~
 
 On the T3 using 10 cores, you can make about 100 pdf plots per minute.
+
+
+## Other: files to be changed to run the fully hadronic tth
+
+TTH/MEAnalysis/python/samples_base.py:
+  - PROCESS_MAP
+  - TRIGGER_MAP
+
+TTH/Plotting/python/joosep/sparsinator.py:
+  - add Var(name="is_fh")
+  - add Var(name="mem_FH_4w2h2t_p", ....
+  - (?) add Var(name="HLT_ttH_FH",...
+  - add Axis("mem_FH_4w2h2t_p",...
+  - add 'fh' section in createOutputs
+  - add definition of pass_HLT_fh(event):
+  - add 'fh' case in triggerPath
+  - add: dirs["fh"] = dirs["sample"].mkdir("fh")
+  - add "or event.is_fh" after "apply some basic preselection"
+
+
+TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py:
+  - in _lumis, add "fh": lumi["BTagCSV"]"
+  - add "BTagCSV" as DataSample -> triggerPath cut!
+  - 
+
+TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py:
+  - everything
+
+TTH/Plotting/python/Datacards/AnalysisSpecification.py:
+  - add FH
+  - (?) do not loop over SL and DL
+
+TTH/Plotting/python/joosep/plotlib.py:
+  - add mem_FH_* variables
+  - add QCD in colors
+  - check cats
+  - add QCD in samplelist
+
+TTH/Plotting/python/joosep/controlPlot.py:
+  - add QCD in procs_names
+  - add "cats_fh"
+  - run on cats_fh instead of SL and DL
