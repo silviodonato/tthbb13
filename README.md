@@ -79,9 +79,9 @@ python ../python/MakeDatasetFiles.py --datasetfile datasets/datasets.txt --versi
 When some of the samples are done, you can produce smallis (<10GB) skims of the files using local batch jobs.
 
 ~~~
-cd $CMSSW_BASE/src/TTH/MEAnalysis
-#edit python/prepareSamples.py
-python python/prepareSamples.py
+cd $CMSSW_BASE/src/TTH/MEAnalysis/python
+#edit prepareSamples.py
+python prepareSamples.py
 scram b
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 source makeEnv.sh
