@@ -107,7 +107,7 @@ Jul15_leptonic_v1__TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pyth
 
 The total processed yields can be extracted with
 ~~~
-cd TTH/MEAnalysis/gc
+cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #edit confs/count.conf 
 ./grid-control/go.py confs/count.conf -cG
 ...
