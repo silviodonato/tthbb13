@@ -1,0 +1,6 @@
+[had_V24_1__BTagCSV]
+/store/user/sdonato/tth/test_data_Aug15_4/BTagCSV/test_data_Aug15_4/160815_150604/0000/tree_1.root = 0
+/store/user/sdonato/tth/test_data_Aug15_4/BTagCSV/test_data_Aug15_4/160815_152340/0000/tree_1.root = 0
+/store/user/sdonato/tth/test_data_Aug15_4/BTagCSV/test_data_Aug15_4/160815_152506/0000/tree_1.root = 0
+/store/user/sdonato/tth/test_data_Aug15_4/BTagCSV/test_data_Aug15_4/160815_153647/0000/tree_1.root = 0
+/store/user/sdonato/tth/test_data_Aug15_4/BTagCSV/test_data_Aug15_4/160815_153814/0000/tree_1.root = 0
