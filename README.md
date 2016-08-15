@@ -302,7 +302,7 @@ TTH/Plotting/python/joosep/controlPlot.py:
 
 ## Debug: VHbb+ttH ntuplizer test
 
-You can test the VHbb+ttH ntuplizer before the CRAB submittion using:
+You can test the VHbb+ttH ntuplizer before the CRAB submission using:
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
 #edit PSet_local.py (add a local file)
