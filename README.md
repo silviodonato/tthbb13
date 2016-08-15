@@ -305,5 +305,6 @@ TTH/Plotting/python/joosep/controlPlot.py:
 You can test the VHbb+ttH ntuplizer before the CRAB submission using:
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
-#edit PSet_local.py (add a local file)
-FILE_NAMES=file:///shome/sdonato/QCD_HT2000toInf_MINIAODSIM.root ME_CONF=cfg_FH.py python heppy_crab_script.py --local >& logLocal &~~~
+#edit PSet_local.py (add a file eg. file:///shome/sdonato/QCD_HT2000toInf_MINIAODSIM.root)
+ME_CONF=cfg_FH.py python heppy_crab_script.py >& logLocal &
+~~~
