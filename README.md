@@ -299,3 +299,13 @@ TTH/Plotting/python/joosep/controlPlot.py:
   - add QCD in procs_names
   - add "cats_fh"
   - run on cats_fh instead of SL and DL
+
+## Debug: VHbb+ttH ntuplizer test
+
+You can test the VHbb+ttH ntuplizer before the CRAB submittion using:
+~~~
+cd $CMSSW_BASE/src/TTH/Plotting/python/joosep
+#edit PSet_local.py (add a local file)
+ME_CONF=cfg_FH.py python heppy_crab_script.py
+#or use your favourite cfg_FH.py
+~~~
