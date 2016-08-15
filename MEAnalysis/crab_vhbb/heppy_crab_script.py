@@ -44,8 +44,11 @@ for arg in sys.argv:
     if arg.startswith("ME_CONF="):
         me_conf_name = arg.split("=")[1]
 
-JobNumber=sys.argv[1]
-print "JobNumber", JobNumber
+try:
+    JobNumber=sys.argv[1]
+    print "JobNumber", JobNumber
+except:
+    print "JobNumber is not available."
 print PSet.process.dumpPython()
 
 crabFiles=PSet.process.source.fileNames
@@ -103,6 +106,9 @@ if not "--nostep1" in args:
         nfirst = int(PSet.process.source.skipEvents.value())
         nmax = int(PSet.process.maxEvents.input.value())
         looper = Looper( 'Output', config, nPrint=0, nEvents=nmax, firstEvent=nfirst)
+    elif hasattr(PSet.process, "maxEvents") and len(sys.argv)<=1: #consider nEvents only if it is defined and you are running in local
+        nmax = int(PSet.process.maxEvents.input.value()) 
+        looper = Looper( 'Output', config, nPrint=0, nEvents=nmax)
     else:
         looper = Looper( 'Output', config, nPrint=0)
     looper.loop()
