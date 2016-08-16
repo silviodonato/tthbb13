@@ -9,12 +9,14 @@ class MakeCategoryTestCase(unittest.TestCase):
     def test_MakeCategory_run(self):
         from TTH.Plotting.Datacards.MakeCategory import main as MakeCategory_main
         catname = "sl_jge6_tge4"
+        #catname = "fh_j8_t4" #(for FH)
         MakeCategory_main(
             os.path.join(
                 os.environ["CMSSW_BASE"],
                 "src/TTH/Plotting/python/Datacards/AnalysisSpecification.py",
             ),
             "SL_7cat",
+            #"FH", #(for FH)
             catname
         )
         outfile = "{0}.root".format(catname)
@@ -23,7 +25,7 @@ class MakeCategoryTestCase(unittest.TestCase):
         fi = ROOT.TFile(outfile)
         self.assertFalse(fi == None)
 
-        for samp in ["ttH_hbb", "data", "data_obs", "ttbarOther"]:
+        for samp in ["ttH_hbb", "data", "data_obs"]:
             hname = "{0}/{1}/jetsByPt_0_pt".format(samp, catname)
             logging.debug("test_MakeCategory_run: getting {0}".format(hname))
             h = fi.Get(hname)
