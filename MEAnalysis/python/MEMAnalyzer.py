@@ -329,9 +329,9 @@ class MEAnalyzer(FilterAnalyzer):
                 event.nMatch_tb,
             )
         }
+        #FIXME: make independent of methodOrder
         try:
             memidx = self.conf.mem["methodOrder"].index(confname)
-            print self.conf
             outobjects["output"] = {
                 "mem_cfg": confname,
                 "p_tth": event.mem_results_tth[memidx].p,
@@ -342,6 +342,7 @@ class MEAnalyzer(FilterAnalyzer):
             }
         except:
             print "Potential error!! self.conf.mem['methodOrder'] is missing"
+        #end FIXME
         self.jsonout = open("events.json", "a")
         self.jsonout.write(
             json.dumps(outobjects) + "\n"
