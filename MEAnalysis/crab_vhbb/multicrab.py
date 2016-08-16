@@ -216,18 +216,18 @@ workflow_datasets["data"] = {}
 for k in datasets.keys():
     if "data" in datasets[k]["script"]:
         D = deepcopy(datasets[k])
-        D["maxlumis"] = 1
+#        D["maxlumis"] = 1
         workflow_datasets["data"][k] = D
 
 workflow_datasets["hadronic"] = {}
 for k in datasets.keys():
     if "QCD" in k or "ttH" in k:
         D = deepcopy(datasets[k])
-        D["maxlumis"] = 1
+#        D["maxlumis"] = 1
         workflow_datasets["hadronic"][k] = D
     elif k == "TTbar_inc":
         D = deepcopy(datasets[k])
-        D["maxlumis"] = 1
+#        D["maxlumis"] = 1
         workflow_datasets["hadronic"][k] = D
 
 #Pilot job for updating transfer functions, retraining BLR
