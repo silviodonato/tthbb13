@@ -265,6 +265,8 @@ sparse_data = {
             "dl_jge4_tge4": -20,
 
             ##[CHECK-ME]
+            "fh_j9_t4": -20,
+            "fh_j8_t3": -20,
             "fh_j8_t4": -20,
             "fh_j7_t4": -20,
             "fh_j7_t3": -20,

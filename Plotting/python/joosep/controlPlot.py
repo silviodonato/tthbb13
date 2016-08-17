@@ -140,6 +140,8 @@ if __name__ == "__main__":
     ]
 
     cats_fh = [
+        "fh_j9_t4",
+        "fh_j8_t3",
         "fh_j8_t4",
         "fh_j7_t4",
         "fh_j7_t3",
