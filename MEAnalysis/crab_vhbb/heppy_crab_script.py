@@ -99,9 +99,6 @@ if not "--nostep1" in args:
         nfirst = int(PSet.process.source.skipEvents.value())
         nmax = int(PSet.process.maxEvents.input.value())
         looper = Looper( 'Output', config, nPrint=0, nEvents=nmax, firstEvent=nfirst)
-    elif hasattr(PSet.process, "maxEvents") and len(sys.argv)<=1: #consider nEvents only if it is defined and you are running in local
-        nmax = int(PSet.process.maxEvents.input.value()) 
-        looper = Looper( 'Output', config, nPrint=0, nEvents=nmax)
     else:
         looper = Looper( 'Output', config, nPrint=0)
     looper.loop()
