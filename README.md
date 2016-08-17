@@ -68,7 +68,7 @@ To prepare the dataset files in `TTH/MEAnalysis/gc/datasets/{TAG}/{DATASET}`, us
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/datasets
 #produce the dataset folder
-das_client --limit 0 --query "dataset  dataset=/*/sdonato-hadronic_*_V24_*/USER instance=prod/phys03"  > datasets.txt
+/afs/cern.ch/user/v/valya/public/das_client.py --limit 0 --query "dataset  dataset=/*/sdonato-hadronic_*_V24_*/USER instance=prod/phys03"  > datasets.txt
 #check and remove duplicates in datasets.txt
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc/
 python ../python/MakeDatasetFiles.py --datasetfile datasets/datasets.txt --version had_V24_1 --instance prod/phys03
