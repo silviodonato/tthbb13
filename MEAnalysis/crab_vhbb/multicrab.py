@@ -79,6 +79,13 @@ sets_data = [
     "/BTagCSV/Run2016D-PromptReco-v2/MINIAOD",
     "/BTagCSV/Run2016E-PromptReco-v2/MINIAOD",
     "/BTagCSV/Run2016F-PromptReco-v2/MINIAOD",
+
+    "/JetHT/Run2016B-PromptReco-v1/MINIAOD",
+    "/JetHT/Run2016B-PromptReco-v2/MINIAOD",
+    "/JetHT/Run2016C-PromptReco-v2/MINIAOD",
+    "/JetHT/Run2016D-PromptReco-v2/MINIAOD",
+    "/JetHT/Run2016E-PromptReco-v2/MINIAOD",
+    "/JetHT/Run2016F-PromptReco-v1/MINIAOD",
 ]
 
 #all available datasets.
