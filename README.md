@@ -85,12 +85,12 @@ python prepareSamples.py
 scram b
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 source makeEnv.sh
-#edit confs/projectSkim.conf
+#edit confs/projectSkimFH.conf
 #eg. find datasets/had_V24/ | grep tth
-#edit confs/projectSkimData.conf
+#edit confs/projectSkimDataFH.conf
 
-./grid-control/go.py confs/projectSkim.conf -cG
-./grid-control/go.py confs/projectSkimData.conf -cG
+./grid-control/go.py confs/projectSkimFH.conf -cG
+./grid-control/go.py confs/projectSkimDataFH.conf -cG
 ...
 ./hadd.py ~/tth/gc/projectSkim/GCb7f111222333/ #for mc
 ./hadd.py ~/tth/gc/projectSkim/GCb7f111222334/ #for data
@@ -108,8 +108,8 @@ Jul15_leptonic_v1__TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pyth
 The total processed yields can be extracted with
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
-#edit confs/count.conf 
-./grid-control/go.py confs/count.conf -cG
+#edit confs/countFH.conf 
+./grid-control/go.py confs/countFH.conf -cG
 ...
 ./hadd.py ~/tth/gc/count/GC1234/
 python $CMSSW_BASE/src/TTH/MEAnalysis/python/getCounts.py `ls ~/tth/gc/count/GC1234/*.root`
@@ -131,8 +131,8 @@ python Plotting/python/test_sparsinator.py
 then, launch the sparsinator:
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
-#edit confs/sparse.conf
-./grid-control/go.py confs/sparse.conf -cG
+#edit confs/sparseFH.conf
+./grid-control/go.py confs/sparseFH.conf -cG
 ~~~
 
 The output file will contain
@@ -163,13 +163,12 @@ This creates a histogram file `ControlPlotsSparse.root`
 Step4: Categories with `makecategories.sh`
 -----------------
 
-Configure the input file in `TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py`, then call
+Configure the input file in `TTH/Plotting/python/Datacards/config_fh.cfg`, then call
 
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 #generate the parameter csv files: analysis_groups.csv, analysis_specs.csv
-#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationFH.py
-#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecificationSL.py (change input_file/ngen/lumi/blr_cuts)
+#edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/config_fh.cfg (at least "sparse_version")
 #edit $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py (use only analyses_FH)
 python $CMSSW_BASE/src/TTH/Plotting/python/Datacards/AnalysisSpecification.py
 
