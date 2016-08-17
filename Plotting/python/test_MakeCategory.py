@@ -33,6 +33,7 @@ class MakeCategoryTestCase(unittest.TestCase):
     def test_MakeCategory_run_SL(self):
         self.launch_MakeCategory_test("sl_jge6_tge4","SL_7cat","jetsByPt_0_pt")
 
+##for FH
 #    def test_MakeCategory_run_FH(self):
 #        self.launch_MakeCategory_test("fh_j7_t3","FH","btag_LR_4b_2b_btagCMVA_logit")
 

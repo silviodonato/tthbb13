@@ -33,9 +33,11 @@ class MakeSparsinatorTestCase(unittest.TestCase):
     def test_sparsinator_data(self):
         run_sparsinator(read_inputs("MEAnalysis/gc/datasets/tth_Jul31_V24_v1/SingleMuon.txt")[:10], "SingleMuon", 5000)
         self.sparsinator_checks("out.root", "SingleMuon") 
-        #for FH:
-	#run_sparsinator(read_inputs("MEAnalysis/gc/datasets/had_V24_1/BTagCSV.txt")[:14], "BTagCSV", 5000)
-        #self.sparsinator_checks("out.root", "BTagCSV") 
+
+##for FH
+#    def test_sparsinator_data_FH(self):
+#        run_sparsinator(read_inputs("MEAnalysis/gc/datasets/had_V24_1/BTagCSV.txt")[:14], "BTagCSV", 5000)
+#        self.sparsinator_checks("out.root", "BTagCSV") 
     
     def test_sparsinator_mc(self):
         run_sparsinator(
