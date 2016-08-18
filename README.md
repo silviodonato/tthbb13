@@ -248,9 +248,7 @@ export LD_LIBRARY_PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/:$LD_LIBRARY
 export PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/bin:$PATH
 ##or try /mnt/t3nfs01/data01/shome/sdonato/anaconda2
 
-#edit controlPlot.py (add and use only "cats_fh")
-mkdir FH
-ln -s /shome/sdonato/tth/gc/makecategory/GCc4352248c511/FH/fh_jge8_tge4.root FH/fh_jge8_tge4.root
+#edit controlPlot.py (add and use only "cats_fh" and change args (in particular get_base_plot to eg. /shome/sdonato/tth/gc/makecategory/GCdedfe5320b02/))
 python controlPlot.py
 #possibly, fix missing variables in plotlib.py
 ~~~
