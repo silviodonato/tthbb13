@@ -115,7 +115,7 @@ cd $CMSSW_BASE/src/TTH/MEAnalysis/gc
 python $CMSSW_BASE/src/TTH/MEAnalysis/python/getCounts.py `ls ~/tth/gc/count/GC1234/*.root`
 ~~~
 
-The counts need to be introduced to `TTH/MEAnalysis/python/inputs.py` as the `ngen` dictionary.
+The counts need to be introduced to `$CMSSW_BASE/src/TTH/MEAnalysis/python/inputs.py` as the `ngen` dictionary.
 
 Step3: N-dimensional histograms with `Plotting/python/joosep/sparsinator.py`
 ------------------
