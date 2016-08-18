@@ -92,8 +92,8 @@ source makeEnv.sh
 ./grid-control/go.py confs/projectSkimFH.conf -cG
 ./grid-control/go.py confs/projectSkimDataFH.conf -cG
 ...
-./hadd.py ~/tth/gc/projectSkim/GCb7f111222333/ #for mc
-./hadd.py ~/tth/gc/projectSkim/GCb7f111222334/ #for data
+./hadd.py ~/tth/gc/projectSkimFH/GCb7f111222333/ #for mc
+./hadd.py ~/tth/gc/projectSkimDataFH/GCb7f111222334/ #for data
 ~~~
 
 This will produce some skimmed ntuples in
