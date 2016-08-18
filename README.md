@@ -155,7 +155,7 @@ ttHTobb_M125_13TeV_powheg_pythia8
 
 Once the jobs are done:
 ~~~
-hadd ControlPlotsSparse.root `find ~/tth/gc/sparse/GCde1112222333 -name "*.root"`
+hadd ControlPlotsSparse.root `find ~/tth/gc/sparseFH/GCde1112222333 -name "*.root"`
 ~~~
 This creates a histogram file `ControlPlotsSparse.root`
 
