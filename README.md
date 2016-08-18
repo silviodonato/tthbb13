@@ -248,7 +248,9 @@ export LD_LIBRARY_PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/:$LD_LIBRARY
 export PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/bin:$PATH
 ##or try /mnt/t3nfs01/data01/shome/sdonato/anaconda2
 
-#edit controlPlot.py (add and use only "cats_fh" and change args (in particular get_base_plot to eg. /shome/sdonato/tth/gc/makecategory/GCdedfe5320b02/))
+#check the variables saved in your categories
+python $CMSSW_BASE/src/TTH/MEAnalysis/test/listroot.py ~/tth/gc/makecategory/GC1111222223333/FH/fh_j9_t4.root
+#edit controlPlot.py (add and use only "cats_fh"; change args; change get_base_plot to eg. /shome/sdonato/tth/gc/makecategory/GCdedfe5320b02/; check which variable you want to plot; disable systematics if you want)
 python controlPlot.py
 #possibly, fix missing variables in plotlib.py
 ~~~
