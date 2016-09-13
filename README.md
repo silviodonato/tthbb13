@@ -18,7 +18,7 @@ scram b -j 8
 
 ## Step0: environment
 
-We use rootpy in the code, which is installed on the T3 locally in `~jpata/rootpy`. In order to properly configure the environment, run the following `source setenv_psi.sh` before starting your work.
+We use rootpy in the code, which is installed on the T3 locally in `~jpata/rootpy`. In order to properly configure the environment, run the following `source setenv_psi.sh` and `source setenv_sklearn_cmssw.sh`before starting your work.
 
 ## Step1: VHBB code
 This will start with MiniAOD and produce a VHBB ntuple.
@@ -124,6 +124,7 @@ In order to industrially produce all variated histograms, we create an intermedi
 First test the `sparsinator.py` locally:
 ~~~
 source $CMSSW_BASE/src/TTH/setenv_psi.sh
+source $CMSSW_BASE/src/TTH/setenv_sklearn_cmssw.sh
 cd $CMSSW_BASE/src/TTH
 #edit datasets, files, and histo folder in Plotting/python/test_sparsinator.py
 python Plotting/python/test_sparsinator.py
@@ -305,6 +306,7 @@ You can test the VHbb+ttH ntuplizer before the CRAB submission using:
 ~~~
 cd $CMSSW_BASE/src/TTH/MEAnalysis/crab_vhbb
 source $CMSSW_BASE/src/TTH/setenv_psi.sh
+source $CMSSW_BASE/src/TTH/setenv_sklearn_cmssw.sh
 rm -r Output* #otherwise it will crash (at the end it looks for "Output/tree.root")
 #edit heppy_crab_script.py: use PSet.py instead of PSet_local.py
 FILE_NAMES="file:///shome/sdonato/QCD_HT2000toInf_MINIAODSIM.root" MAX_EVENTS=100 SKIP_EVENTS=0 python heppy_crab_script.py >& log &
