@@ -248,6 +248,12 @@ export PYTHONPATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/python2.7/site-pa
 export LD_LIBRARY_PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/:$LD_LIBRARY_PATH
 export PATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/bin:$PATH
 ##or try /mnt/t3nfs01/data01/shome/sdonato/anaconda2
+# just after ssh
+# eval `scramv1 runtime -sh`
+# export PYTHONPATH=/mnt/t3nfs01/data01/shome/jpata/anaconda/lib/python2.7/site-packages:$PYTHONPATH
+# export LD_LIBRARY_PATH=/mnt/t3nfs01/data01/shome/sdonato/anaconda2/lib/:$LD_LIBRARY_PATH
+# export PATH=/mnt/t3nfs01/data01/shome/sdonato/anaconda2/bin:$PATH
+
 
 #check the variables saved in your categories
 python $CMSSW_BASE/src/TTH/MEAnalysis/test/listroot.py ~/tth/gc/makecategory/GC1111222223333/FH/fh_j9_t4.root
